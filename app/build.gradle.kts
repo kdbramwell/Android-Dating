@@ -80,6 +80,7 @@ dependencies {
     implementation(Libs.Compose.LifecycleRuntime)
     implementation(Libs.Compose.Navigation)
     implementation(Libs.Compose.Ui)
+    implementation(Libs.Compose.Material)
     implementation(Libs.Compose.Accompanist)
 
     androidTestImplementation(Libs.Compose.AndroidTestJunit)

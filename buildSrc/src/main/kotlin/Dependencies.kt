@@ -7,7 +7,7 @@ object Versions {
     object Plugins {
         const val AGP = "8.0.0"
         const val Hilt = "2.44"
-        const val Kotlin = "1.8.21"
+        const val Kotlin = "1.7.20"
         const val JVM = "1.6.10"
     }
 
@@ -25,13 +25,14 @@ object Versions {
 
 object Libs {
     object Core {
-        const val Ktx = "androidx.core:core-ktx:+"
+        const val Ktx = "androidx.core:core-ktx:1.9.0"
         const val LifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
     }
 
     object Compose {
         const val ComposeBomPlatform = "androidx.compose:compose-bom:2022.12.00"
         const val Material3 = "androidx.compose.material3:material3"
+        const val Material = "androidx.compose.material:material:1.4.0-alpha04"
         const val IconsCore = "androidx.compose.material:material-icons-core"
         const val IconsExtended = "androidx.compose.material:material-icons-extended"
         const val WindowSizeClass = "androidx.compose.material3:material3-window-size-class"
