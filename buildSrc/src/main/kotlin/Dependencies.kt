@@ -5,7 +5,7 @@ object Versions {
     }
 
     object Plugins {
-        const val AGP = "7.2.2"
+        const val AGP = "8.0.0"
         const val Hilt = "2.44"
         const val Kotlin = "1.7.20"
         const val JVM = "1.6.10"
