@@ -9,8 +9,8 @@ import com.kamalbramwell.dating.splash.SplashScreen
 
 @Composable
 fun DatingNavHost(
-    modifier: Modifier = Modifier,
     navController: NavHostController,
+    modifier: Modifier = Modifier,
 ) {
     NavHost(
         navController = navController,
