@@ -3,14 +3,11 @@ package com.kamalbramwell.dating
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.kamalbramwell.dating.registration.ui.RegistrationScreen
+import androidx.navigation.compose.rememberNavController
+import com.kamalbramwell.dating.navigation.DatingBottomSheet
+import com.kamalbramwell.dating.navigation.DatingNavHost
+import com.kamalbramwell.dating.navigation.rememberBottomSheetNavigator
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +21,12 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DatingApp() {
+    val bottomSheetNavigator = rememberBottomSheetNavigator()
+    val navController = rememberNavController(bottomSheetNavigator)
+
     DatingTheme {
-        RegistrationScreen()
+        DatingBottomSheet(bottomSheetNavigator) {
+            DatingNavHost(navController)
+        }
     }
 }
