@@ -11,7 +11,7 @@ plugins {
 allprojects {
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions.freeCompilerArgs += listOf(
-            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
             "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
             "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
             "-opt-in=kotlin.RequiresOptIn"
