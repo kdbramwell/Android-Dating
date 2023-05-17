@@ -20,12 +20,12 @@ fun SplashScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    Wallpaper()
+
     when {
         uiState.navigateToHome -> onNavigateToHome()
         uiState.navigateToRegistration -> onNavigateToRegistration()
     }
-
-    Wallpaper()
 }
 
 @Composable
