@@ -32,6 +32,7 @@ object Libs {
     object Compose {
         const val ComposeBomPlatform = "androidx.compose:compose-bom:2023.04.01"
         const val Material3 = "androidx.compose.material3:material3"
+        const val Material = "androidx.compose.material:material:1.4.0-alpha04"
         const val IconsCore = "androidx.compose.material:material-icons-core"
         const val IconsExtended = "androidx.compose.material:material-icons-extended"
         const val WindowSizeClass = "androidx.compose.material3:material3-window-size-class"
