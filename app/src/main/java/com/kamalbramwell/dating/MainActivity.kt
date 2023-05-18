@@ -3,13 +3,17 @@ package com.kamalbramwell.dating
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.kamalbramwell.dating.navigation.DatingBottomSheet
 import com.kamalbramwell.dating.navigation.DatingNavHost
+import com.kamalbramwell.dating.navigation.DatingScaffold
 import com.kamalbramwell.dating.navigation.rememberBottomSheetNavigator
+import com.kamalbramwell.dating.navigation.rememberNavigationBarHandler
 import com.kamalbramwell.dating.toast.ToastHandler
 import com.kamalbramwell.dating.toast.ToastMediator
 import com.kamalbramwell.dating.toast.ui.ToastOverlay
@@ -34,11 +38,18 @@ class MainActivity : ComponentActivity() {
 fun DatingApp() {
     val bottomSheetNavigator = rememberBottomSheetNavigator()
     val navController = rememberNavController(bottomSheetNavigator)
+    val navBarHandler = rememberNavigationBarHandler()
 
     DatingTheme {
         DatingBottomSheet(bottomSheetNavigator) {
             ToastOverlay {
-                DatingNavHost(navController)
+                DatingScaffold(navController, navBarHandler) { innerPadding ->
+                    DatingNavHost(
+                        navController = navController,
+                        navBarHandler = navBarHandler,
+                        modifier = Modifier.padding(innerPadding),
+                    )
+                }
             }
         }
     }
