@@ -13,6 +13,7 @@ allprojects {
         kotlinOptions.freeCompilerArgs += listOf(
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
             "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
             "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
             "-opt-in=com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi",
             "-opt-in=kotlin.RequiresOptIn"
