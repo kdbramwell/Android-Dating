@@ -25,8 +25,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kamalbramwell.dating.R
+import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.utils.UiText
 
 
@@ -186,5 +189,61 @@ private fun OutlinedTextInput(
     if (hideKeyboard) {
         focusManager.clearFocus()
         onFocusClear()
+    }
+}
+
+/**
+ * Preview test utils
+ */
+private val testPlaceholder = UiText.StringResource(R.string.registration_email_or_phone_label)
+private val testError = UiText.StringResource(R.string.error_email_or_phone_invalid)
+private val testInputValue = TextFieldValue("validemail@gmail.com")
+private val testErrorValue = TextFieldValue("invalidemail.com")
+
+@Preview(showBackground = true)
+@Composable
+private fun InputFieldPreview() {
+    DatingTheme {
+        InputField(
+            textFieldValue = testInputValue,
+            placeholder = testPlaceholder,
+            label = testPlaceholder
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun InputFieldDarkPreview() {
+    DatingTheme(darkTheme = true) {
+        InputField(
+            textFieldValue = testInputValue,
+            placeholder = testPlaceholder,
+            label = testPlaceholder
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun InputFieldErrorPreview() {
+    DatingTheme {
+        InputField(
+            textFieldValue = testErrorValue,
+            placeholder = testPlaceholder,
+            error = testError
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun InputFieldErrorDarkPreview() {
+    DatingTheme(darkTheme =true) {
+        InputField(
+            textFieldValue = testErrorValue,
+            placeholder = testPlaceholder,
+            error = testError
+        )
     }
 }
