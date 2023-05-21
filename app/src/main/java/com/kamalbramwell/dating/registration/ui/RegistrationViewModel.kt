@@ -11,7 +11,8 @@ data class RegistrationState(
     val password: TextFieldValue = TextFieldValue(),
     val emailOrPhoneError: UiText? = null,
     val passwordError: UiText? = null,
-    val nextButtonEnabled: Boolean = false
+    val nextButtonEnabled: Boolean = false,
+    val registrationSuccessful: Boolean = false,
 )
 
 class RegistrationViewModel : ViewModel() {
@@ -27,7 +28,12 @@ class RegistrationViewModel : ViewModel() {
 
     }
 
-    fun onNextClicked() {}
+    fun onNextClicked() {
+        // Validate as email
+        // Validate as phone
+        // Update state with any errors
+        // If no errors, update state with successful registration
+    }
 
     private fun onPasswordInvalid() {
 

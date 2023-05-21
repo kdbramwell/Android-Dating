@@ -6,6 +6,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 
 data class SplashScreenState(
@@ -20,20 +21,21 @@ class SplashScreenViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            delay(2)
+            delay(2_000)
             onRegistrationRequired()
         }
     }
 
     private fun onAccountFound() {
         _uiState.update {
-            SplashScreenState(false, true)
+            SplashScreenState(navigateToRegistration = false, navigateToHome = true)
         }
     }
 
     private fun onRegistrationRequired() {
-        _uiState.update {
-            SplashScreenState(true, false)
+        _uiState.updateAndGet {
+            SplashScreenState(navigateToRegistration = true, navigateToHome = false)
         }
+
     }
 }

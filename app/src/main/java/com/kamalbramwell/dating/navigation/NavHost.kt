@@ -31,6 +31,6 @@ fun NavController.navigateSingleTopTo(route: String) {
     try {
         navigate(route) { launchSingleTop = true }
     } catch (e: Exception) {
-        Log.d("[HavenNavHost]", "Failed to navigate to $route. ${e.message}")
+        Log.d("[DatingNavHost]", "Failed to navigate to $route. ${e.message}")
     }
 }

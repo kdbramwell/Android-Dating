@@ -19,21 +19,48 @@ import com.kamalbramwell.dating.ui.theme.DatingTheme
 @Composable
 fun AccountRegistrationScreen(
     viewModel: RegistrationViewModel = viewModel(),
-    onNavigateNext: (String) -> Unit = {},
+    onNavigateNext: () -> Unit = {},
     onCancelClicked: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    PhoneNumberRegistrationLayout()
+    AccountRegistrationLayout(
+        uiState = uiState,
+        onEmailOrPhoneInput = viewModel::onEmailOrPhoneInput,
+        onPasswordInput = viewModel::onPasswordInput,
+        onNextClicked = viewModel::onNextClicked,
+        onCancelClicked = onCancelClicked
+    )
+
+    if (uiState.registrationSuccessful) {
+        onNavigateNext()
+    }
 }
 
 @Composable
-private fun PhoneNumberRegistrationLayout() {
+private fun AccountRegistrationLayout(
+    uiState: RegistrationState,
+    onEmailOrPhoneInput: (TextFieldValue) -> Unit = {},
+    onPasswordInput: (TextFieldValue) -> Unit = {},
+    onNextClicked: () -> Unit = {},
+    onCancelClicked: () -> Unit = {}
+) {
     Column {
-        EmailOrPhoneInput(TextFieldValue())
-        PasswordInput(TextFieldValue())
-        ContinueButton()
-        CancelButton()
+        EmailOrPhoneInput(
+            textFieldValue = uiState.emailOrPhone,
+            onTextChanged = onEmailOrPhoneInput,
+            error = uiState.emailOrPhoneError
+        )
+        PasswordInput(
+            textFieldValue = uiState.password,
+            onTextChanged = onPasswordInput,
+            error = uiState.passwordError
+        )
+        ContinueButton(
+            onClick = onNextClicked,
+            enabled = uiState.nextButtonEnabled
+        )
+        CancelButton(onClick = onCancelClicked)
     }
 }
 
@@ -105,7 +132,7 @@ private fun CancelButton(
 @Composable
 private fun PhoneRegistrationPreview() {
     DatingTheme {
-        PhoneNumberRegistrationLayout()
+        AccountRegistrationLayout(RegistrationState())
     }
 }
 
@@ -113,6 +140,22 @@ private fun PhoneRegistrationPreview() {
 @Composable
 private fun PhoneRegistrationDarkPreview() {
     DatingTheme(darkTheme = true) {
-        PhoneNumberRegistrationLayout()
+        AccountRegistrationLayout(RegistrationState())
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AccountRegistrationScreenPreview() {
+    DatingTheme {
+        AccountRegistrationLayout(RegistrationState())
+    }
+}
+
+@Preview
+@Composable
+private fun AccountRegistrationScreenDarkPreview() {
+    DatingTheme(darkTheme = true) {
+        AccountRegistrationLayout(RegistrationState())
     }
 }
