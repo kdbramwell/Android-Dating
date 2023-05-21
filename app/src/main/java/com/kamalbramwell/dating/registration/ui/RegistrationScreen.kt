@@ -21,7 +21,7 @@ import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.utils.UiText
 
 @Composable
-fun RegistrationScreen(
+fun RegistrationOptionsScreen(
     onEmailRegistrationClicked: () -> Unit = {},
     onPhoneRegistrationClicked: () -> Unit = {},
     onAlreadyRegisteredClicked: () -> Unit = {}
@@ -49,7 +49,7 @@ fun RegistrationScreen(
 @Composable
 private fun EmailRegistrationButton(onClick: () -> Unit = {}) {
     MaxWidthButton(
-        label = UiText.StringResource(R.string.email_registration_cta),
+        label = UiText.StringResource(R.string.registration_email_registration_cta),
         onClick = onClick
     )
 }
@@ -57,7 +57,7 @@ private fun EmailRegistrationButton(onClick: () -> Unit = {}) {
 @Composable
 private fun PhoneRegistrationButton(onClick: () -> Unit = {}) {
     MaxWidthButton(
-        label = UiText.StringResource(R.string.phone_registration_cta),
+        label = UiText.StringResource(R.string.registration_phone_registration_cta),
         onClick = onClick
     )
 }
@@ -65,7 +65,7 @@ private fun PhoneRegistrationButton(onClick: () -> Unit = {}) {
 @Composable
 private fun AlreadyRegisteredButton(onClick: () -> Unit = {}) {
     MaxWidthBorderlessButton(
-        label = UiText.StringResource(R.string.already_registered_cta),
+        label = UiText.StringResource(R.string.registration_already_registered_cta),
         onClick = onClick
     )
 }
@@ -74,7 +74,7 @@ private fun AlreadyRegisteredButton(onClick: () -> Unit = {}) {
 @Composable
 private fun RegistrationScreenPreview() {
     DatingTheme {
-        RegistrationScreen()
+        RegistrationOptionsScreen()
     }
 }
 
@@ -82,6 +82,6 @@ private fun RegistrationScreenPreview() {
 @Composable
 private fun RegistrationScreenDarkPreview() {
     DatingTheme(darkTheme = true) {
-        RegistrationScreen()
+        RegistrationOptionsScreen()
     }
 }
