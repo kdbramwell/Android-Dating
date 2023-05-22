@@ -56,6 +56,10 @@ object Libs {
         const val HiltKapt = "com.google.dagger:hilt-android-compiler:${Versions.Plugins.Hilt}"
     }
 
+    object Data {
+        const val DataStore = "androidx.datastore:datastore-preferences:1.0.0"
+    }
+
     object Test {
         const val TestJunit = "junit:junit:4.13.2"
         const val AndroidTestJunit = "androidx.test.ext:junit:1.1.5"
