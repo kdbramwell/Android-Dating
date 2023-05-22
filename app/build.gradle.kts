@@ -87,6 +87,8 @@ dependencies {
     debugImplementation(Libs.Compose.DebugToolingUi)
     debugImplementation(Libs.Compose.DebugTestManifest)
 
+    implementation(Libs.Data.DataStore)
+
     testImplementation(Libs.Test.TestJunit)
     androidTestImplementation(Libs.Test.AndroidTestJunit)
     androidTestImplementation(Libs.Test.AndroidTestEspresso)
