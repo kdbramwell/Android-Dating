@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.kamalbramwell.dating.registration.ui.RegistrationOptionsScreen
 import com.kamalbramwell.dating.splash.SplashScreen
 
 @Composable
@@ -22,7 +23,19 @@ fun DatingNavHost(
     ) {
 
         composable(route = SplashScreen.route) {
-            SplashScreen()
+            SplashScreen(
+                onNavigateToRegistration = {
+                    navController.navigateSingleTopTo(Registration.route)
+                }
+            )
+        }
+
+        composable(route = Registration.route) {
+            RegistrationOptionsScreen(
+                onEmailRegistrationClicked = {},
+                onPhoneRegistrationClicked = {},
+                onAlreadyRegisteredClicked = {}
+            )
         }
     }
 }

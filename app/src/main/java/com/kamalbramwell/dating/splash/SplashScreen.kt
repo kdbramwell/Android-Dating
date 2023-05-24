@@ -9,12 +9,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kamalbramwell.dating.registration.data.StockImageDataSource
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 
 @Composable
 fun SplashScreen(
-    viewModel: SplashScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    viewModel: SplashScreenViewModel = viewModel(factory = SplashScreenViewModel.Factory),
     onNavigateToRegistration: () -> Unit = {},
     onNavigateToHome: () -> Unit = {}
 ) {
