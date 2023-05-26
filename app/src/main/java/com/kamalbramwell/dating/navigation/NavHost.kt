@@ -3,12 +3,14 @@ package com.kamalbramwell.dating.navigation
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.kamalbramwell.dating.registration.ui.RegistrationOptionsScreen
 import com.kamalbramwell.dating.splash.SplashScreen
+import com.kamalbramwell.dating.splash.SplashScreenViewModel
 
 @Composable
 fun DatingNavHost(
@@ -24,6 +26,7 @@ fun DatingNavHost(
 
         composable(route = SplashScreen.route) {
             SplashScreen(
+                viewModel = viewModel(factory = SplashScreenViewModel.Factory),
                 onNavigateToRegistration = {
                     navController.navigateSingleTopTo(Registration.route)
                 }
