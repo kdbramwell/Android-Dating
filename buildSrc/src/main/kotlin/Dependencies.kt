@@ -54,6 +54,7 @@ object Libs {
     object DI {
         const val Hilt = "com.google.dagger:hilt-android:${Versions.Plugins.Hilt}"
         const val HiltKapt = "com.google.dagger:hilt-android-compiler:${Versions.Plugins.Hilt}"
+        const val HiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0"
     }
 
     object Data {

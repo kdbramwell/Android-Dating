@@ -64,6 +64,7 @@ dependencies {
     implementation(Libs.Core.LifecycleRuntime)
 
     implementation(Libs.DI.Hilt)
+    implementation(Libs.DI.HiltNavigationCompose)
     kapt(Libs.DI.HiltKapt)
 
     val composeBom = platform(ComposeBomPlatform)
