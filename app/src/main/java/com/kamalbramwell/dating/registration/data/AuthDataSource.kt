@@ -42,7 +42,6 @@ class LocalAuthDataSource @Inject constructor(
 ): AuthDataSource {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(dataStoreName)
-
     override val isLoggedIn: Flow<Boolean> = context.dataStore.data.map {
         it[userKey] != null && it[passwordKey] != null
     }

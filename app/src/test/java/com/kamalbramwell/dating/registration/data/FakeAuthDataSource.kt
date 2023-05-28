@@ -5,16 +5,18 @@ import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.Acco
 import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.IncorrectPasswordException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class FakeAuthDataSource(
-    initialAccounts: Map<String, String>,
-    initiallyLoggedIn: Boolean = false,
+    loggedIn: Boolean = false,
+    initialAccounts: Map<String, String> = mapOf(),
 ) : AuthDataSource {
 
-    private val _isLoggedIn = MutableStateFlow(initiallyLoggedIn)
-    override val isLoggedIn: Flow<Boolean> = _isLoggedIn
-
     private val accounts = initialAccounts.toMutableMap()
+    override val isLoggedIn: Flow<Boolean> = MutableStateFlow(loggedIn)
 
     override suspend fun registerEmail(email: String, password: String): Result<Boolean> =
         if (accounts.contains(email)) Result.failure(AccountExistsException)
@@ -36,4 +38,41 @@ class FakeAuthDataSource(
 
     override suspend fun loginWithPhone(phone: String, password: String): Result<Boolean> =
         loginWithEmail(phone, password)
+}
+
+class FakeAuthDataSourceTest {
+
+    @Test
+    fun `logged in returns true`() = runTest {
+        FakeAuthDataSource(true).run {
+            assertEquals(true, isLoggedIn.first())
+        }
+    }
+
+    @Test
+    fun `not logged in returns false`() = runTest {
+        FakeAuthDataSource(false).run {
+            assertEquals(false, isLoggedIn.first())
+        }
+    }
+
+    @Test
+    fun `registering an account that exists returns failure`() = runTest {
+        val account = "email"
+        val password = "password"
+        val accounts = mapOf(account to password)
+        FakeAuthDataSource(false, accounts).run {
+            val result = registerEmail(account, password)
+            assertEquals(true, result.isFailure)
+        }
+    }
+
+    @Test
+    fun `logging with incorrect credentials returns failure`() = runTest {
+        val accounts = mapOf("email" to "password")
+        FakeAuthDataSource(false, accounts).run {
+            val result = loginWithEmail("nope", "wrong")
+            assertEquals(true, result.isFailure)
+        }
+    }
 }

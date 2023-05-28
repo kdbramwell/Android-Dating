@@ -30,13 +30,12 @@ class SplashScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(dispatcher) {
-            delay(2_000)
             checkLoginStatus()
         }
     }
 
     private suspend fun checkLoginStatus() {
-        dataSource.isLoggedIn.collectLatest {  loggedIn ->
+        dataSource.isLoggedIn.collect { loggedIn ->
             if (loggedIn) onAccountFound()
             else onRegistrationRequired()
         }
