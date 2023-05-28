@@ -8,22 +8,17 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.kamalbramwell.dating.di.IoDispatcher
-import com.kamalbramwell.dating.registration.data.AccountDataSource.Exceptions.AccountNotFoundException
-import com.kamalbramwell.dating.registration.data.AccountDataSource.Exceptions.IncorrectPasswordException
-import com.kamalbramwell.dating.registration.data.AccountDataSource.Exceptions.LoginFailedException
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
+import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.AccountNotFoundException
+import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.IncorrectPasswordException
+import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.LoginFailedException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-interface AccountDataSource {
+interface AuthDataSource {
     val isLoggedIn: Flow<Boolean>
     suspend fun registerEmail(email: String, password: String): Result<Boolean>
     suspend fun registerPhone(phone: String, password: String): Result<Boolean>
@@ -40,10 +35,10 @@ interface AccountDataSource {
 /**
  * Uses [DataStore] to persist account data.
  */
-class LocalAccountDataSource @Inject constructor(
+class LocalAuthDataSource @Inject constructor(
     @ApplicationContext private val context: Context,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
-): AccountDataSource {
+): AuthDataSource {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(dataStoreName)
 
