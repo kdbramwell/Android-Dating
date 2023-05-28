@@ -19,7 +19,7 @@ android {
         versionCode = Versions.Project.Code
         versionName = Versions.Project.Name
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.kamalbramwell.dating.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
