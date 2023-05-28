@@ -26,6 +26,7 @@ interface AuthDataSource {
     suspend fun loginWithPhone(phone: String, password: String): Result<Boolean>
 
     companion object Exceptions {
+        val AccountExistsException = Exception("Account already exists.")
         val AccountNotFoundException = Exception("Account not found.")
         val IncorrectPasswordException = Exception("Incorrect password.")
         val LoginFailedException = Exception("Login failed.")
