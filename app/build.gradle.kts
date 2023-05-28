@@ -94,6 +94,7 @@ dependencies {
 
     implementation(Libs.Data.DataStore)
 
+    testImplementation(Libs.Test.CoroutinesTest)
     testImplementation(Libs.Test.TestJunit)
     androidTestImplementation(Libs.Test.AndroidTestJunit)
     androidTestImplementation(Libs.Test.AndroidTestEspresso)

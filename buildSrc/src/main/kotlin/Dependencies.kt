@@ -66,5 +66,6 @@ object Libs {
         const val TestJunit = "junit:junit:4.13.2"
         const val AndroidTestJunit = "androidx.test.ext:junit:1.1.5"
         const val AndroidTestEspresso = "androidx.test.espresso:espresso-core:3.5.1"
+        const val CoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1"
     }
 }
