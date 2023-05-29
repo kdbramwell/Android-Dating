@@ -6,6 +6,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
+import com.kamalbramwell.dating.navigation.graphs.registration.EmailRegistration
+import com.kamalbramwell.dating.navigation.graphs.registration.RegistrationGraph
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Assert.assertEquals
@@ -32,10 +34,9 @@ class RegistrationGraphTest {
         composeTestRule.setContent {
             navController = TestNavHostController(LocalContext.current)
             navController.navigatorProvider.addNavigator(ComposeNavigator())
-            DatingNavHost(
-                navController = navController,
-                startDestination = Registration.route
-            )
+            DatingNavHost(navController)
+
+            navController.setCurrentDestination(RegistrationGraph.route)
         }
     }
 
