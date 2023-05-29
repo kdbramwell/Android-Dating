@@ -26,6 +26,10 @@ class RegistrationOptionsScreenTest {
 
     @Before
     fun setUpScreen() {
+        registerEmailClicked = false
+        registerPhoneClicked = false
+        loginClicked = false
+
         composeTestRule.setContent {
             DatingTheme {
                 RegistrationOptionsScreen(
@@ -44,21 +48,18 @@ class RegistrationOptionsScreenTest {
 
     @Test
     fun clickRegisterEmailButton_navigateToRegistration() {
-        registerEmailClicked = false
         performClick(R.string.registration_email_registration_cta)
         assertEquals(true, registerEmailClicked)
     }
 
     @Test
     fun clickRegisterPhoneButton_navigateToRegistration() {
-        registerPhoneClicked = false
         performClick(R.string.registration_phone_registration_cta)
         assertEquals(true, registerPhoneClicked)
     }
 
     @Test
     fun clickLoginButton_navigateToLogin() {
-        loginClicked = false
         performClick(R.string.registration_already_registered_cta)
         assertEquals(true, loginClicked)
     }
