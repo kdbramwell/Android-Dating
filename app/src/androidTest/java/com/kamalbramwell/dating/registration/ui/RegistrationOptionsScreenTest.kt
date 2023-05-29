@@ -9,6 +9,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.ui.theme.DatingTheme
+import com.kamalbramwell.dating.utils.performClick
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -63,9 +64,6 @@ class RegistrationOptionsScreenTest {
     }
 
     private fun performClick(@StringRes buttonLabel: Int) {
-        composeTestRule.onNodeWithText(
-            composeTestRule.activity.getString(buttonLabel),
-            useUnmergedTree = true
-        ).performClick()
+        composeTestRule.performClick(buttonLabel)
     }
 }
