@@ -12,7 +12,6 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 
-@RunWith(AndroidJUnit4::class)
 class SplashScreenTest {
 
     @get:Rule
