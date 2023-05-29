@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -16,6 +18,8 @@ import com.kamalbramwell.dating.utils.UiText
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 
+const val AccountRegistrationTestTag = "AccountRegistration"
+
 @Composable
 fun AccountRegistrationScreen(
     viewModel: RegistrationViewModel = viewModel(),
@@ -24,7 +28,7 @@ fun AccountRegistrationScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    AccountRegistrationLayout(
+    AccountRegistrationScreen(
         uiState = uiState,
         onEmailOrPhoneInput = viewModel::onEmailOrPhoneInput,
         onPasswordInput = viewModel::onPasswordInput,
@@ -38,14 +42,14 @@ fun AccountRegistrationScreen(
 }
 
 @Composable
-private fun AccountRegistrationLayout(
+fun AccountRegistrationScreen(
     uiState: RegistrationState,
     onEmailOrPhoneInput: (TextFieldValue) -> Unit = {},
     onPasswordInput: (TextFieldValue) -> Unit = {},
     onNextClicked: () -> Unit = {},
     onCancelClicked: () -> Unit = {}
 ) {
-    Column {
+    Column(Modifier.semantics { testTag = AccountRegistrationTestTag }) {
         EmailOrPhoneInput(
             textFieldValue = uiState.emailOrPhone,
             onTextChanged = onEmailOrPhoneInput,
@@ -132,7 +136,7 @@ private fun CancelButton(
 @Composable
 private fun PhoneRegistrationPreview() {
     DatingTheme {
-        AccountRegistrationLayout(RegistrationState())
+        AccountRegistrationScreen(RegistrationState())
     }
 }
 
@@ -140,7 +144,7 @@ private fun PhoneRegistrationPreview() {
 @Composable
 private fun PhoneRegistrationDarkPreview() {
     DatingTheme(darkTheme = true) {
-        AccountRegistrationLayout(RegistrationState())
+        AccountRegistrationScreen(RegistrationState())
     }
 }
 
@@ -148,7 +152,7 @@ private fun PhoneRegistrationDarkPreview() {
 @Composable
 private fun AccountRegistrationScreenPreview() {
     DatingTheme {
-        AccountRegistrationLayout(RegistrationState())
+        AccountRegistrationScreen(RegistrationState())
     }
 }
 
@@ -156,6 +160,6 @@ private fun AccountRegistrationScreenPreview() {
 @Composable
 private fun AccountRegistrationScreenDarkPreview() {
     DatingTheme(darkTheme = true) {
-        AccountRegistrationLayout(RegistrationState())
+        AccountRegistrationScreen(RegistrationState())
     }
 }
