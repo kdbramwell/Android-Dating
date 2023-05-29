@@ -7,11 +7,11 @@ object StockImageDataSource {
     private val photoIds = setOf(
         R.drawable.couple1,
         R.drawable.couple2,
-        R.drawable.couple3,
+//        R.drawable.couple3,
         R.drawable.man1,
         R.drawable.man2,
-        R.drawable.man3,
-        R.drawable.woman1,
+//        R.drawable.man3,
+//        R.drawable.woman1,
         R.drawable.woman2,
         R.drawable.woman3
     )
