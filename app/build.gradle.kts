@@ -89,6 +89,7 @@ dependencies {
     implementation(Libs.Compose.Accompanist)
 
     androidTestImplementation(Libs.Compose.AndroidTestJunit)
+    androidTestImplementation(Libs.Compose.NavigationAndroidTest)
     debugImplementation(Libs.Compose.DebugToolingUi)
     debugImplementation(Libs.Compose.DebugTestManifest)
 
