@@ -1,6 +1,7 @@
 package com.kamalbramwell.dating.navigation
 
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
 import com.kamalbramwell.dating.R
@@ -37,7 +38,7 @@ class RegistrationGraphTest : ComposeTest() {
 
     @Test
     fun registration_clickEmail_navigateToEmailRegistration() {
-        performClick(R.string.registration_email_registration_cta)
+        withText(R.string.registration_email_registration_cta).performClick()
         val route = navController.currentBackStackEntry?.destination?.route
         assertEquals(Registration.EmailRegistration.route, route)
     }

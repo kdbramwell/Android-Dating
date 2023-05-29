@@ -1,7 +1,5 @@
 package com.kamalbramwell.dating.splash
 
-import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.onNodeWithTag
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.utils.ComposeTest
 import org.junit.Test
@@ -16,7 +14,7 @@ class SplashScreenTest : ComposeTest() {
                 SplashScreen(SplashScreenState())
             }
         }
-        composeTestRule.onNodeWithTag(SplashScreenTestTag).assertIsDisplayed()
+        assertIsDisplayed(SplashScreenTestTag)
     }
 
     @Test

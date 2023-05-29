@@ -1,13 +1,13 @@
 package com.kamalbramwell.dating.utils
 
-import android.app.Activity
 import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.SemanticsNodeInteraction
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 
 /**
@@ -19,16 +19,35 @@ abstract class ComposeTest {
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    protected fun performClick(@StringRes buttonLabel: Int) {
-        composeTestRule.performClick(buttonLabel)
+    protected fun assertIsDisplayed(testTag: String) {
+        withTag(testTag).assertIsDisplayed()
     }
 
-    private inline fun <reified A: Activity> AndroidComposeTestRule<ActivityScenarioRule<A>, *>.performClick(
-        @StringRes label: Int
-    ) {
+    protected fun withText(@StringRes label: Int): SemanticsNodeInteraction = with (composeTestRule) {
         onNodeWithText(
-            activity.getString(label),
-            useUnmergedTree = true
-        ).performClick()
+            text = activity.getString(label),
+            useUnmergedTree = false
+        )
+    }
+
+    protected fun withText(text: String): SemanticsNodeInteraction = with (composeTestRule) {
+        onNodeWithText(
+            text = text,
+            useUnmergedTree = false
+        )
+    }
+
+    protected fun withTag(testTag: String): SemanticsNodeInteraction = with (composeTestRule) {
+        onNodeWithTag(
+            testTag = testTag,
+            useUnmergedTree = false
+        )
+    }
+
+    protected fun withDescription(@StringRes label: Int): SemanticsNodeInteraction = with (composeTestRule) {
+        onNodeWithContentDescription(
+            label = activity.getString(label),
+            useUnmergedTree = false
+        )
     }
 }
