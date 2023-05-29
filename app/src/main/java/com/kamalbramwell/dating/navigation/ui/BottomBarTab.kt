@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.navigation
+package com.kamalbramwell.dating.navigation.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
@@ -7,6 +7,9 @@ import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.kamalbramwell.dating.R
+import com.kamalbramwell.dating.navigation.ExploreGraph
+import com.kamalbramwell.dating.navigation.MatchesGraph
+import com.kamalbramwell.dating.navigation.ProfileGraph
 
 enum class BottomBarTab(
     @StringRes val label: Int,

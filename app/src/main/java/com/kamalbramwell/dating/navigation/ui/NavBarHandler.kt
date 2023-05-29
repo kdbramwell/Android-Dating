@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.navigation
+package com.kamalbramwell.dating.navigation.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State

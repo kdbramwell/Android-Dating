@@ -10,6 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.kamalbramwell.dating.navigation.graphs.registration.Registration
 import com.kamalbramwell.dating.navigation.graphs.registration.registrationGraph
+import com.kamalbramwell.dating.navigation.ui.NavBarHandler
+import com.kamalbramwell.dating.navigation.ui.rememberNavigationBarHandler
 import com.kamalbramwell.dating.splash.SplashScreen
 
 @Composable

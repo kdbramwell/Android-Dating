@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.navigation
+package com.kamalbramwell.dating.navigation.ui
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.foundation.shape.RoundedCornerShape

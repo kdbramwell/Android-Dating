@@ -9,11 +9,11 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.kamalbramwell.dating.navigation.DatingBottomSheet
+import com.kamalbramwell.dating.navigation.ui.DatingBottomSheet
 import com.kamalbramwell.dating.navigation.DatingNavHost
-import com.kamalbramwell.dating.navigation.DatingScaffold
-import com.kamalbramwell.dating.navigation.rememberBottomSheetNavigator
-import com.kamalbramwell.dating.navigation.rememberNavigationBarHandler
+import com.kamalbramwell.dating.navigation.ui.DatingScaffold
+import com.kamalbramwell.dating.navigation.ui.rememberBottomSheetNavigator
+import com.kamalbramwell.dating.navigation.ui.rememberNavigationBarHandler
 import com.kamalbramwell.dating.toast.ToastHandler
 import com.kamalbramwell.dating.toast.ToastMediator
 import com.kamalbramwell.dating.toast.ui.ToastOverlay

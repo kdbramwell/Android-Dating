@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.navigation
+package com.kamalbramwell.dating.navigation.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
