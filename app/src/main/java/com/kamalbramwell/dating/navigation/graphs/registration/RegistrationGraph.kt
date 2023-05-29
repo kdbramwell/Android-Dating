@@ -8,11 +8,11 @@ import com.kamalbramwell.dating.registration.ui.RegistrationOptionsScreen
 
 fun NavGraphBuilder.registrationGraph(navController: NavController) {
     navigation(
-        startDestination = RegistrationOptions.route,
-        route = RegistrationGraph.route
+        startDestination = Registration.RegistrationOptions.route,
+        route = Registration.route
     ) {
 
-        composable(route = RegistrationOptions.route) {
+        composable(route = Registration.RegistrationOptions.route) {
             RegistrationOptionsScreen(
                 onEmailRegistrationClicked = {},
                 onPhoneRegistrationClicked = {},

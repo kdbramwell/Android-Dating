@@ -6,8 +6,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
-import com.kamalbramwell.dating.navigation.graphs.registration.EmailRegistration
-import com.kamalbramwell.dating.navigation.graphs.registration.RegistrationGraph
+import com.kamalbramwell.dating.navigation.graphs.registration.Registration
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Assert.assertEquals
@@ -36,7 +35,7 @@ class RegistrationGraphTest {
             navController.navigatorProvider.addNavigator(ComposeNavigator())
             DatingNavHost(navController)
 
-            navController.setCurrentDestination(RegistrationGraph.route)
+            navController.setCurrentDestination(Registration.route)
         }
     }
 
@@ -44,7 +43,7 @@ class RegistrationGraphTest {
     fun registration_clickEmail_navigateToEmailRegistration() {
         composeTestRule.onNodeWithTag("EmailRegistration").performClick()
         val route = navController.currentBackStackEntry?.destination?.route
-        assertEquals(EmailRegistration.route, route)
+        assertEquals(Registration.EmailRegistration.route, route)
     }
 
 //    @Test

@@ -8,7 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.kamalbramwell.dating.navigation.graphs.registration.RegistrationGraph
+import com.kamalbramwell.dating.navigation.graphs.registration.Registration
 import com.kamalbramwell.dating.navigation.graphs.registration.registrationGraph
 import com.kamalbramwell.dating.splash.SplashScreen
 
@@ -28,7 +28,7 @@ fun DatingNavHost(
             SplashScreen(
                 viewModel = hiltViewModel(),
                 onNavigateToRegistration = {
-                    navController.navigateSingleTopTo(RegistrationGraph.route)
+                    navController.navigateSingleTopTo(Registration.route)
                 }
             )
         }
