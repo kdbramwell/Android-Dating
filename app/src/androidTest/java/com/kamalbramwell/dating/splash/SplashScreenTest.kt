@@ -1,17 +1,13 @@
 package com.kamalbramwell.dating.splash
 
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import com.kamalbramwell.dating.ui.theme.DatingTheme
+import com.kamalbramwell.dating.utils.ComposeTest
 import org.junit.Test
 import org.junit.Assert.*
-import org.junit.Rule
 
-class SplashScreenTest {
-
-    @get:Rule
-    val composeTestRule = createComposeRule()
+class SplashScreenTest : ComposeTest() {
 
     @Test
     fun screen_isVisible() {

@@ -1,14 +1,11 @@
 package com.kamalbramwell.dating.navigation
 
-import androidx.activity.ComponentActivity
-import androidx.annotation.StringRes
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.navigation.graphs.registration.Registration
-import com.kamalbramwell.dating.utils.performClick
+import com.kamalbramwell.dating.utils.ComposeTest
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Assert.assertEquals
@@ -20,13 +17,10 @@ import org.junit.Test
  * Checks that the navigation flows during registration/login are correct.
  */
 @HiltAndroidTest
-class RegistrationGraphTest {
+class RegistrationGraphTest : ComposeTest() {
 
-    @get:Rule
+    @get:Rule(order = 0)
     val hiltRule = HiltAndroidRule(this)
-
-    @get:Rule
-    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     lateinit var navController: TestNavHostController
 
@@ -39,10 +33,6 @@ class RegistrationGraphTest {
 
             navController.setCurrentDestination(Registration.route)
         }
-    }
-
-    private fun performClick(@StringRes label: Int) {
-        composeTestRule.performClick(label)
     }
 
     @Test

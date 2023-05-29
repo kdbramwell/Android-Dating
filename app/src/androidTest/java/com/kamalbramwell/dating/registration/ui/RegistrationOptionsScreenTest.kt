@@ -1,24 +1,15 @@
 package com.kamalbramwell.dating.registration.ui
 
-import androidx.activity.ComponentActivity
-import androidx.annotation.StringRes
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.ui.theme.DatingTheme
-import com.kamalbramwell.dating.utils.performClick
+import com.kamalbramwell.dating.utils.ComposeTest
 import org.junit.Assert.*
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
-class RegistrationOptionsScreenTest {
-
-    @get:Rule
-    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+class RegistrationOptionsScreenTest : ComposeTest() {
 
     private var registerEmailClicked = false
     private var registerPhoneClicked = false
@@ -62,9 +53,5 @@ class RegistrationOptionsScreenTest {
     fun clickLoginButton_navigateToLogin() {
         performClick(R.string.registration_already_registered_cta)
         assertEquals(true, loginClicked)
-    }
-
-    private fun performClick(@StringRes buttonLabel: Int) {
-        composeTestRule.performClick(buttonLabel)
     }
 }
