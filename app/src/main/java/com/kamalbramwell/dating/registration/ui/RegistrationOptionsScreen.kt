@@ -11,14 +11,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.registration.data.StockImageDataSource
+import com.kamalbramwell.dating.splash.SplashScreenTestTag
 import com.kamalbramwell.dating.ui.components.MaxWidthBorderlessButton
 import com.kamalbramwell.dating.ui.components.MaxWidthButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.utils.UiText
+
+const val RegistrationOptionsTestTag  = "RegistrationOptionsScreen"
 
 @Composable
 fun RegistrationOptionsScreen(
@@ -26,7 +31,7 @@ fun RegistrationOptionsScreen(
     onPhoneRegistrationClicked: () -> Unit = {},
     onAlreadyRegisteredClicked: () -> Unit = {}
 ) {
-    Box {
+    Box(Modifier.semantics { testTag = RegistrationOptionsTestTag }) {
         Image(
             painter = painterResource(id = StockImageDataSource.random()),
             contentDescription = null,
