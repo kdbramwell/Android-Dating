@@ -18,11 +18,13 @@ import com.kamalbramwell.dating.toast.ToastHandler
 import com.kamalbramwell.dating.toast.ToastMediator
 import com.kamalbramwell.dating.toast.ui.ToastOverlay
 import com.kamalbramwell.dating.ui.theme.DatingTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 val LocalToastHandler = staticCompositionLocalOf<ToastHandler> {
     error("No ToastHandler provided")
 }
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

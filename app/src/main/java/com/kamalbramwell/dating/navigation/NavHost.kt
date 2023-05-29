@@ -3,6 +3,7 @@ package com.kamalbramwell.dating.navigation
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -13,17 +14,19 @@ import com.kamalbramwell.dating.splash.SplashScreen
 @Composable
 fun DatingNavHost(
     navController: NavHostController,
-    navBarHandler: NavBarHandler,
     modifier: Modifier = Modifier,
+    navBarHandler: NavBarHandler = rememberNavigationBarHandler(),
+    startDestination: String = SplashScreen.route
 ) {
     NavHost(
         navController = navController,
-        startDestination = SplashScreen.route,
+        startDestination = startDestination,
         modifier = modifier
     ) {
 
         composable(route = SplashScreen.route) {
             SplashScreen(
+                viewModel = hiltViewModel(),
                 onNavigateToRegistration = {
                     navController.navigateSingleTopTo(Registration.route)
                 }

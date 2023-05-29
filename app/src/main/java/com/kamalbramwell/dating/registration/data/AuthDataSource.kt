@@ -7,16 +7,18 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.kamalbramwell.dating.registration.data.AccountDataSource.Exceptions.AccountNotFoundException
-import com.kamalbramwell.dating.registration.data.AccountDataSource.Exceptions.IncorrectPasswordException
-import com.kamalbramwell.dating.registration.data.AccountDataSource.Exceptions.LoginFailedException
+import com.kamalbramwell.dating.di.IoDispatcher
+import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.AccountNotFoundException
+import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.IncorrectPasswordException
+import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.LoginFailedException
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-interface AccountDataSource {
+interface AuthDataSource {
     val isLoggedIn: Flow<Boolean>
     suspend fun registerEmail(email: String, password: String): Result<Boolean>
     suspend fun registerPhone(phone: String, password: String): Result<Boolean>
@@ -24,6 +26,7 @@ interface AccountDataSource {
     suspend fun loginWithPhone(phone: String, password: String): Result<Boolean>
 
     companion object Exceptions {
+        val AccountExistsException = Exception("Account already exists.")
         val AccountNotFoundException = Exception("Account not found.")
         val IncorrectPasswordException = Exception("Incorrect password.")
         val LoginFailedException = Exception("Login failed.")
@@ -33,13 +36,12 @@ interface AccountDataSource {
 /**
  * Uses [DataStore] to persist account data.
  */
-class LocalAccountDataSource(
-    private val context: Context,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-): AccountDataSource {
+class LocalAuthDataSource @Inject constructor(
+    @ApplicationContext private val context: Context,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
+): AuthDataSource {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(dataStoreName)
-
     override val isLoggedIn: Flow<Boolean> = context.dataStore.data.map {
         it[userKey] != null && it[passwordKey] != null
     }
