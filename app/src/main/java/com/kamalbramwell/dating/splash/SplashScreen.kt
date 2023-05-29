@@ -39,7 +39,7 @@ fun SplashScreen(
     }
 }
 
-const val BackgroundTestTag = "Background"
+const val SplashScreenTestTag = "SplashScreen"
 
 @Composable
 private fun Background() {
@@ -49,7 +49,7 @@ private fun Background() {
         contentDescription = null,
         modifier = Modifier
             .fillMaxSize()
-            .semantics { testTag = BackgroundTestTag },
+            .semantics { testTag = SplashScreenTestTag },
         contentScale = ContentScale.Crop
     )
 }

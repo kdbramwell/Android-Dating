@@ -3,13 +3,9 @@ package com.kamalbramwell.dating.splash
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kamalbramwell.dating.ui.theme.DatingTheme
-import org.junit.Assert
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
 
 class SplashScreenTest {
@@ -18,17 +14,17 @@ class SplashScreenTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun backgroundIsVisible() {
+    fun screen_isVisible() {
         composeTestRule.setContent {
             DatingTheme {
                 SplashScreen(SplashScreenState())
             }
         }
-        composeTestRule.onNodeWithTag(BackgroundTestTag).assertIsDisplayed()
+        composeTestRule.onNodeWithTag(SplashScreenTestTag).assertIsDisplayed()
     }
 
     @Test
-    fun navigateToRegistrationWhenNotRegistered() {
+    fun whenNotLoggedIn_navigateToRegistration() {
         var navigatedToRegistration = false
         composeTestRule.setContent {
             DatingTheme {
@@ -43,7 +39,7 @@ class SplashScreenTest {
     }
 
     @Test
-    fun navigateToHomeWhenRegistered() {
+    fun whenLoggedIn_navigateToHome() {
         var navigatedToHome = false
         composeTestRule.setContent {
             DatingTheme {

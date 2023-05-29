@@ -3,7 +3,7 @@ package com.kamalbramwell.dating
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import com.kamalbramwell.dating.splash.BackgroundTestTag
+import com.kamalbramwell.dating.splash.SplashScreenTestTag
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Rule
@@ -24,6 +24,6 @@ class AppTest {
     @Test
     fun app_launches() {
         // Check app launches at the correct destination
-        composeTestRule.onNodeWithTag(BackgroundTestTag).assertIsDisplayed()
+        composeTestRule.onNodeWithTag(SplashScreenTestTag).assertIsDisplayed()
     }
 }
