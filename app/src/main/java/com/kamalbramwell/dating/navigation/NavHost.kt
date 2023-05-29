@@ -14,13 +14,12 @@ import com.kamalbramwell.dating.splash.SplashScreen
 @Composable
 fun DatingNavHost(
     navController: NavHostController,
+    navBarHandler: NavBarHandler,
     modifier: Modifier = Modifier,
-    navBarHandler: NavBarHandler = rememberNavigationBarHandler(),
-    startDestination: String = SplashScreen.route
 ) {
     NavHost(
         navController = navController,
-        startDestination = startDestination,
+        startDestination = SplashScreen.route,
         modifier = modifier
     ) {
 
