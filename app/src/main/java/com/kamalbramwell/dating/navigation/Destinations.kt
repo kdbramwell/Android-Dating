@@ -4,10 +4,6 @@ interface NavDestination {
     val route: String
 }
 
-object SplashScreen : NavDestination {
-    override val route: String = "splash"
-}
-
 object ExploreGraph : NavDestination {
     override val route: String = "explore"
 }

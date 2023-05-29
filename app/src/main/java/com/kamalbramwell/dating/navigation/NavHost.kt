@@ -20,11 +20,11 @@ fun DatingNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = SplashScreen.route,
+        startDestination = "splash",
         modifier = modifier
     ) {
 
-        composable(route = SplashScreen.route) {
+        composable(route = "splash") {
             SplashScreen(
                 viewModel = hiltViewModel(),
                 onNavigateToRegistration = {
