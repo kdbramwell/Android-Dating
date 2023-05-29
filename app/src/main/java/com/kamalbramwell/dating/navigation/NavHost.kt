@@ -8,14 +8,15 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.kamalbramwell.dating.registration.ui.RegistrationOptionsScreen
+import com.kamalbramwell.dating.navigation.graphs.registration.RegistrationGraph
+import com.kamalbramwell.dating.navigation.graphs.registration.registrationGraph
 import com.kamalbramwell.dating.splash.SplashScreen
 
 @Composable
 fun DatingNavHost(
     navController: NavHostController,
-    navBarHandler: NavBarHandler,
     modifier: Modifier = Modifier,
+    navBarHandler: NavBarHandler = rememberNavigationBarHandler(),
 ) {
     NavHost(
         navController = navController,
@@ -27,18 +28,12 @@ fun DatingNavHost(
             SplashScreen(
                 viewModel = hiltViewModel(),
                 onNavigateToRegistration = {
-                    navController.navigateSingleTopTo(Registration.route)
+                    navController.navigateSingleTopTo(RegistrationGraph.route)
                 }
             )
         }
 
-        composable(route = Registration.route) {
-            RegistrationOptionsScreen(
-                onEmailRegistrationClicked = {},
-                onPhoneRegistrationClicked = {},
-                onAlreadyRegisteredClicked = {}
-            )
-        }
+        registrationGraph(navController)
     }
 }
 
