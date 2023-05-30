@@ -23,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +34,10 @@ import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.utils.UiText
 
+const val InputFieldTestTag = "InputField"
+const val InputFieldLabelTestTag = "InputFieldLabel"
+const val InputFieldPlaceholderTestTag = "InputFieldPlaceholder"
+const val InputFieldTextFieldTestTag = "InputFieldBasicTextField"
 
 @Composable
 fun InputField(
@@ -69,7 +75,7 @@ fun InputField(
 
     OutlinedTextInput(
         textFieldValue = textFieldValue,
-        modifier = modifier,
+        modifier = modifier.semantics { testTag = InputFieldTestTag },
         onTextChanged = onTextChanged,
         onTextFieldFocused = onTextFieldFocused,
         label = error ?: label,
@@ -142,7 +148,8 @@ private fun OutlinedTextInput(
                     DatingText(
                         text = label,
                         color = labelColor,
-                        fontSize = 12.sp
+                        fontSize = 12.sp,
+                        modifier = Modifier.semantics { testTag = InputFieldLabelTestTag }
                     )
                 }
             }
@@ -163,6 +170,8 @@ private fun OutlinedTextInput(
                                 onTextFieldFocused(state.isFocused)
                             }
                             lastFocusState = state.isFocused
+                        }.semantics {
+                            testTag = InputFieldTextFieldTestTag
                         }
                 )
 
@@ -171,7 +180,10 @@ private fun OutlinedTextInput(
                         label?.let { label ->
                             DatingText(
                                 text = if (!lastFocusState) label else placeholder,
-                                color = placeholderColor
+                                color = placeholderColor,
+                                modifier = Modifier.semantics {
+                                    testTag = InputFieldPlaceholderTestTag
+                                }
                             )
                         }
                     }
