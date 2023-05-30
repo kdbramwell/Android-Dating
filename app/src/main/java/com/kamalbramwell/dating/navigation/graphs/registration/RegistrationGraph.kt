@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.kamalbramwell.dating.navigation.navigateSingleTopTo
-import com.kamalbramwell.dating.registration.ui.AccountRegistrationScreen
+import com.kamalbramwell.dating.registration.ui.CreateAccountScreen
 import com.kamalbramwell.dating.registration.ui.RegistrationOptionsScreen
 
 fun NavGraphBuilder.registrationGraph(navController: NavController) {
@@ -24,7 +24,7 @@ fun NavGraphBuilder.registrationGraph(navController: NavController) {
         }
 
         composable(route = Registration.Create.route) {
-            AccountRegistrationScreen(
+            CreateAccountScreen(
                 viewModel = hiltViewModel(),
                 onNavigateNext = {},
                 onCancelClicked = navController::navigateUp

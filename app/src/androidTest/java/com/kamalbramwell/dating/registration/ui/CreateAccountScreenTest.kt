@@ -11,7 +11,7 @@ import com.kamalbramwell.dating.utils.UiText
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class AccountRegistrationScreenTest : ComposeTest() {
+class CreateAccountScreenTest : ComposeTest() {
 
     private val testInput = "helloWorld"
     private val testError = UiText.DynamicString("Error")
@@ -20,7 +20,7 @@ class AccountRegistrationScreenTest : ComposeTest() {
     fun accountField_showsEmailOrPhoneInput() {
         val testState = RegistrationState(emailOrPhone = TextFieldValue(testInput))
         composeTestRule.setContent {
-            AccountRegistrationScreen(testState)
+            CreateAccountScreen(testState)
         }
         withText(testInput).assertIsDisplayed()
     }
@@ -29,7 +29,7 @@ class AccountRegistrationScreenTest : ComposeTest() {
     fun passwordField_showsPasswordInput() {
         val testState = RegistrationState(password = TextFieldValue(testInput))
         composeTestRule.setContent {
-            AccountRegistrationScreen(testState)
+            CreateAccountScreen(testState)
         }
         withText(testInput).assertIsDisplayed()
     }
@@ -38,7 +38,7 @@ class AccountRegistrationScreenTest : ComposeTest() {
     fun accountField_showsEmailOrPhoneError() {
         val testState = RegistrationState(emailOrPhoneError = testError)
         composeTestRule.setContent {
-            AccountRegistrationScreen(testState)
+            CreateAccountScreen(testState)
         }
         withText(testError.value).assertIsDisplayed()
     }
@@ -47,7 +47,7 @@ class AccountRegistrationScreenTest : ComposeTest() {
     fun passwordField_showsPasswordError() {
         val testState = RegistrationState(passwordError = testError)
         composeTestRule.setContent {
-            AccountRegistrationScreen(testState)
+            CreateAccountScreen(testState)
         }
         withText(testError.value).assertIsDisplayed()
     }
@@ -56,7 +56,7 @@ class AccountRegistrationScreenTest : ComposeTest() {
     fun nextButton_showsEnabledState() {
         val testState = RegistrationState(isLoading = false)
         composeTestRule.setContent {
-            AccountRegistrationScreen(testState)
+            CreateAccountScreen(testState)
         }
         withText(R.string.registration_next).assertIsEnabled()
     }
@@ -65,7 +65,7 @@ class AccountRegistrationScreenTest : ComposeTest() {
     fun nextButton_showsDisabledState() {
         val testState = RegistrationState(isLoading = true)
         composeTestRule.setContent {
-            AccountRegistrationScreen(testState)
+            CreateAccountScreen(testState)
         }
         withText(R.string.registration_next).assertIsNotEnabled()
     }
@@ -74,7 +74,7 @@ class AccountRegistrationScreenTest : ComposeTest() {
     fun clickNextButton_callsOnNextClicked() {
         var nextClicked = false
         composeTestRule.setContent {
-            AccountRegistrationScreen(
+            CreateAccountScreen(
                 uiState = RegistrationState(),
                 onNextClicked = { nextClicked = true }
             )
@@ -87,7 +87,7 @@ class AccountRegistrationScreenTest : ComposeTest() {
     fun clickCancelButton_callsOnCancelClicked() {
         var cancelClicked = false
         composeTestRule.setContent {
-            AccountRegistrationScreen(
+            CreateAccountScreen(
                 uiState = RegistrationState(),
                 onCancelClicked = { cancelClicked = true }
             )

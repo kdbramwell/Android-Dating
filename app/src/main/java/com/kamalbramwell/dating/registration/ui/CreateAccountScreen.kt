@@ -22,14 +22,14 @@ import com.kamalbramwell.dating.ui.theme.DatingTheme
 const val AccountRegistrationTestTag = "AccountRegistration"
 
 @Composable
-fun AccountRegistrationScreen(
+fun CreateAccountScreen(
     viewModel: RegistrationViewModel = viewModel(),
     onNavigateNext: () -> Unit = {},
     onCancelClicked: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    AccountRegistrationScreen(
+    CreateAccountScreen(
         uiState = uiState,
         onEmailOrPhoneInput = viewModel::onEmailOrPhoneInput,
         onPasswordInput = viewModel::onPasswordInput,
@@ -43,7 +43,7 @@ fun AccountRegistrationScreen(
 }
 
 @Composable
-fun AccountRegistrationScreen(
+fun CreateAccountScreen(
     uiState: RegistrationState,
     onEmailOrPhoneInput: (TextFieldValue) -> Unit = {},
     onPasswordInput: (TextFieldValue) -> Unit = {},
@@ -144,7 +144,7 @@ private fun CancelButton(
 @Composable
 private fun PhoneRegistrationPreview() {
     DatingTheme {
-        AccountRegistrationScreen(RegistrationState())
+        CreateAccountScreen(RegistrationState())
     }
 }
 
@@ -152,7 +152,7 @@ private fun PhoneRegistrationPreview() {
 @Composable
 private fun PhoneRegistrationDarkPreview() {
     DatingTheme(darkTheme = true) {
-        AccountRegistrationScreen(RegistrationState())
+        CreateAccountScreen(RegistrationState())
     }
 }
 
@@ -160,7 +160,7 @@ private fun PhoneRegistrationDarkPreview() {
 @Composable
 private fun AccountRegistrationScreenPreview() {
     DatingTheme {
-        AccountRegistrationScreen(RegistrationState())
+        CreateAccountScreen(RegistrationState())
     }
 }
 
@@ -168,6 +168,6 @@ private fun AccountRegistrationScreenPreview() {
 @Composable
 private fun AccountRegistrationScreenDarkPreview() {
     DatingTheme(darkTheme = true) {
-        AccountRegistrationScreen(RegistrationState())
+        CreateAccountScreen(RegistrationState())
     }
 }
