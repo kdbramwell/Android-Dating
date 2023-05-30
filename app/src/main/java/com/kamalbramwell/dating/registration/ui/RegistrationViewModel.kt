@@ -5,12 +5,14 @@ import androidx.lifecycle.ViewModel
 import com.kamalbramwell.dating.utils.UiText
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 data class RegistrationState(
     val emailOrPhone: TextFieldValue = TextFieldValue(),
     val password: TextFieldValue = TextFieldValue(),
     val emailOrPhoneError: UiText? = null,
     val passwordError: UiText? = null,
+    val isLoading: Boolean = false,
     val nextButtonEnabled: Boolean = false,
     val registrationSuccessful: Boolean = false,
 )
@@ -21,29 +23,20 @@ class RegistrationViewModel : ViewModel() {
     val uiState = _uiState.asStateFlow()
 
     fun onEmailOrPhoneInput(textFieldValue: TextFieldValue) {
-
+        _uiState.update {
+            it.copy(emailOrPhone = textFieldValue)
+        }
     }
 
     fun onPasswordInput(textFieldValue: TextFieldValue) {
-
+        _uiState.update {
+            it.copy(password = textFieldValue)
+        }
     }
 
     fun onNextClicked() {
-        // Validate as email
-        // Validate as phone
-        // Update state with any errors
-        // If no errors, update state with successful registration
-    }
-
-    private fun onPasswordInvalid() {
-
-    }
-
-    private fun validateAsEmail(text: String): Boolean {
-        return false
-    }
-
-    private fun validateAsPhone(text: String): Boolean {
-        return false
+        _uiState.update {
+            it.copy(isLoading = true)
+        }
     }
 }
