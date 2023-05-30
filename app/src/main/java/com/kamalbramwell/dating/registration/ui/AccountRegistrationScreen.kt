@@ -2,6 +2,7 @@ package com.kamalbramwell.dating.registration.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -49,6 +50,13 @@ fun AccountRegistrationScreen(
     onNextClicked: () -> Unit = {},
     onCancelClicked: () -> Unit = {}
 ) {
+    val nextButtonEnabled by remember(uiState) {
+        derivedStateOf {
+            uiState.run {
+                emailOrPhoneError == null && passwordError == null && !isLoading && !registrationSuccessful
+            }
+        }
+    }
     Column(Modifier.semantics { testTag = AccountRegistrationTestTag }) {
         EmailOrPhoneInput(
             textFieldValue = uiState.emailOrPhone,
@@ -62,7 +70,7 @@ fun AccountRegistrationScreen(
         )
         ContinueButton(
             onClick = onNextClicked,
-            enabled = uiState.nextButtonEnabled
+            enabled = nextButtonEnabled
         )
         CancelButton(onClick = onCancelClicked)
     }

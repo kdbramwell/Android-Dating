@@ -13,7 +13,6 @@ data class RegistrationState(
     val emailOrPhoneError: UiText? = null,
     val passwordError: UiText? = null,
     val isLoading: Boolean = false,
-    val nextButtonEnabled: Boolean = false,
     val registrationSuccessful: Boolean = false,
 )
 

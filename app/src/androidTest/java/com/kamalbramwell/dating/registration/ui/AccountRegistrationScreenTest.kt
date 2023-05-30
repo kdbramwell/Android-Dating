@@ -54,7 +54,7 @@ class AccountRegistrationScreenTest : ComposeTest() {
 
     @Test
     fun nextButton_showsEnabledState() {
-        val testState = RegistrationState(nextButtonEnabled = true)
+        val testState = RegistrationState(isLoading = false)
         composeTestRule.setContent {
             AccountRegistrationScreen(testState)
         }
@@ -63,7 +63,7 @@ class AccountRegistrationScreenTest : ComposeTest() {
 
     @Test
     fun nextButton_showsDisabledState() {
-        val testState = RegistrationState(nextButtonEnabled = false)
+        val testState = RegistrationState(isLoading = true)
         composeTestRule.setContent {
             AccountRegistrationScreen(testState)
         }
@@ -75,7 +75,7 @@ class AccountRegistrationScreenTest : ComposeTest() {
         var nextClicked = false
         composeTestRule.setContent {
             AccountRegistrationScreen(
-                uiState = RegistrationState(nextButtonEnabled = true),
+                uiState = RegistrationState(),
                 onNextClicked = { nextClicked = true }
             )
         }
