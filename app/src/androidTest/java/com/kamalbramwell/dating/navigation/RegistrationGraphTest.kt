@@ -40,13 +40,15 @@ class RegistrationGraphTest : ComposeTest() {
     fun registration_clickEmail_navigateToEmailRegistration() {
         withText(R.string.registration_email_registration_cta).performClick()
         val route = navController.currentBackStackEntry?.destination?.route
-        assertEquals(Registration.EmailRegistration.route, route)
+        assertEquals(Registration.Create.route, route)
     }
 
-//    @Test
-//    fun registration_clickPhone_navigateToPhoneRegistration() {
-//
-//    }
+    @Test
+    fun registration_clickPhone_navigateToPhoneRegistration() {
+        withText(R.string.registration_phone_registration_cta).performClick()
+        val route = navController.currentBackStackEntry?.destination?.route
+        assertEquals(Registration.Create.route, route)
+    }
 //
 //    @Test
 //    fun registration_clickLogin_navigateToLogin() {
