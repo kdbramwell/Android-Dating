@@ -52,6 +52,9 @@ object Libs {
         private const val NavigationVersion = "2.5.3"
         const val Navigation = "androidx.navigation:navigation-compose:$NavigationVersion"
         const val NavigationAndroidTest = "androidx.navigation:navigation-testing:$NavigationVersion"
+
+        const val ConstraintLayout = "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+        const val Coil = "io.coil-kt:coil-compose:2.4.0"
     }
 
     object DI {
