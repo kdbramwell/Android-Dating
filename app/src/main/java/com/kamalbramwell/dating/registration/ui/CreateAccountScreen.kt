@@ -1,6 +1,13 @@
 package com.kamalbramwell.dating.registration.ui
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -10,6 +17,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.ui.components.InputField
@@ -18,6 +26,7 @@ import com.kamalbramwell.dating.ui.components.MaxWidthButton
 import com.kamalbramwell.dating.utils.UiText
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kamalbramwell.dating.ui.theme.DatingTheme
+import com.kamalbramwell.dating.ui.theme.defaultContentPadding
 
 const val AccountRegistrationTestTag = "AccountRegistration"
 
@@ -57,22 +66,45 @@ fun CreateAccountScreen(
             }
         }
     }
-    Column(Modifier.semantics { testTag = AccountRegistrationTestTag }) {
-        EmailOrPhoneInput(
-            textFieldValue = uiState.emailOrPhone,
-            onTextChanged = onEmailOrPhoneInput,
-            error = uiState.emailOrPhoneError
-        )
-        PasswordInput(
-            textFieldValue = uiState.password,
-            onTextChanged = onPasswordInput,
-            error = uiState.passwordError
-        )
-        ContinueButton(
-            onClick = onNextClicked,
-            enabled = nextButtonEnabled
-        )
-        CancelButton(onClick = onCancelClicked)
+    Column(
+        Modifier
+            .fillMaxSize()
+            .padding(defaultContentPadding)
+            .semantics { testTag = AccountRegistrationTestTag },
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        Column(
+            Modifier.weight(1F),
+            verticalArrangement = Arrangement.Top
+        ) {
+            EmailOrPhoneInput(
+                textFieldValue = uiState.emailOrPhone,
+                onTextChanged = onEmailOrPhoneInput,
+                error = uiState.emailOrPhoneError,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+            PasswordInput(
+                textFieldValue = uiState.password,
+                onTextChanged = onPasswordInput,
+                error = uiState.passwordError,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+        }
+
+        Column(
+            Modifier.weight(1F),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            ContinueButton(
+                onClick = onNextClicked,
+                enabled = nextButtonEnabled,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+            CancelButton(
+                onClick = onCancelClicked,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+        }
     }
 }
 
@@ -91,7 +123,8 @@ private fun EmailOrPhoneInput(
         onTextChanged = onTextChanged,
         onTextFieldFocused = onTextFieldFocused,
         error = error,
-        placeholder = placeholder
+        placeholder = placeholder,
+        label = placeholder
     )
 }
 
@@ -110,7 +143,8 @@ private fun PasswordInput(
         onTextChanged = onTextChanged,
         onTextFieldFocused = onTextFieldFocused,
         error = error,
-        placeholder = placeholder
+        placeholder = placeholder,
+        label = placeholder
     )
 }
 
@@ -140,25 +174,9 @@ private fun CancelButton(
     )
 }
 
-@Preview
-@Composable
-private fun PhoneRegistrationPreview() {
-    DatingTheme {
-        CreateAccountScreen(RegistrationState())
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
-private fun PhoneRegistrationDarkPreview() {
-    DatingTheme(darkTheme = true) {
-        CreateAccountScreen(RegistrationState())
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun AccountRegistrationScreenPreview() {
+private fun CreateAccountScreenPreview() {
     DatingTheme {
         CreateAccountScreen(RegistrationState())
     }
@@ -166,7 +184,7 @@ private fun AccountRegistrationScreenPreview() {
 
 @Preview
 @Composable
-private fun AccountRegistrationScreenDarkPreview() {
+private fun CreateAccountScreenPreviewDarkPreview() {
     DatingTheme(darkTheme = true) {
         CreateAccountScreen(RegistrationState())
     }
