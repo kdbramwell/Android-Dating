@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -51,8 +52,10 @@ fun AuthScreen(
         onCancelClicked = onCancelClicked
     )
 
-    if (uiState.registrationSuccessful) {
-        onNavigateNext()
+    LaunchedEffect(uiState.registrationSuccessful) {
+        if (uiState.registrationSuccessful) {
+            onNavigateNext()
+        }
     }
 }
 
@@ -102,7 +105,6 @@ fun AuthScreen(
         }
 
         Column(
-            Modifier.weight(1F),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

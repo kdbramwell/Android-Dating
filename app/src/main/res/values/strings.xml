@@ -16,8 +16,8 @@
     <string name="registration_password_label">Enter password</string>
     <string name="registration_next">@string/next</string>
     <string name="registration_back">@string/back</string>
-    <string name="registration_create_account_heading">Nice to meet you!</string>
-    <string name="registration_login_heading">Welcome back!</string>
+    <string name="registration_create_account_heading">Create your account</string>
+    <string name="registration_login_heading">Login to your account</string>
 
     <string name="registration_a11y_show_password">Show password</string>
     <string name="registration_a11y_hide_password">Hide password</string>

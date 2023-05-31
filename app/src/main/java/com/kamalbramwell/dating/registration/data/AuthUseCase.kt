@@ -28,7 +28,7 @@ class CreateAccountUseCase @Inject constructor(
 ) : AuthUseCase {
 
     override suspend fun submit(account: String, password: String): Result<Boolean> =
-        with (account) {
+        with (account.trim()) {
             when {
                 isPhoneNumber() -> dataSource.registerPhone(account, password)
                 isEmail() -> dataSource.registerEmail(account, password)
