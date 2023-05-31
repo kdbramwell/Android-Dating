@@ -12,13 +12,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,21 +40,39 @@ import com.kamalbramwell.dating.ui.components.NextButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
 import com.kamalbramwell.dating.utils.UiText
+import kotlinx.coroutines.launch
 
 const val OnboardingTestTag = "Onboarding"
 
 @Composable
-fun OnboardingScreen(viewModel: OnboardingViewModel = viewModel()) {
+fun OnboardingScreen(
+    viewModel: OnboardingViewModel = viewModel(),
+    onNavigateNext: () -> Unit = {}
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    OnboardingScreen(
+        uiState,
+        viewModel::onResponse,
+        viewModel::onComplete
+    )
 }
 
 @Composable
 fun OnboardingScreen(
     uiState: OnboardingState = OnboardingState(),
-    onNextClicked: () -> Unit = {},
-    onBackClicked: () -> Unit = {},
+    onResponse: (index: Int, value: TextFieldValue) -> Unit = { _, _ -> },
+    onNavigateNext: () -> Unit = {}
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val listState = rememberLazyListState()
+    val backEnabled by remember {
+        derivedStateOf { listState.firstVisibleItemIndex > 0 }
+    }
+    val completed by remember {
+        derivedStateOf { listState.firstVisibleItemIndex >= uiState.questions.size }
+    }
+
     Column(
         Modifier
             .fillMaxSize()
@@ -61,33 +81,42 @@ fun OnboardingScreen(
     ) {
         Heading(text = UiText.StringResource(R.string.onboarding_heading))
 
-        QuestionCards(Modifier.weight(1f))
+        QuestionCards(
+            modifier = Modifier.weight(1f),
+            scrollState = listState,
+            onResponse = onResponse
+        )
 
         Row {
             BackButton(
                 modifier = Modifier.padding(8.dp),
-                onClick = onBackClicked
+                enabled = backEnabled,
+                onClick = {
+                      coroutineScope.launch {
+                          val currentIndex = listState.firstVisibleItemIndex
+                          listState.animateScrollToItem(currentIndex - 1)
+                      }
+                },
             )
 
             Spacer(Modifier.weight(1f))
 
             NextButton(
                 modifier = Modifier.padding(8.dp),
-                onClick = onNextClicked
+                enabled = uiState.nextEnabled,
+                onClick = {
+                    coroutineScope.launch {
+                        val currentIndex = listState.firstVisibleItemIndex
+                        if (completed) {
+                            onNavigateNext()
+                        } else {
+                            listState.animateScrollToItem(currentIndex + 1)
+                        }
+                    }
+                }
             )
         }
     }
-}
-
-private val sampleQuestions = listOf(
-    "What's your first name?",
-    "What's your last name?",
-    "When were you born?",
-    "What's your personality type?",
-)
-
-private fun generateSamples(): List<ProfileQuestion> = sampleQuestions.map {
-    ProfileQuestion(UiText.DynamicString(it))
 }
 
 @Composable
@@ -95,6 +124,7 @@ private fun QuestionCards(
     modifier: Modifier = Modifier,
     questions: List<ProfileQuestion> = generateSamples(),
     scrollState: LazyListState = rememberLazyListState(),
+    onResponse: (index: Int, response: TextFieldValue) -> Unit = { _, _ -> }
 ) {
     LazyRow(
         modifier = modifier,
@@ -103,10 +133,13 @@ private fun QuestionCards(
         horizontalArrangement = Arrangement.spacedBy(64.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        items(items = questions) { question ->
+        itemsIndexed(items = questions) { index, question ->
             QuestionItem(
                 modifier = Modifier.fillParentMaxWidth(1f),
-                item = question
+                item = question,
+                onInput = { response ->
+                    onResponse(index, response)
+                }
             )
         }
     }
@@ -115,15 +148,16 @@ private fun QuestionCards(
 @Composable
 private fun QuestionItem(
     item: ProfileQuestion,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onInput: (TextFieldValue) -> Unit = {}
 ) {
-    var response by remember { mutableStateOf(TextFieldValue())}
+    var response by remember { mutableStateOf(item.response) }
 
     Card(
         modifier = modifier
             .aspectRatio(1f)
-            .padding(24.dp),
-        shape = MaterialTheme.shapes.small
+            .padding(32.dp),
+        shape = MaterialTheme.shapes.extraLarge
     ) {
         Column(
             modifier = Modifier
@@ -132,14 +166,17 @@ private fun QuestionItem(
             verticalArrangement = Arrangement.Center
         ) {
             DatingText(
-                text = item.text,
+                text = item.prompt,
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(16.dp)
             )
 
             InputField(
                 textFieldValue = response,
-                onTextChanged = { response = it },
+                onTextChanged = {
+                    onInput(it)
+                    response = it
+                },
                 placeholder = UiText.DynamicString("Your name"),
                 modifier = Modifier.padding(16.dp),
             )
