@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -11,9 +12,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.ui.components.InputField
@@ -21,20 +24,22 @@ import com.kamalbramwell.dating.ui.components.MaxWidthBorderlessButton
 import com.kamalbramwell.dating.ui.components.MaxWidthButton
 import com.kamalbramwell.dating.utils.UiText
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.kamalbramwell.dating.toast.ui.ErrorToast
+import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
 
-const val AccountRegistrationTestTag = "AccountRegistration"
+const val AuthTestTag = "AuthScreen"
 
 @Composable
-fun CreateAccountScreen(
+fun AuthScreen(
     viewModel: AuthViewModel = viewModel(),
     onNavigateNext: () -> Unit = {},
     onCancelClicked: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    CreateAccountScreen(
+    AuthScreen(
         uiState = uiState,
         onEmailOrPhoneInput = viewModel::onEmailOrPhoneInput,
         onPasswordInput = viewModel::onPasswordInput,
@@ -48,7 +53,7 @@ fun CreateAccountScreen(
 }
 
 @Composable
-fun CreateAccountScreen(
+fun AuthScreen(
     uiState: RegistrationState,
     onEmailOrPhoneInput: (TextFieldValue) -> Unit = {},
     onPasswordInput: (TextFieldValue) -> Unit = {},
@@ -66,13 +71,14 @@ fun CreateAccountScreen(
         Modifier
             .fillMaxSize()
             .padding(defaultContentPadding)
-            .semantics { testTag = AccountRegistrationTestTag },
+            .semantics { testTag = AuthTestTag },
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         Column(
             Modifier.weight(1F),
             verticalArrangement = Arrangement.Top
         ) {
+            Heading(uiState.heading)
             EmailOrPhoneInput(
                 textFieldValue = uiState.emailOrPhone,
                 onTextChanged = onEmailOrPhoneInput,
@@ -91,6 +97,7 @@ fun CreateAccountScreen(
             Modifier.weight(1F),
             verticalArrangement = Arrangement.Bottom
         ) {
+            TaskError(uiState.taskError)
             ContinueButton(
                 onClick = onNextClicked,
                 enabled = nextButtonEnabled,
@@ -101,6 +108,22 @@ fun CreateAccountScreen(
                 modifier = Modifier.padding(vertical = 8.dp)
             )
         }
+    }
+}
+
+@Composable
+private fun Heading(
+    heading: UiText?,
+    modifier: Modifier = Modifier,
+) {
+    heading?.let {
+        DatingText(
+            heading,
+            modifier,
+            fontSize = 72.sp,
+            style = MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
@@ -144,6 +167,20 @@ private fun PasswordInput(
     )
 }
 
+
+@Composable
+private fun TaskError(
+    error: UiText?,
+    modifier: Modifier = Modifier
+) {
+    error?.let {
+        ErrorToast(
+            title = error.asString(),
+            modifier = modifier
+        )
+    }
+}
+
 @Composable
 private fun ContinueButton(
     modifier: Modifier = Modifier,
@@ -170,11 +207,16 @@ private fun CancelButton(
     )
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun CreateAccountScreenPreview() {
     DatingTheme {
-        CreateAccountScreen(RegistrationState())
+        AuthScreen(
+            RegistrationState(
+                heading = UiText.DynamicString("Welcome back."),
+                taskError = UiText.DynamicString("Check internet connection")
+            )
+        )
     }
 }
 
@@ -182,6 +224,11 @@ private fun CreateAccountScreenPreview() {
 @Composable
 private fun CreateAccountScreenPreviewDarkPreview() {
     DatingTheme(darkTheme = true) {
-        CreateAccountScreen(RegistrationState())
+        AuthScreen(
+            RegistrationState(
+                heading = UiText.DynamicString("Welcome back."),
+                taskError = UiText.DynamicString("Check internet connection")
+            )
+        )
     }
 }

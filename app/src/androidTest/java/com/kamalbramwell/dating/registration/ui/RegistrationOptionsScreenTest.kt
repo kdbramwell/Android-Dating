@@ -22,7 +22,7 @@ class RegistrationOptionsScreenTest : ComposeTest() {
 
         composeTestRule.setContent {
             DatingTheme {
-                RegistrationOptionsScreen(
+                StartScreen(
                     onEmailRegistrationClicked = { registerEmailClicked = true },
                     onPhoneRegistrationClicked = { registerPhoneClicked = true },
                     onAlreadyRegisteredClicked = { loginClicked = true }

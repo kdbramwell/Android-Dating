@@ -20,7 +20,7 @@ class AuthViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = AuthViewModel(
+        viewModel = LoginViewModel(
             dummyUseCase,
             UnconfinedTestDispatcher()
         )

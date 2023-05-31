@@ -6,8 +6,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.kamalbramwell.dating.navigation.navigateSingleTopTo
-import com.kamalbramwell.dating.registration.ui.CreateAccountScreen
-import com.kamalbramwell.dating.registration.ui.RegistrationOptionsScreen
+import com.kamalbramwell.dating.registration.ui.AuthScreen
+import com.kamalbramwell.dating.registration.ui.CreateAccountViewModel
+import com.kamalbramwell.dating.registration.ui.LoginViewModel
+import com.kamalbramwell.dating.registration.ui.StartScreen
 
 fun NavGraphBuilder.registrationGraph(navController: NavController) {
     navigation(
@@ -16,7 +18,7 @@ fun NavGraphBuilder.registrationGraph(navController: NavController) {
     ) {
 
         composable(route = Registration.Start.route) {
-            RegistrationOptionsScreen(
+            StartScreen(
                 onEmailRegistrationClicked = navController::navigateToCreateAccount,
                 onPhoneRegistrationClicked = navController::navigateToCreateAccount,
                 onAlreadyRegisteredClicked = {}
@@ -24,9 +26,17 @@ fun NavGraphBuilder.registrationGraph(navController: NavController) {
         }
 
         composable(route = Registration.Create.route) {
-            CreateAccountScreen(
-                viewModel = hiltViewModel(),
-                onNavigateNext = {},
+            AuthScreen(
+                viewModel = hiltViewModel<CreateAccountViewModel>(),
+                onNavigateNext = navController::navigateToHome,
+                onCancelClicked = navController::navigateUp
+            )
+        }
+
+        composable(route = Registration.Login.route) {
+            AuthScreen(
+                viewModel = hiltViewModel<LoginViewModel>(),
+                onNavigateNext = navController::navigateToHome,
                 onCancelClicked = navController::navigateUp
             )
         }
@@ -35,4 +45,8 @@ fun NavGraphBuilder.registrationGraph(navController: NavController) {
 
 private fun NavController.navigateToCreateAccount() {
     navigateSingleTopTo(Registration.Create.route)
+}
+
+private fun NavController.navigateToHome() {
+
 }

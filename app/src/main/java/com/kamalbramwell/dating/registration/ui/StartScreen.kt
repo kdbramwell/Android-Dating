@@ -17,16 +17,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.registration.data.StockImageDataSource
-import com.kamalbramwell.dating.splash.SplashScreenTestTag
 import com.kamalbramwell.dating.ui.components.MaxWidthBorderlessButton
 import com.kamalbramwell.dating.ui.components.MaxWidthButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.utils.UiText
 
-const val RegistrationOptionsTestTag  = "RegistrationOptionsScreen"
+const val RegistrationOptionsTestTag  = "StartScreen"
 
 @Composable
-fun RegistrationOptionsScreen(
+fun StartScreen(
     onEmailRegistrationClicked: () -> Unit = {},
     onPhoneRegistrationClicked: () -> Unit = {},
     onAlreadyRegisteredClicked: () -> Unit = {}
@@ -79,7 +78,7 @@ private fun AlreadyRegisteredButton(onClick: () -> Unit = {}) {
 @Composable
 private fun RegistrationScreenPreview() {
     DatingTheme {
-        RegistrationOptionsScreen()
+        StartScreen()
     }
 }
 
@@ -87,6 +86,6 @@ private fun RegistrationScreenPreview() {
 @Composable
 private fun RegistrationScreenDarkPreview() {
     DatingTheme(darkTheme = true) {
-        RegistrationOptionsScreen()
+        StartScreen()
     }
 }

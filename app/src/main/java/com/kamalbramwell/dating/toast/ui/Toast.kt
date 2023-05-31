@@ -45,7 +45,7 @@ fun NoticeToast(
     leadingIcon: @Composable () -> Unit = defaultNoticeIcon,
     trailingIcon: @Composable () -> Unit = {}
 ) {
-    HavenToast(
+    DatingToast(
         backgroundColor = MaterialTheme.colorScheme.outline,
         title = title,
         description = description,
@@ -72,7 +72,7 @@ fun ConfirmationToast(
     leadingIcon: @Composable () -> Unit = defaultConfirmIcon,
     trailingIcon: @Composable () -> Unit = {}
 ) {
-    HavenToast(
+    DatingToast(
         backgroundColor = MaterialTheme.colorScheme.tertiary,
         title = title,
         description = description,
@@ -99,7 +99,7 @@ fun ErrorToast(
     leadingIcon: @Composable () -> Unit = defaultErrorIcon,
     trailingIcon: @Composable () -> Unit = {}
 ) {
-    HavenToast(
+    DatingToast(
         backgroundColor = MaterialTheme.colorScheme.error,
         title = title,
         description = description,
@@ -110,7 +110,7 @@ fun ErrorToast(
 }
 
 @Composable
-private fun HavenToast(
+private fun DatingToast(
     backgroundColor: Color,
     title: String,
     modifier: Modifier = Modifier,
