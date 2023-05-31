@@ -4,11 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.windowInsetsEndWidth
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -16,25 +16,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kamalbramwell.dating.R
-import com.kamalbramwell.dating.ui.components.InputField
-import com.kamalbramwell.dating.ui.components.MaxWidthBorderlessButton
-import com.kamalbramwell.dating.ui.components.MaxWidthButton
-import com.kamalbramwell.dating.utils.UiText
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.registration.ui.components.Heading
 import com.kamalbramwell.dating.toast.ui.ErrorToast
 import com.kamalbramwell.dating.ui.components.BackButton
-import com.kamalbramwell.dating.ui.components.DatingText
+import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.NextButton
+import com.kamalbramwell.dating.ui.components.PasswordField
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
+import com.kamalbramwell.dating.utils.UiText
 
 const val AuthTestTag = "AuthScreen"
 
@@ -138,12 +134,12 @@ private fun EmailOrPhoneInput(
     val placeholder = remember { UiText.StringResource(R.string.registration_email_or_phone_label) }
     InputField(
         textFieldValue = textFieldValue,
-        modifier = modifier,
+        modifier = modifier.defaultMinSize(minHeight = 64.dp),
         onTextChanged = onTextChanged,
         onTextFieldFocused = onTextFieldFocused,
         error = error,
         placeholder = placeholder,
-        label = placeholder
+        label = placeholder,
     )
 }
 
@@ -156,7 +152,7 @@ private fun PasswordInput(
     error: UiText? = null,
 ) {
     val placeholder = remember { UiText.StringResource(R.string.registration_password_label) }
-    InputField(
+    PasswordField(
         textFieldValue = textFieldValue,
         modifier = modifier,
         onTextChanged = onTextChanged,
