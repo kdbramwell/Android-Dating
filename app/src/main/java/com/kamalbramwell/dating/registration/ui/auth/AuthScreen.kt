@@ -2,8 +2,12 @@ package com.kamalbramwell.dating.registration.ui.auth
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsEndWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -26,7 +30,9 @@ import com.kamalbramwell.dating.utils.UiText
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kamalbramwell.dating.registration.ui.components.Heading
 import com.kamalbramwell.dating.toast.ui.ErrorToast
+import com.kamalbramwell.dating.ui.components.BackButton
 import com.kamalbramwell.dating.ui.components.DatingText
+import com.kamalbramwell.dating.ui.components.NextButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
 
@@ -92,22 +98,31 @@ fun AuthScreen(
                 error = uiState.passwordError,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
+
+            Spacer(Modifier.height(8.dp))
+
+            TaskError(uiState.taskError)
         }
 
         Column(
             Modifier.weight(1F),
             verticalArrangement = Arrangement.Bottom
         ) {
-            TaskError(uiState.taskError)
-            ContinueButton(
-                onClick = onNextClicked,
-                enabled = nextButtonEnabled,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-            CancelButton(
-                onClick = onCancelClicked,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
+            Row {
+                CancelButton(
+                    onClick = onCancelClicked,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+
+                Spacer(Modifier.weight(1F))
+
+                ContinueButton(
+                    onClick = onNextClicked,
+                    enabled = nextButtonEnabled,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+            }
+
         }
     }
 }
@@ -172,8 +187,7 @@ private fun ContinueButton(
     enabled: Boolean = false,
     onClick: () -> Unit = {},
 ) {
-    MaxWidthButton(
-        label = UiText.StringResource(R.string.next),
+    NextButton(
         modifier = modifier,
         enabled = enabled,
         onClick = onClick
@@ -185,8 +199,7 @@ private fun CancelButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    MaxWidthBorderlessButton(
-        label = UiText.StringResource(R.string.back),
+    BackButton(
         modifier = modifier,
         onClick = onClick
     )
