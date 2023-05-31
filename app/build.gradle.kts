@@ -19,7 +19,7 @@ android {
         versionCode = Versions.Project.Code
         versionName = Versions.Project.Name
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.kamalbramwell.dating.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -35,11 +35,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -64,7 +64,12 @@ dependencies {
     implementation(Libs.Core.LifecycleRuntime)
 
     implementation(Libs.DI.Hilt)
+    implementation(Libs.DI.HiltNavigationCompose)
+    testImplementation(Libs.DI.HiltTest)
+    androidTestImplementation(Libs.DI.HiltTest)
     kapt(Libs.DI.HiltKapt)
+    kaptTest(Libs.DI.HiltKapt)
+    kaptAndroidTest(Libs.DI.HiltKapt)
 
     val composeBom = platform(ComposeBomPlatform)
     implementation(composeBom)
@@ -84,9 +89,13 @@ dependencies {
     implementation(Libs.Compose.Accompanist)
 
     androidTestImplementation(Libs.Compose.AndroidTestJunit)
+    androidTestImplementation(Libs.Compose.NavigationAndroidTest)
     debugImplementation(Libs.Compose.DebugToolingUi)
     debugImplementation(Libs.Compose.DebugTestManifest)
 
+    implementation(Libs.Data.DataStore)
+
+    testImplementation(Libs.Test.CoroutinesTest)
     testImplementation(Libs.Test.TestJunit)
     androidTestImplementation(Libs.Test.AndroidTestJunit)
     androidTestImplementation(Libs.Test.AndroidTestEspresso)
