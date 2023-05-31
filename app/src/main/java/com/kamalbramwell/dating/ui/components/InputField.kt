@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,6 +53,9 @@ fun InputField(
     onIconClick: () -> Unit = {},
     enabled: Boolean = true,
     singleLine: Boolean = true,
+    textStyle: TextStyle = LocalTextStyle.current.copy(
+        color = MaterialTheme.colorScheme.onBackground
+    ),
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         capitalization = KeyboardCapitalization.Sentences
     ),
@@ -84,6 +88,7 @@ fun InputField(
         onIconClick = onIconClick,
         enabled = enabled,
         singleLine = singleLine,
+        textStyle = textStyle,
         keyboardOptions = keyboardOptions,
         labelColor = labelColor,
         placeholderColor = placeholderColor,
@@ -107,6 +112,9 @@ private fun OutlinedTextInput(
     onIconClick: () -> Unit = {},
     enabled: Boolean = true,
     singleLine: Boolean = true,
+    textStyle: TextStyle = LocalTextStyle.current.copy(
+        color = MaterialTheme.colorScheme.onBackground
+    ),
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         capitalization = KeyboardCapitalization.Sentences
     ),
@@ -159,9 +167,7 @@ private fun OutlinedTextInput(
                     value = textFieldValue,
                     onValueChange = onTextChanged,
                     enabled = enabled,
-                    textStyle = LocalTextStyle.current.copy(
-                        color = MaterialTheme.colorScheme.onBackground
-                    ),
+                    textStyle = textStyle,
                     keyboardOptions = keyboardOptions,
                     singleLine = singleLine,
                     modifier = Modifier

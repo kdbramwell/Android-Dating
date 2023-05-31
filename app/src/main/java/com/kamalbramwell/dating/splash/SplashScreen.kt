@@ -3,6 +3,7 @@ package com.kamalbramwell.dating.splash
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -33,10 +34,14 @@ fun SplashScreen(
     onNavigateToHome: () -> Unit = {}
 ) {
     Background()
-    when {
-        uiState.navigateToHome -> onNavigateToHome()
-        uiState.navigateToRegistration -> onNavigateToRegistration()
+
+    LaunchedEffect(uiState.navigateToHome, uiState.navigateToRegistration) {
+        when {
+            uiState.navigateToHome -> onNavigateToHome()
+            uiState.navigateToRegistration -> onNavigateToRegistration()
+        }
     }
+
 }
 
 const val SplashScreenTestTag = "SplashScreen"

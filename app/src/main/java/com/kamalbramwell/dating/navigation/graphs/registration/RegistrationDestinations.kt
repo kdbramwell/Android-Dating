@@ -5,6 +5,7 @@ import com.kamalbramwell.dating.navigation.NavDestination
 enum class Registration : NavDestination {
     Start { override val route = "start" },
     Create { override val route = "create" },
+    Onboarding { override val route = "onboarding" },
     Login { override val route = "login" },
     ForgotPassword { override val route = "reset" };
 
