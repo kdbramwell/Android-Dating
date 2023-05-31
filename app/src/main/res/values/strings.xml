@@ -23,6 +23,10 @@
     <string name="error_already_registered">This account is already registered.</string>
     <string name="error_password_invalid">Password must be 8 characters minimum and include at least 1 number and 1 capital letter.</string>
 
+    <!-- Onboarding -->
+
+    <string name="onboarding_heading">Introduce yourself</string>
+
     <!-- Bottom navigation, TLDs -->
 
     <string name="explore">Explore</string>

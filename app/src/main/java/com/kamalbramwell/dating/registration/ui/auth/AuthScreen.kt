@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.ui
+package com.kamalbramwell.dating.registration.ui.auth
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,6 +24,7 @@ import com.kamalbramwell.dating.ui.components.MaxWidthBorderlessButton
 import com.kamalbramwell.dating.ui.components.MaxWidthButton
 import com.kamalbramwell.dating.utils.UiText
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.kamalbramwell.dating.registration.ui.components.Heading
 import com.kamalbramwell.dating.toast.ui.ErrorToast
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.theme.DatingTheme
@@ -108,22 +109,6 @@ fun AuthScreen(
                 modifier = Modifier.padding(vertical = 8.dp)
             )
         }
-    }
-}
-
-@Composable
-private fun Heading(
-    heading: UiText?,
-    modifier: Modifier = Modifier,
-) {
-    heading?.let {
-        DatingText(
-            heading,
-            modifier,
-            fontSize = 72.sp,
-            style = MaterialTheme.typography.headlineLarge,
-            fontWeight = FontWeight.Bold
-        )
     }
 }
 

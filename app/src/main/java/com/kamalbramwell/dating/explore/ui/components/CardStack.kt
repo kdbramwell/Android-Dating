@@ -70,7 +70,7 @@ fun CardStack(
                 .fillMaxHeight()
         ) {
             items.asReversed().forEachIndexed { index, item ->
-                Card(
+                ProfileCard(
                     modifier = Modifier.moveTo(
                         x = if (index == i) cardStackController.offsetX.value else 0f,
                         y = if (index == i) cardStackController.offsetY.value else 0f

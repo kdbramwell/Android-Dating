@@ -6,9 +6,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.kamalbramwell.dating.navigation.navigateSingleTopTo
-import com.kamalbramwell.dating.registration.ui.AuthScreen
-import com.kamalbramwell.dating.registration.ui.CreateAccountViewModel
-import com.kamalbramwell.dating.registration.ui.LoginViewModel
+import com.kamalbramwell.dating.registration.ui.auth.AuthScreen
+import com.kamalbramwell.dating.registration.ui.auth.CreateAccountViewModel
+import com.kamalbramwell.dating.registration.ui.auth.LoginViewModel
 import com.kamalbramwell.dating.registration.ui.StartScreen
 
 fun NavGraphBuilder.registrationGraph(navController: NavController) {

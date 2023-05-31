@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.ui
+package com.kamalbramwell.dating.registration.ui.auth
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel

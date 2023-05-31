@@ -2,6 +2,8 @@ package com.kamalbramwell.dating.registration.ui
 
 import androidx.compose.ui.text.input.TextFieldValue
 import com.kamalbramwell.dating.registration.data.AuthUseCase
+import com.kamalbramwell.dating.registration.ui.auth.AuthViewModel
+import com.kamalbramwell.dating.registration.ui.auth.LoginViewModel
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*

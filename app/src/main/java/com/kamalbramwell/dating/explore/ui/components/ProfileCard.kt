@@ -27,7 +27,7 @@ import com.kamalbramwell.dating.explore.ui.model.Item
 
 
 @Composable
-fun Card(
+fun ProfileCard(
     modifier: Modifier = Modifier,
     item: Item,
     cardStackController: CardStackController
