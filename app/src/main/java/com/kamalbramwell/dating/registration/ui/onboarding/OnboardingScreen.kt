@@ -96,7 +96,6 @@ fun OnboardingScreen(
 
         Row {
             BackButton(
-                modifier = Modifier.padding(8.dp),
                 enabled = backEnabled,
                 onClick = {
                       coroutineScope.launch {
@@ -109,7 +108,6 @@ fun OnboardingScreen(
             Spacer(Modifier.weight(1f))
 
             NextButton(
-                modifier = Modifier.padding(8.dp),
                 enabled = uiState.nextEnabled,
                 onClick = {
                     coroutineScope.launch {

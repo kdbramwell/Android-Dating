@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
@@ -102,23 +103,19 @@ fun AuthScreen(
 
         Column(
             Modifier.weight(1F),
-            verticalArrangement = Arrangement.Bottom
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row {
-                CancelButton(
-                    onClick = onCancelClicked,
-                    modifier = Modifier.padding(vertical = 8.dp)
-                )
+                CancelButton(onClick = onCancelClicked,)
 
                 Spacer(Modifier.weight(1F))
 
                 ContinueButton(
                     onClick = onNextClicked,
                     enabled = nextButtonEnabled,
-                    modifier = Modifier.padding(vertical = 8.dp)
                 )
             }
-
         }
     }
 }
@@ -197,6 +194,7 @@ private fun CancelButton(
 ) {
     BackButton(
         modifier = modifier,
+        enabled = true,
         onClick = onClick
     )
 }
