@@ -28,7 +28,7 @@ const val AccountRegistrationTestTag = "AccountRegistration"
 
 @Composable
 fun CreateAccountScreen(
-    viewModel: RegistrationViewModel = viewModel(),
+    viewModel: AuthViewModel = viewModel(),
     onNavigateNext: () -> Unit = {},
     onCancelClicked: () -> Unit = {},
 ) {

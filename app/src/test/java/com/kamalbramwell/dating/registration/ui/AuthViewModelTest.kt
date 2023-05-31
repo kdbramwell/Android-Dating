@@ -1,19 +1,29 @@
 package com.kamalbramwell.dating.registration.ui
 
 import androidx.compose.ui.text.input.TextFieldValue
+import com.kamalbramwell.dating.registration.data.AuthUseCase
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
-class RegistrationViewModelTest {
+class AuthViewModelTest {
 
     private val testInput = "helloworld"
-    private lateinit var viewModel: RegistrationViewModel
+    private lateinit var viewModel: AuthViewModel
+
+    private val dummyUseCase = object : AuthUseCase {
+        override suspend fun submit(account: String, password: String): Result<Boolean> =
+            Result.success(true)
+    }
 
     @Before
     fun setUp() {
-        viewModel = RegistrationViewModel()
+        viewModel = AuthViewModel(
+            dummyUseCase,
+            UnconfinedTestDispatcher()
+        )
     }
 
     @Test
