@@ -13,11 +13,14 @@
     <string name="registration_phone_registration_cta">Register with phone</string>
     <string name="registration_already_registered_cta">Already have an account?</string>
     <string name="registration_email_or_phone_label">Enter email address or phone number</string>
-    <string name="registration_password_label">Create a password</string>
+    <string name="registration_password_label">Enter password</string>
     <string name="registration_next">@string/next</string>
     <string name="registration_back">@string/back</string>
     <string name="registration_create_account_heading">Nice to meet you!</string>
     <string name="registration_login_heading">Welcome back!</string>
+
+    <string name="registration_a11y_show_password">Show password</string>
+    <string name="registration_a11y_hide_password">Hide password</string>
 
     <string name="error_email_or_phone_invalid">Enter a valid email or phone number.</string>
     <string name="error_already_registered">This account is already registered.</string>
