@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
 interface AuthDataSource {
     val isLoggedIn: Flow<Boolean>
@@ -36,6 +37,7 @@ interface AuthDataSource {
 /**
  * Uses [DataStore] to persist account data.
  */
+@Singleton
 class LocalAuthDataSource @Inject constructor(
     @ApplicationContext private val context: Context,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
