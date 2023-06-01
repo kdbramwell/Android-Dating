@@ -161,38 +161,29 @@ private fun QuestionItem(
 ) {
     var response by remember { mutableStateOf(item.response) }
 
-    Surface(
-        modifier = modifier
-            .aspectRatio(1f)
-            .padding(32.dp)
-            .zIndex(1f),
-        shadowElevation = defaultShadowElevation,
-        shape = MaterialTheme.shapes.extraLarge
+    Column(
+        modifier = modifier.fillMaxSize().padding(16.dp),
+        verticalArrangement = Arrangement.Center
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.tertiary),
-            verticalArrangement = Arrangement.Center
-        ) {
-            DatingText(
-                text = item.prompt,
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(16.dp)
-            )
+        DatingText(
+            text = item.prompt,
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier.padding(8.dp)
+        )
 
-            InputField(
-                textFieldValue = response,
-                onTextChanged = {
-                    onInput(it)
-                    response = it
-                },
-                textStyle = LocalTextStyle.current.copy(
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onBackground
-                ),
-                placeholder = UiText.DynamicString("Your name"),
-                modifier = Modifier.padding(16.dp),
-            )
-        }
+        InputField(
+            textFieldValue = response,
+            onTextChanged = {
+                onInput(it)
+                response = it
+            },
+            textStyle = LocalTextStyle.current.copy(
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onBackground
+            ),
+            placeholder = UiText.DynamicString("Your name"),
+            modifier = Modifier.padding(8.dp),
+        )
     }
 }
 
