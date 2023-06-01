@@ -1,8 +1,8 @@
 package com.kamalbramwell.dating.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -10,16 +10,22 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import com.kamalbramwell.dating.R
-import com.kamalbramwell.dating.ui.theme.defaultShadowElevation
+import com.kamalbramwell.dating.ui.theme.magenta
+import com.kamalbramwell.dating.ui.theme.orange
 import com.kamalbramwell.dating.utils.UiText
+
+@Composable
+fun rememberBackGroundGradient(): Brush = remember {
+    Brush.horizontalGradient(listOf(orange, magenta))
+}
 
 @Composable
 fun MaxWidthButton(
@@ -28,12 +34,18 @@ fun MaxWidthButton(
     enabled: Boolean = true,
     onClick: () -> Unit = {},
 ) {
+    val brush = rememberBackGroundGradient()
     Button(
         onClick = onClick,
-        modifier = modifier.fillMaxWidth().zIndex(1f),
+        modifier = modifier
+            .fillMaxWidth()
+            .background(
+                brush, MaterialTheme.shapes.large
+            ),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
         enabled = enabled,
     ) {
-        Text(text = label.asString())
+        DatingText(text = label)
     }
 }
 
@@ -46,10 +58,10 @@ fun MaxWidthBorderlessButton(
 ) {
     TextButton(
         onClick = onClick,
-        modifier = modifier.fillMaxWidth().zIndex(1f),
+        modifier = modifier.fillMaxWidth(),
         enabled = enabled,
     ) {
-        Text(text = label.asString())
+        DatingText(text = label)
     }
 }
 
@@ -61,14 +73,7 @@ fun BackButton(
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier
-            .size(64.dp)
-            .zIndex(1f)
-            .shadow(
-                elevation = defaultShadowElevation,
-                shape = CircleShape
-            ),
-        shape = CircleShape,
+        modifier = modifier.size(64.dp),
         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.outline),
         enabled =  enabled
     ) {
@@ -87,14 +92,7 @@ fun NextButton(
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier
-            .size(64.dp)
-            .zIndex(1f)
-            .shadow(
-                elevation = defaultShadowElevation,
-                shape = CircleShape
-            ),
-        shape = CircleShape,
+        modifier = modifier.size(64.dp),
         enabled =  enabled,
     ) {
         Icon(

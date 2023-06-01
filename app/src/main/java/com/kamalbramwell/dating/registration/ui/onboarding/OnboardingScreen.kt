@@ -1,22 +1,18 @@
 package com.kamalbramwell.dating.registration.ui.onboarding
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Card
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -33,7 +29,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kamalbramwell.dating.R
@@ -44,7 +39,6 @@ import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.NextButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
-import com.kamalbramwell.dating.ui.theme.defaultShadowElevation
 import com.kamalbramwell.dating.utils.UiText
 import kotlinx.coroutines.launch
 
@@ -93,6 +87,7 @@ fun OnboardingScreen(
 
         QuestionCards(
             modifier = Modifier.weight(1f),
+            questions = uiState.questions,
             scrollState = listState,
             onResponse = onResponse
         )
@@ -139,7 +134,8 @@ private fun QuestionCards(
         state = scrollState,
         contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(64.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        userScrollEnabled = false
     ) {
         itemsIndexed(items = questions) { index, question ->
             QuestionItem(
@@ -191,7 +187,9 @@ private fun QuestionItem(
 @Composable
 private fun OnboardingScreenPreview() {
     DatingTheme {
-        OnboardingScreen(OnboardingState())
+        OnboardingScreen(
+            OnboardingState(generateSamples())
+        )
     }
 }
 
@@ -199,6 +197,8 @@ private fun OnboardingScreenPreview() {
 @Composable
 private fun OnboardingScreenDarkPreview() {
     DatingTheme(darkTheme = true) {
-        OnboardingScreen(OnboardingState())
+        OnboardingScreen(
+            OnboardingState(generateSamples())
+        )
     }
 }
