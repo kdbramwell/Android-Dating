@@ -61,7 +61,7 @@ fun OnboardingScreen(
     )
 
     LaunchedEffect(uiState.navigateToNext) {
-        onNavigateNext()
+        if (uiState.navigateToNext) onNavigateNext()
     }
 }
 
