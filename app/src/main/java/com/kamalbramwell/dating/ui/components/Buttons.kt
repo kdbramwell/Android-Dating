@@ -14,8 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.kamalbramwell.dating.R
+import com.kamalbramwell.dating.ui.theme.defaultShadowElevation
 import com.kamalbramwell.dating.utils.UiText
 
 @Composable
@@ -27,7 +30,7 @@ fun MaxWidthButton(
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().zIndex(1f),
         enabled = enabled,
     ) {
         Text(text = label.asString())
@@ -43,7 +46,7 @@ fun MaxWidthBorderlessButton(
 ) {
     TextButton(
         onClick = onClick,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().zIndex(1f),
         enabled = enabled,
     ) {
         Text(text = label.asString())
@@ -58,7 +61,13 @@ fun BackButton(
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier.size(64.dp),
+        modifier = modifier
+            .size(64.dp)
+            .zIndex(1f)
+            .shadow(
+                elevation = defaultShadowElevation,
+                shape = CircleShape
+            ),
         shape = CircleShape,
         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.outline),
         enabled =  enabled
@@ -78,9 +87,15 @@ fun NextButton(
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier.size(64.dp),
+        modifier = modifier
+            .size(64.dp)
+            .zIndex(1f)
+            .shadow(
+                elevation = defaultShadowElevation,
+                shape = CircleShape
+            ),
         shape = CircleShape,
-        enabled =  enabled
+        enabled =  enabled,
     ) {
         Icon(
             imageVector = Icons.Filled.ArrowForward,

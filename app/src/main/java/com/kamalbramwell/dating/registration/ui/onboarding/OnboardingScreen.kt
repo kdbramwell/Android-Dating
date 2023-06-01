@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Card
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -32,6 +33,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kamalbramwell.dating.R
@@ -42,6 +44,7 @@ import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.NextButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
+import com.kamalbramwell.dating.ui.theme.defaultShadowElevation
 import com.kamalbramwell.dating.utils.UiText
 import kotlinx.coroutines.launch
 
@@ -77,7 +80,7 @@ fun OnboardingScreen(
         derivedStateOf { listState.firstVisibleItemIndex > 0 }
     }
     val completed by remember {
-        derivedStateOf { listState.firstVisibleItemIndex >= uiState.questions.size }
+        derivedStateOf { listState.firstVisibleItemIndex >= uiState.questions.size -1 }
     }
 
     Column(
@@ -158,16 +161,16 @@ private fun QuestionItem(
 ) {
     var response by remember { mutableStateOf(item.response) }
 
-    Card(
+    Surface(
         modifier = modifier
             .aspectRatio(1f)
-            .padding(32.dp),
+            .padding(32.dp)
+            .zIndex(1f),
+        shadowElevation = defaultShadowElevation,
         shape = MaterialTheme.shapes.extraLarge
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.primary),
+            modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.tertiary),
             verticalArrangement = Arrangement.Center
         ) {
             DatingText(

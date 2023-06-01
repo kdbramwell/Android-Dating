@@ -49,7 +49,7 @@ class OnboardingViewModel : ViewModel() {
 
     fun onComplete() {
         _uiState.update {
-            it.copy(isLoading = true)
+            it.copy(navigateToNext = true)
         }
     }
 }
