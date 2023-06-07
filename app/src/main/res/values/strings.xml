@@ -29,6 +29,7 @@
     <!-- Onboarding -->
 
     <string name="onboarding_heading">Introduce yourself</string>
+    <string name="onboarding_multiple_choice_label">Select up to %d.</string>
 
     <!-- Bottom navigation, TLDs -->
 

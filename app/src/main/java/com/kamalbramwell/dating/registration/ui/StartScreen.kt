@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.registration.data.StockImageDataSource
+import com.kamalbramwell.dating.registration.ui.components.Heading
 import com.kamalbramwell.dating.ui.components.MaxWidthBorderlessButton
 import com.kamalbramwell.dating.ui.components.MaxWidthButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
@@ -41,10 +42,14 @@ fun StartScreen(
         )
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(8.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Title(Modifier.weight(1f))
+            
             EmailRegistrationButton(onEmailRegistrationClicked)
 
             Spacer(Modifier.size(16.dp))
@@ -56,6 +61,16 @@ fun StartScreen(
             AlreadyRegisteredButton(onAlreadyRegisteredClicked)
         }
     }
+}
+
+@Composable
+private fun Title(
+    modifier: Modifier = Modifier
+) {
+    Heading(
+        text = UiText.DynamicString("Not Another Dating App"),
+        modifier = modifier
+    )
 }
 
 @Composable

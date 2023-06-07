@@ -8,27 +8,37 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 data class OnboardingState(
-    val questions: List<ProfileQuestion> = listOf(),
+    val questions: List<Question> = listOf(),
     val isLoading: Boolean = false,
     val nextEnabled: Boolean = false,
     val navigateToNext: Boolean = false,
 )
 
 private val sampleQuestions = listOf(
-    "What's your first name?",
-    "What's your last name?",
+    "What's your name?",
     "When were you born?",
+    "How do you identify?",
+    "What are you looking for?",
+    "Where are you located?",
     "What's your personality type?",
+    "What are your interests?"
 )
 
-fun generateSamples(): List<ProfileQuestion> = sampleQuestions.map {
-    ProfileQuestion(UiText.DynamicString(it))
+fun generateSamples(): List<Question> = sampleQuestions.map {
+    ShortResponseQuestion(UiText.DynamicString(it))
 }
 
-data class ProfileQuestion(
-    val prompt: UiText,
-    val response: TextFieldValue = TextFieldValue()
-)
+data class ShortResponseQuestion(
+    override val prompt: UiText,
+    override val response: TextFieldValue = TextFieldValue()
+) : ShortResponse
+
+data class MultipleChoiceQuestion(
+    override val prompt: UiText,
+    override val options: List<MultipleChoiceOption>,
+    override val maxSelections: Int,
+    override val minSelections: Int
+) : MultipleChoice
 
 class OnboardingViewModel : ViewModel() {
 
@@ -38,13 +48,17 @@ class OnboardingViewModel : ViewModel() {
     val uiState = _uiState.asStateFlow()
 
     fun onResponse(index: Int, value: TextFieldValue) {
-        questions[index] = questions[index].copy(response = value)
-        _uiState.update {
-            it.copy(
-                questions = questions,
-                nextEnabled = value.text.isNotEmpty()
-            )
-        }
+//        questions[index] = questions[index].copy(response = value)
+//        _uiState.update {
+//            it.copy(
+//                questions = questions,
+//                nextEnabled = value.text.isNotEmpty()
+//            )
+//        }
+    }
+
+    fun onChoiceClicked(index: Int, option: MultipleChoiceOption) {
+
     }
 
     fun onComplete() {

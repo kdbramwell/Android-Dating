@@ -23,7 +23,7 @@ import com.kamalbramwell.dating.ui.theme.orange
 import com.kamalbramwell.dating.utils.UiText
 
 @Composable
-fun rememberBackGroundGradient(): Brush = remember {
+fun rememberBrandGradient(): Brush = remember {
     Brush.horizontalGradient(listOf(orange, magenta))
 }
 
@@ -34,7 +34,7 @@ fun MaxWidthButton(
     enabled: Boolean = true,
     onClick: () -> Unit = {},
 ) {
-    val brush = rememberBackGroundGradient()
+    val brush = rememberBrandGradient()
     Button(
         onClick = onClick,
         modifier = modifier

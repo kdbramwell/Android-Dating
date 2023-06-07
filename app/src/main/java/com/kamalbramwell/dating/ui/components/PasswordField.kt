@@ -101,7 +101,7 @@ private fun SensitiveOutlinedTextInput(
     placeholderColor: Color = MaterialTheme.colorScheme.outline,
     borderColor: Color = MaterialTheme.colorScheme.outline,
     focusedBorderColor: Color = MaterialTheme.colorScheme.primary,
-    backgroundColor: Color = MaterialTheme.colorScheme.background
+    backgroundColor: Color = Color.Unspecified
 ) {
     var lastFocusState by remember { mutableStateOf(false) }
     var textVisible by remember { mutableStateOf(false) }

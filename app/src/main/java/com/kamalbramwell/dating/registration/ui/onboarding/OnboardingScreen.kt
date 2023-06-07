@@ -11,31 +11,26 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.LocalTextStyle
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.registration.ui.components.Heading
+import com.kamalbramwell.dating.registration.ui.components.MultipleChoiceItem
+import com.kamalbramwell.dating.registration.ui.components.ShortResponseItem
 import com.kamalbramwell.dating.ui.components.BackButton
-import com.kamalbramwell.dating.ui.components.DatingText
-import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.NextButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
@@ -54,6 +49,7 @@ fun OnboardingScreen(
     OnboardingScreen(
         uiState,
         viewModel::onResponse,
+        viewModel::onChoiceClicked,
         viewModel::onComplete
     )
 
@@ -66,6 +62,7 @@ fun OnboardingScreen(
 fun OnboardingScreen(
     uiState: OnboardingState = OnboardingState(),
     onResponse: (index: Int, value: TextFieldValue) -> Unit = { _, _ -> },
+    onOptionClick: (index: Int, option: MultipleChoiceOption) -> Unit = { _, _ -> },
     onNavigateNext: () -> Unit = {}
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -85,11 +82,12 @@ fun OnboardingScreen(
     ) {
         Heading(text = UiText.StringResource(R.string.onboarding_heading))
 
-        QuestionCards(
+        ProfileQuestions(
             modifier = Modifier.weight(1f),
             questions = uiState.questions,
             scrollState = listState,
-            onResponse = onResponse
+            onResponseInput = onResponse,
+            onOptionClick = onOptionClick
         )
 
         Row {
@@ -123,11 +121,12 @@ fun OnboardingScreen(
 }
 
 @Composable
-private fun QuestionCards(
+private fun ProfileQuestions(
     modifier: Modifier = Modifier,
-    questions: List<ProfileQuestion> = generateSamples(),
+    questions: List<Question> = generateSamples(),
     scrollState: LazyListState = rememberLazyListState(),
-    onResponse: (index: Int, response: TextFieldValue) -> Unit = { _, _ -> }
+    onResponseInput: (index: Int, response: TextFieldValue) -> Unit = { _, _ -> },
+    onOptionClick: (index: Int, MultipleChoiceOption) -> Unit = { _, _ -> }
 ) {
     LazyRow(
         modifier = modifier,
@@ -138,48 +137,17 @@ private fun QuestionCards(
         userScrollEnabled = false
     ) {
         itemsIndexed(items = questions) { index, question ->
-            QuestionItem(
-                modifier = Modifier.fillParentMaxWidth(1f),
-                item = question,
-                onInput = { response ->
-                    onResponse(index, response)
-                }
-            )
+            when (question) {
+                is ShortResponse -> ShortResponseItem(
+                    item = question,
+                    onInput =  { onResponseInput(index, it) }
+                )
+                is MultipleChoice -> MultipleChoiceItem(
+                    item = question,
+                    onClick = { onOptionClick(index, it) }
+                )
+            }
         }
-    }
-}
-
-@Composable
-private fun QuestionItem(
-    item: ProfileQuestion,
-    modifier: Modifier = Modifier,
-    onInput: (TextFieldValue) -> Unit = {}
-) {
-    var response by remember { mutableStateOf(item.response) }
-
-    Column(
-        modifier = modifier.fillMaxSize().padding(16.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
-        DatingText(
-            text = item.prompt,
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(8.dp)
-        )
-
-        InputField(
-            textFieldValue = response,
-            onTextChanged = {
-                onInput(it)
-                response = it
-            },
-            textStyle = LocalTextStyle.current.copy(
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onBackground
-            ),
-            placeholder = UiText.DynamicString("Your name"),
-            modifier = Modifier.padding(8.dp),
-        )
     }
 }
 

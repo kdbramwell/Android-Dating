@@ -201,7 +201,7 @@ private fun CancelButton(
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun CreateAccountScreenPreview() {
     DatingTheme {
@@ -214,7 +214,7 @@ private fun CreateAccountScreenPreview() {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun CreateAccountScreenPreviewDarkPreview() {
     DatingTheme(darkTheme = true) {
