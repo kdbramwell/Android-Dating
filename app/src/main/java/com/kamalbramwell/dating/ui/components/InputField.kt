@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -171,12 +174,14 @@ private fun OutlinedTextInput(
                     keyboardOptions = keyboardOptions,
                     singleLine = singleLine,
                     modifier = Modifier
+                        .fillMaxWidth()
                         .onFocusChanged { state ->
                             if (lastFocusState != state.isFocused) {
                                 onTextFieldFocused(state.isFocused)
                             }
                             lastFocusState = state.isFocused
-                        }.semantics {
+                        }
+                        .semantics {
                             testTag = InputFieldTextFieldTestTag
                         }
                 )
@@ -249,7 +254,14 @@ private fun InputFieldErrorPreview() {
         InputField(
             textFieldValue = testErrorValue,
             placeholder = testPlaceholder,
-            error = testError
+            error = testError,
+            icon = {
+                Icon(
+                    Icons.Default.Info,
+                    contentDescription = "Error icon",
+                    tint = MaterialTheme.colorScheme.error
+                )
+            }
         )
     }
 }
