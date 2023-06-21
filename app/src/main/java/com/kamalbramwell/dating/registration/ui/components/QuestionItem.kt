@@ -22,14 +22,20 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoice
 import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceOption
+import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceQuestion
 import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponse
+import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponseQuestion
+import com.kamalbramwell.dating.registration.ui.onboarding.generateSamples
+import com.kamalbramwell.dating.registration.ui.onboarding.sampleQuestions
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.rememberBrandGradient
+import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
 import com.kamalbramwell.dating.utils.UiText
 
@@ -147,5 +153,39 @@ private fun MultipleChoiceOptionItem(
         )
     ) {
         DatingText(text = option.label)
+    }
+}
+
+/** Preview helpers **/
+
+private val dummyShortResponseQuestion = ShortResponseQuestion(
+    UiText.DynamicString(sampleQuestions.first()),
+    response = TextFieldValue("Kamal Bramwell")
+)
+
+private val dummyMultipleChoiceOptions = listOf("Male", "Female", "Nonbinary").map {
+    MultipleChoiceOption(UiText.DynamicString(it))
+}
+
+private val dummyMultipleChoiceQuestion = MultipleChoiceQuestion(
+    UiText.DynamicString(sampleQuestions[3]),
+    options = dummyMultipleChoiceOptions,
+    maxSelections = 1,
+    minSelections = 1
+)
+
+@Preview(showBackground = true)
+@Composable
+private fun ShortResponseQuestionPreview() {
+    DatingTheme {
+        ShortResponseItem(item = dummyShortResponseQuestion)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MultipleChoiceItemPreview() {
+    DatingTheme {
+        MultipleChoiceItem(item = dummyMultipleChoiceQuestion)
     }
 }

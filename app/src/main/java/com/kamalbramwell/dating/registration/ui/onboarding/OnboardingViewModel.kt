@@ -14,14 +14,12 @@ data class OnboardingState(
     val navigateToNext: Boolean = false,
 )
 
-private val sampleQuestions = listOf(
+val sampleQuestions = listOf(
     "What's your name?",
     "When were you born?",
     "How do you identify?",
     "What are you looking for?",
-    "Where are you located?",
     "What's your personality type?",
-    "What are your interests?"
 )
 
 fun generateSamples(): List<Question> = sampleQuestions.map {
