@@ -2,11 +2,9 @@ package com.kamalbramwell.dating.registration.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LocalTextStyle
@@ -18,9 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,7 +30,6 @@ import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceOption
 import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceQuestion
 import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponse
 import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponseQuestion
-import com.kamalbramwell.dating.registration.ui.onboarding.generateSamples
 import com.kamalbramwell.dating.registration.ui.onboarding.sampleQuestions
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.components.InputField
@@ -57,7 +55,9 @@ fun ShortResponseItem(
         DatingText(
             text = item.prompt,
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(8.dp).align(Alignment.CenterHorizontally)
+            modifier = Modifier
+                .padding(8.dp)
+                .align(Alignment.CenterHorizontally)
         )
 
         InputField(
@@ -91,7 +91,9 @@ fun MultipleChoiceItem(
         DatingText(
             text = item.prompt,
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(8.dp).align(Alignment.CenterHorizontally)
+            modifier = Modifier
+                .padding(8.dp)
+                .align(Alignment.CenterHorizontally)
         )
 
         if (item.maxSelections > 1) {
@@ -104,7 +106,7 @@ fun MultipleChoiceItem(
                 modifier = Modifier.padding(vertical = defaultContentPadding)
             )
         }
-        
+
         OptionsRow(item.options, onClick)
     }
 }
@@ -118,7 +120,9 @@ private fun OptionsRow(
         verticalGap = 8.dp,
         horizontalGap = 8.dp,
         alignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(16.dp).fillMaxWidth()
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
     ) {
         options.forEach {
             MultipleChoiceOptionItem(option = it, onClick = onClick)
@@ -136,17 +140,19 @@ private fun MultipleChoiceOptionItem(
 
     Button(
         onClick = { onClick(option) },
-        modifier = modifier.drawBehind {
-            if (option.isSelected) {
-                drawRoundRect(
-                    brush = brush,
-                    cornerRadius = CornerRadius(8f, 8f)
-                )
-            }
-        },
+        modifier = modifier
+            .clip(ButtonDefaults.shape)
+            .drawBehind {
+                if (option.isSelected) {
+                    drawRoundRect(
+                        brush = brush,
+                        cornerRadius = CornerRadius(64f, 64f)
+                    )
+                }
+            },
         colors = ButtonDefaults.buttonColors(
             containerColor =
-                if (option.isSelected) Color.Transparent
+                if (option.isSelected) Transparent
                 else MaterialTheme.colorScheme.outline
         )
     ) {
@@ -184,6 +190,16 @@ private fun ShortResponseQuestionPreview() {
 @Composable
 private fun MultipleChoiceItemPreview() {
     DatingTheme {
-        MultipleChoiceItem(item = dummyMultipleChoiceQuestion)
+        var question by remember { mutableStateOf(dummyMultipleChoiceQuestion) }
+        MultipleChoiceItem(
+            item = question,
+            onClick = { option ->
+                val clickedOption = option.copy(isSelected = !option.isSelected)
+                val updatedOptions = question.options.map {
+                    if (it == option) clickedOption else it
+                }
+                question = question.copy(options = updatedOptions)
+            }
+        )
     }
 }
