@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -33,9 +34,10 @@ fun StartScreen(
     onPhoneRegistrationClicked: () -> Unit = {},
     onAlreadyRegisteredClicked: () -> Unit = {}
 ) {
+    val resourceId = remember { StockImageDataSource.random() }
     Box(Modifier.semantics { testTag = RegistrationOptionsTestTag }) {
         Image(
-            painter = painterResource(id = StockImageDataSource.random()),
+            painter = painterResource(id = resourceId),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
