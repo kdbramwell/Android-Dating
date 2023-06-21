@@ -34,14 +34,12 @@ fun MaxWidthButton(
     enabled: Boolean = true,
     onClick: () -> Unit = {},
 ) {
-    val brush = rememberBrandGradient()
+    val brandGradient = rememberBrandGradient()
     Button(
         onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
-            .background(
-                brush, MaterialTheme.shapes.large
-            ),
+            .background(brandGradient, MaterialTheme.shapes.large),
         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
         enabled = enabled,
     ) {
