@@ -30,6 +30,7 @@ class SplashScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(dispatcher) {
+            delay(2_000)
             checkLoginStatus()
         }
     }
