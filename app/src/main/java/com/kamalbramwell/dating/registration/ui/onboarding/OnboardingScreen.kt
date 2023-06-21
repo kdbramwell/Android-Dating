@@ -1,23 +1,20 @@
 package com.kamalbramwell.dating.registration.ui.onboarding
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
@@ -48,6 +45,7 @@ fun OnboardingScreen(
 
     OnboardingScreen(
         uiState,
+        rememberPagerState(),
         viewModel::onResponse,
         viewModel::onChoiceClicked,
         viewModel::onComplete
@@ -61,17 +59,17 @@ fun OnboardingScreen(
 @Composable
 fun OnboardingScreen(
     uiState: OnboardingState = OnboardingState(),
+    pagerState: PagerState = rememberPagerState(),
     onResponse: (index: Int, value: TextFieldValue) -> Unit = { _, _ -> },
     onOptionClick: (index: Int, option: MultipleChoiceOption) -> Unit = { _, _ -> },
     onNavigateNext: () -> Unit = {}
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val listState = rememberLazyListState()
     val backEnabled by remember {
-        derivedStateOf { listState.firstVisibleItemIndex > 0 }
+        derivedStateOf { pagerState.currentPage > 0 }
     }
     val completed by remember {
-        derivedStateOf { listState.firstVisibleItemIndex >= uiState.questions.size -1 }
+        derivedStateOf { pagerState.currentPage >= uiState.questions.size -1 }
     }
 
     Column(
@@ -85,7 +83,7 @@ fun OnboardingScreen(
         ProfileQuestions(
             modifier = Modifier.weight(1f),
             questions = uiState.questions,
-            scrollState = listState,
+            pagerState = pagerState,
             onResponseInput = onResponse,
             onOptionClick = onOptionClick
         )
@@ -95,8 +93,7 @@ fun OnboardingScreen(
                 enabled = backEnabled,
                 onClick = {
                       coroutineScope.launch {
-                          val currentIndex = listState.firstVisibleItemIndex
-                          listState.animateScrollToItem(currentIndex - 1)
+                          pagerState.scrollToPage(pagerState.currentPage -1)
                       }
                 },
             )
@@ -107,12 +104,8 @@ fun OnboardingScreen(
                 enabled = uiState.nextEnabled,
                 onClick = {
                     coroutineScope.launch {
-                        val currentIndex = listState.firstVisibleItemIndex
-                        if (completed) {
-                            onNavigateNext()
-                        } else {
-                            listState.animateScrollToItem(currentIndex + 1)
-                        }
+                        if (completed) onNavigateNext()
+                        else pagerState.scrollToPage(pagerState.currentPage + 1)
                     }
                 }
             )
@@ -124,29 +117,26 @@ fun OnboardingScreen(
 private fun ProfileQuestions(
     modifier: Modifier = Modifier,
     questions: List<Question> = generateSamples(),
-    scrollState: LazyListState = rememberLazyListState(),
+    pagerState: PagerState = rememberPagerState(),
     onResponseInput: (index: Int, response: TextFieldValue) -> Unit = { _, _ -> },
     onOptionClick: (index: Int, MultipleChoiceOption) -> Unit = { _, _ -> }
 ) {
-    LazyRow(
-        modifier = modifier,
-        state = scrollState,
+    HorizontalPager(
+        pageCount = questions.size,
         contentPadding = PaddingValues(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(64.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        userScrollEnabled = false
-    ) {
-        itemsIndexed(items = questions) { index, question ->
-            when (question) {
-                is ShortResponse -> ShortResponseItem(
-                    item = question,
-                    onInput =  { onResponseInput(index, it) }
-                )
-                is MultipleChoice -> MultipleChoiceItem(
-                    item = question,
-                    onClick = { onOptionClick(index, it) }
-                )
-            }
+        state = pagerState,
+        userScrollEnabled = false,
+        modifier = modifier
+    ) { index ->
+        when (val question = questions[index]) {
+            is ShortResponse -> ShortResponseItem(
+                item = question,
+                onInput =  { onResponseInput(index, it) }
+            )
+            is MultipleChoice -> MultipleChoiceItem(
+                item = question,
+                onClick = { onOptionClick(index, it) }
+            )
         }
     }
 }

@@ -162,16 +162,16 @@ private fun MultipleChoiceOptionItem(
 
 /** Preview helpers **/
 
-private val dummyShortResponseQuestion = ShortResponseQuestion(
+val dummyShortResponseQuestion = ShortResponseQuestion(
     UiText.DynamicString(sampleQuestions.first()),
     response = TextFieldValue("Kamal Bramwell")
 )
 
-private val dummyMultipleChoiceOptions = listOf("Male", "Female", "Nonbinary").map {
+val dummyMultipleChoiceOptions = listOf("Male", "Female", "Nonbinary").map {
     MultipleChoiceOption(UiText.DynamicString(it))
 }
 
-private val dummyMultipleChoiceQuestion = MultipleChoiceQuestion(
+val dummyMultipleChoiceQuestion = MultipleChoiceQuestion(
     UiText.DynamicString(sampleQuestions[3]),
     options = dummyMultipleChoiceOptions,
     maxSelections = 1,
