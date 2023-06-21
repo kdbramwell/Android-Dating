@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
@@ -56,7 +57,7 @@ fun ShortResponseItem(
         DatingText(
             text = item.prompt,
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp).align(Alignment.CenterHorizontally)
         )
 
         InputField(
@@ -90,23 +91,20 @@ fun MultipleChoiceItem(
         DatingText(
             text = item.prompt,
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp).align(Alignment.CenterHorizontally)
         )
 
         if (item.maxSelections > 1) {
-            Spacer(Modifier.size(defaultContentPadding))
-
             DatingText(
                 text = UiText.StringResource(
                     R.string.onboarding_multiple_choice_label,
                     item.maxSelections
                 ),
-                style = MaterialTheme.typography.labelMedium
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(vertical = defaultContentPadding)
             )
         }
-
-        Spacer(Modifier.size(defaultContentPadding))
-
+        
         OptionsRow(item.options, onClick)
     }
 }
@@ -120,7 +118,7 @@ private fun OptionsRow(
         verticalGap = 8.dp,
         horizontalGap = 8.dp,
         alignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp).fillMaxWidth()
     ) {
         options.forEach {
             MultipleChoiceOptionItem(option = it, onClick = onClick)
