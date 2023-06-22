@@ -29,13 +29,13 @@ import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoice
 import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceOption
 import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceQuestion
 import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponse
-import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponseQuestion
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.rememberBrandGradient
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
-import com.kamalbramwell.dating.user.data.sampleSrQuestions
+import com.kamalbramwell.dating.user.data.generateMCSamples
+import com.kamalbramwell.dating.user.data.generateShortResponseSamples
 import com.kamalbramwell.dating.utils.UiText
 
 @Composable
@@ -160,29 +160,11 @@ private fun MultipleChoiceOptionItem(
     }
 }
 
-/** Preview helpers **/
-
-val dummyShortResponseQuestion = ShortResponseQuestion(
-    UiText.DynamicString(sampleSrQuestions.first()),
-    response = TextFieldValue("Kamal Bramwell")
-)
-
-val dummyMultipleChoiceOptions = listOf("Male", "Female", "Nonbinary").map {
-    MultipleChoiceOption(UiText.DynamicString(it))
-}
-
-val dummyMultipleChoiceQuestion = MultipleChoiceQuestion(
-    UiText.DynamicString(sampleSrQuestions[3]),
-    options = dummyMultipleChoiceOptions,
-    maxSelections = 1,
-    minSelections = 1
-)
-
 @Preview(showBackground = true)
 @Composable
 private fun ShortResponseQuestionPreview() {
     DatingTheme {
-        ShortResponseItem(item = dummyShortResponseQuestion)
+        ShortResponseItem(item = generateShortResponseSamples().random())
     }
 }
 
@@ -190,7 +172,9 @@ private fun ShortResponseQuestionPreview() {
 @Composable
 private fun MultipleChoiceItemPreview() {
     DatingTheme {
-        var question by remember { mutableStateOf(dummyMultipleChoiceQuestion) }
+        var question by remember {
+            mutableStateOf(generateMCSamples().random())
+        }
         MultipleChoiceItem(
             item = question,
             onClick = { option ->
@@ -198,7 +182,9 @@ private fun MultipleChoiceItemPreview() {
                 val updatedOptions = question.options.map {
                     if (it == option) clickedOption else it
                 }
-                question = question.copy(options = updatedOptions)
+                (question as? MultipleChoiceQuestion)?.let {
+                    question = it.copy(options = updatedOptions)
+                }
             }
         )
     }

@@ -13,7 +13,7 @@ interface UserProfileDataSource {
     val profileQuestions: List<Question>
 }
 
-val sampleSrQuestions = listOf(
+private val sampleSrQuestions = listOf(
     "What's your name?",
     "When were you born?",
 )
@@ -22,13 +22,13 @@ fun generateShortResponseSamples(): List<ShortResponse> = sampleSrQuestions.map 
     ShortResponseQuestion(UiText.DynamicString(it))
 }
 
-val sampleMcQuestions = listOf(
+private val sampleMcQuestions = listOf(
     "How do you identify",
     "What are you looking for",
     "Whats your personality type",
 )
 
-val sampleMcOptions = listOf(
+private val sampleMcOptions = listOf(
     listOf("Male", "Female", "Non Binary"),
     listOf(
         "Friends",

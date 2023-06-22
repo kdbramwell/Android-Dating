@@ -11,13 +11,12 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kamalbramwell.dating.R
-import com.kamalbramwell.dating.registration.ui.components.dummyMultipleChoiceQuestion
-import com.kamalbramwell.dating.registration.ui.components.dummyShortResponseQuestion
 import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceOption
 import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingScreen
 import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingState
-import com.kamalbramwell.dating.registration.ui.onboarding.generateShortResponseSamples
 import com.kamalbramwell.dating.ui.components.InputFieldTextFieldTestTag
+import com.kamalbramwell.dating.user.data.generateMCSamples
+import com.kamalbramwell.dating.user.data.generateShortResponseSamples
 import com.kamalbramwell.dating.utils.ComposeTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -47,7 +46,7 @@ class OnboardingScreenTest : ComposeTest() {
 
     @Test
     fun shortResponseInput_providesQuestionIndexAndResponse() {
-        val dummyQuestion = dummyShortResponseQuestion.copy(response = TextFieldValue())
+        val dummyQuestion = generateShortResponseSamples().random()
         val testState = OnboardingState(questions = List(2) { dummyQuestion })
         val startIndex = 1
         val testInput = "hello world"
@@ -77,7 +76,7 @@ class OnboardingScreenTest : ComposeTest() {
     @Test
     fun clickMultipleChoiceOption_providesQuestionIndexAndSelectedOption() {
         val context = InstrumentationRegistry.getInstrumentation().context
-        val dummyQuestion = dummyMultipleChoiceQuestion
+        val dummyQuestion = generateMCSamples().random()
         val testState = OnboardingState(questions = List(2) { dummyQuestion })
         val startIndex = 1
 
@@ -94,11 +93,11 @@ class OnboardingScreenTest : ComposeTest() {
                 }
             )
         }
-        composeTestRule.onAllNodesWithText(dummyMultipleChoiceQuestion.options.first().label.asString(context))
+        composeTestRule.onAllNodesWithText(dummyQuestion.options.first().label.asString(context))
             .onLast()
             .performClick()
 
         assertEquals(startIndex, receivedIndex)
-        assertEquals(dummyMultipleChoiceQuestion.options.first(), receivedOption)
+        assertEquals(dummyQuestion.options.first(), receivedOption)
     }
 }
