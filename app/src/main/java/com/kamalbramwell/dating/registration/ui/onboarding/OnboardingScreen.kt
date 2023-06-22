@@ -31,6 +31,7 @@ import com.kamalbramwell.dating.ui.components.BackButton
 import com.kamalbramwell.dating.ui.components.NextButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
+import com.kamalbramwell.dating.user.data.generateShortResponseSamples
 import com.kamalbramwell.dating.utils.UiText
 import kotlinx.coroutines.launch
 
@@ -116,7 +117,7 @@ fun OnboardingScreen(
 @Composable
 private fun ProfileQuestions(
     modifier: Modifier = Modifier,
-    questions: List<Question> = generateSamples(),
+    questions: List<Question> = generateShortResponseSamples(),
     pagerState: PagerState = rememberPagerState(),
     onResponseInput: (index: Int, response: TextFieldValue) -> Unit = { _, _ -> },
     onOptionClick: (index: Int, MultipleChoiceOption) -> Unit = { _, _ -> }
@@ -146,7 +147,7 @@ private fun ProfileQuestions(
 private fun OnboardingScreenPreview() {
     DatingTheme {
         OnboardingScreen(
-            OnboardingState(generateSamples())
+            OnboardingState(generateShortResponseSamples())
         )
     }
 }
@@ -156,7 +157,7 @@ private fun OnboardingScreenPreview() {
 private fun OnboardingScreenDarkPreview() {
     DatingTheme(darkTheme = true) {
         OnboardingScreen(
-            OnboardingState(generateSamples())
+            OnboardingState(generateShortResponseSamples())
         )
     }
 }

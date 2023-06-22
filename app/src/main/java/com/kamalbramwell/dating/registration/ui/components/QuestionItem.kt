@@ -30,12 +30,12 @@ import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceOption
 import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceQuestion
 import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponse
 import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponseQuestion
-import com.kamalbramwell.dating.registration.ui.onboarding.sampleQuestions
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.rememberBrandGradient
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
+import com.kamalbramwell.dating.user.data.sampleSrQuestions
 import com.kamalbramwell.dating.utils.UiText
 
 @Composable
@@ -163,7 +163,7 @@ private fun MultipleChoiceOptionItem(
 /** Preview helpers **/
 
 val dummyShortResponseQuestion = ShortResponseQuestion(
-    UiText.DynamicString(sampleQuestions.first()),
+    UiText.DynamicString(sampleSrQuestions.first()),
     response = TextFieldValue("Kamal Bramwell")
 )
 
@@ -172,7 +172,7 @@ val dummyMultipleChoiceOptions = listOf("Male", "Female", "Nonbinary").map {
 }
 
 val dummyMultipleChoiceQuestion = MultipleChoiceQuestion(
-    UiText.DynamicString(sampleQuestions[3]),
+    UiText.DynamicString(sampleSrQuestions[3]),
     options = dummyMultipleChoiceOptions,
     maxSelections = 1,
     minSelections = 1

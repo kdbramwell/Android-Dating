@@ -16,7 +16,7 @@ import com.kamalbramwell.dating.registration.ui.components.dummyShortResponseQue
 import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceOption
 import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingScreen
 import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingState
-import com.kamalbramwell.dating.registration.ui.onboarding.generateSamples
+import com.kamalbramwell.dating.registration.ui.onboarding.generateShortResponseSamples
 import com.kamalbramwell.dating.ui.components.InputFieldTextFieldTestTag
 import com.kamalbramwell.dating.utils.ComposeTest
 import org.junit.Assert.assertEquals
@@ -26,7 +26,7 @@ class OnboardingScreenTest : ComposeTest() {
 
     @Test
     fun backButton_noPreviousQuestions_isDisabled() {
-        val testState = OnboardingState(questions = generateSamples())
+        val testState = OnboardingState(questions = generateShortResponseSamples())
         composeTestRule.setContent {
             OnboardingScreen(testState)
         }
@@ -36,7 +36,7 @@ class OnboardingScreenTest : ComposeTest() {
     @Test
     fun nextButton_observesOnboardingState() {
         val testState = OnboardingState(
-            questions = generateSamples(),
+            questions = generateShortResponseSamples(),
             nextEnabled = true
         )
         composeTestRule.setContent {
