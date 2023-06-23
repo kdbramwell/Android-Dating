@@ -2,16 +2,21 @@ package com.kamalbramwell.dating.registration.ui.onboarding
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
-import com.kamalbramwell.dating.user.data.DummyUserProfileDataSource
+import androidx.lifecycle.viewModelScope
+import com.kamalbramwell.dating.di.IoDispatcher
 import com.kamalbramwell.dating.user.data.UserProfileDataSource
 import com.kamalbramwell.dating.utils.UiText
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class OnboardingState(
     val questions: List<Question> = listOf(),
     val isLoading: Boolean = false,
+    val submissionError: UiText? = null,
     val navigateToNext: Boolean = false,
 )
 
@@ -33,8 +38,9 @@ data class MultipleChoiceQuestion(
         get() = options.any { it.isSelected }
 }
 
-class OnboardingViewModel(
-    dataSource: UserProfileDataSource = DummyUserProfileDataSource()
+class OnboardingViewModel @Inject constructor(
+    private val dataSource: UserProfileDataSource,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ): ViewModel() {
 
     private val questions = dataSource.profileQuestions.toMutableList()
@@ -70,7 +76,23 @@ class OnboardingViewModel(
 
     fun onSubmit() {
         _uiState.update {
-            it.copy(navigateToNext = true)
+            it.copy(isLoading = true, submissionError = null)
+        }
+
+        viewModelScope.launch(dispatcher) {
+            val result = dataSource.submit(questions)
+            if (result.isSuccess) {
+                _uiState.update { it.copy(navigateToNext = true, isLoading = false) }
+            } else {
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        submissionError = UiText.DynamicString(
+                            result.exceptionOrNull()?.message ?: "Please try again"
+                        )
+                    )
+                }
+            }
         }
     }
 }
