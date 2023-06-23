@@ -13,7 +13,6 @@ import com.kamalbramwell.dating.utils.UiText
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Singleton
 
 interface UserProfileDataSource {
     val profileQuestions: List<Question>
@@ -70,16 +69,17 @@ fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> = sampleM
     )
 }
 
-@Singleton
-class DummyUserProfileDataSource constructor(
-    val shortResponse: Boolean = false,
-    val multipleChoice: Boolean =  false,
-    val answered: Boolean = false,
-    val dispatcher: CoroutineDispatcher = Dispatchers.IO
+class DummyUserProfileDataSource(
+    private val shortResponse: Boolean = false,
+    private val multipleChoice: Boolean =  false,
+    private val both: Boolean = false,
+    private val answered: Boolean = false,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserProfileDataSource {
 
     override val profileQuestions: List<Question> by lazy {
         when {
+            both -> generateShortResponseSamples(answered) + generateMCSamples(answered)
             shortResponse -> generateShortResponseSamples(answered)
             multipleChoice -> generateMCSamples(answered)
             else -> listOf()
