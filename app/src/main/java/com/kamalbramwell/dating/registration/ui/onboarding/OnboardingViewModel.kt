@@ -17,6 +17,7 @@ import javax.inject.Inject
 data class OnboardingState(
     val questions: List<Question> = listOf(),
     val isLoading: Boolean = false,
+    val validationError: UiText? = null,
     val submissionError: UiText? = null,
     val navigateToNext: Boolean = false,
 )
@@ -50,6 +51,9 @@ class OnboardingViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(OnboardingState(questions))
     val uiState = _uiState.asStateFlow()
 
+    private val blankInputError = UiText.DynamicString("Cannot be blank")
+    private fun ShortResponseQuestion.isBlank() = response.text.isBlank()
+
     fun onResponse(index: Int, value: TextFieldValue) {
         val question = questions[index] as? ShortResponseQuestion
         question?.copy(response = value)?.let { answeredQuestion ->
@@ -59,23 +63,33 @@ class OnboardingViewModel @Inject constructor(
             _uiState.update {
                 it.copy(
                     questions = questions,
-                    navigateToNext = index == questions.size-1
+                    navigateToNext = index == questions.size-1,
+                    validationError = if (answeredQuestion.isBlank()) blankInputError else null
                 )
             }
         }
     }
 
+    private val maxOptionsExceededError = UiText.DynamicString("Too many options selected")
+    private fun MultipleChoice.isOverLimit() = options.filter { it.isSelected }.size > maxSelections
+
     fun onChoiceClicked(index: Int, option: MultipleChoiceOption) {
         (questions[index] as? MultipleChoiceQuestion)?.let { question ->
             val updatedOptions = question.options.map {
-                if (it == option) it.copy(isSelected = !it.isSelected)
-                else it
+                when {
+                    it == option -> it.copy(isSelected = !it.isSelected)
+                    question.maxSelections == 1 -> it.copy(isSelected = false)
+                    else -> it
+                }
             }
             questions = questions.mapIndexed { idx, q ->
                 if (idx == index) question.copy(options = updatedOptions) else q
             }
             _uiState.update {
-                it.copy(questions = questions)
+                it.copy(
+                    questions = questions,
+                    validationError = if (question.isOverLimit()) maxOptionsExceededError else null
+                )
             }
         }
     }

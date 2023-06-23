@@ -13,7 +13,6 @@ import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceOption
 import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingScreen
 import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingState
-import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponse
 import com.kamalbramwell.dating.ui.components.InputFieldTextFieldTestTag
 import com.kamalbramwell.dating.user.data.generateMCSamples
 import com.kamalbramwell.dating.user.data.generateShortResponseSamples
@@ -33,15 +32,22 @@ class OnboardingScreenTest : ComposeTest() {
         withDescription(R.string.back).assertIsNotEnabled()
     }
 
+
+    @Test
+    fun nextButton_hasValidationError_isDisabled() {
+        val testState = OnboardingState(
+            questions = generateShortResponseSamples(answered = true),
+            validationError = UiText.DynamicString("Error")
+        )
+        composeTestRule.setContent {
+            OnboardingScreen(testState)
+        }
+        withDescription(R.string.next).assertIsNotEnabled()
+    }
+
     @Test
     fun nextButton_lastQuestionAnswered_submitsData() {
-        val questions = List(5) {
-            object : ShortResponse {
-                override val prompt: UiText = UiText.DynamicString("Question")
-                override val isAnswered: Boolean = true
-                override val response: TextFieldValue = TextFieldValue("Answer")
-            }
-        }
+        val questions = generateShortResponseSamples(answered = true)
         val testState = OnboardingState(questions)
         var submitted = false
 

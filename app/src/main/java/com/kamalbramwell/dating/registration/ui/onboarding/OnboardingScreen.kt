@@ -70,8 +70,10 @@ fun OnboardingScreen(
     val backEnabled by remember(uiState.questions) {
         derivedStateOf { pagerState.currentPage > 0 }
     }
-    val nextEnabled by remember(uiState.questions) {
-        derivedStateOf { uiState.questions[pagerState.currentPage].isAnswered }
+    val nextEnabled by remember(uiState.questions, uiState.validationError) {
+        derivedStateOf {
+            uiState.questions[pagerState.currentPage].isAnswered && uiState.validationError == null
+        }
     }
     val completed by remember(uiState.questions)  {
         derivedStateOf { pagerState.currentPage >= uiState.questions.size -1 }
