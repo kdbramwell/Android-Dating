@@ -25,8 +25,8 @@ interface UserProfileDataSource {
 }
 
 private val sampleSrQuestions = listOf(
-    "What's your name?",
-    "When were you born?",
+    "What's your name? 👋",
+    "When were you born? 🗓️",
 )
 
 fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse> = sampleSrQuestions.map {
@@ -37,22 +37,22 @@ fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse>
 }
 
 private val sampleMcQuestions = listOf(
-    "How do you identify",
-    "What are you looking for",
-    "Whats your personality type",
+    "How do you identify? 👤",
+    "What are you looking for? 🔎",
+    "Whats your personality type? ✨",
 )
 
 private val sampleMcOptions = listOf(
     listOf("Male", "Female", "Non Binary"),
     listOf(
-        "Friends",
-        "FWB",
-        "Something casual",
-        "Exclusive dating",
-        "Long term relationship",
-        "Wedding bands"
+        "Friends ☺️",
+        "FWB 😏",
+        "Something casual 😘",
+        "Exclusive dating 🥰",
+        "Long term relationship ❤️",
+        "Wedding bands 💍"
     ),
-    Personality.values().map { it.toString() }
+    Personality.values().map { "$it ✨" }
 )
 
 fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> = sampleMcQuestions.mapIndexed { idx, question ->

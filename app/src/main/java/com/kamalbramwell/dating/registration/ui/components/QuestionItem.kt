@@ -65,6 +65,7 @@ fun ShortResponseItem(
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground
             ),
+            error = item.validationError,
             modifier = Modifier.padding(8.dp),
         )
     }
@@ -96,6 +97,9 @@ fun MultipleChoiceItem(
                     R.string.onboarding_multiple_choice_label,
                     item.maxSelections
                 ),
+                color = if (item.validationError == null) {
+                    MaterialTheme.colorScheme.onBackground
+                } else MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier.padding(vertical = defaultContentPadding)
             )

@@ -17,14 +17,14 @@ import javax.inject.Inject
 data class OnboardingState(
     val questions: List<Question> = listOf(),
     val isLoading: Boolean = false,
-    val validationError: UiText? = null,
     val submissionError: UiText? = null,
     val navigateToNext: Boolean = false,
 )
 
 data class ShortResponseQuestion(
     override val prompt: UiText,
-    override val response: TextFieldValue = TextFieldValue()
+    override val response: TextFieldValue = TextFieldValue(),
+    override val validationError: UiText? = null
 ) : ShortResponse {
     override val isAnswered: Boolean
         get() = response.text.isNotBlank()
@@ -34,7 +34,8 @@ data class MultipleChoiceQuestion(
     override val prompt: UiText,
     override val options: List<MultipleChoiceOption>,
     override val maxSelections: Int,
-    override val minSelections: Int
+    override val minSelections: Int,
+    override val validationError: UiText? = null
 ) : MultipleChoice {
     override val isAnswered: Boolean
         get() = options.any { it.isSelected }
@@ -56,7 +57,10 @@ class OnboardingViewModel @Inject constructor(
 
     fun onResponse(index: Int, value: TextFieldValue) {
         val question = questions[index] as? ShortResponseQuestion
-        question?.copy(response = value)?.let { answeredQuestion ->
+        question?.copy(
+            response = value,
+            validationError = if (value.text.isBlank()) blankInputError else null
+        )?.let { answeredQuestion ->
             questions = questions.mapIndexed { idx, q ->
                 if (idx == index) answeredQuestion else q
             }
@@ -64,7 +68,6 @@ class OnboardingViewModel @Inject constructor(
                 it.copy(
                     questions = questions,
                     navigateToNext = index == questions.size-1,
-                    validationError = if (answeredQuestion.isBlank()) blankInputError else null
                 )
             }
         }
@@ -83,14 +86,14 @@ class OnboardingViewModel @Inject constructor(
                 }
             }
             questions = questions.mapIndexed { idx, q ->
-                if (idx == index) question.copy(options = updatedOptions) else q
+                if (idx == index) {
+                    question.copy(
+                        options = updatedOptions,
+                        validationError = if (question.isOverLimit()) maxOptionsExceededError else null
+                    )
+                } else q
             }
-            _uiState.update {
-                it.copy(
-                    questions = questions,
-                    validationError = if (question.isOverLimit()) maxOptionsExceededError else null
-                )
-            }
+            _uiState.update { it.copy(questions = questions) }
         }
     }
 

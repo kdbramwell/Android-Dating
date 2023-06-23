@@ -1,6 +1,7 @@
 package com.kamalbramwell.dating.registration.ui
 
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
@@ -35,13 +36,15 @@ class OnboardingScreenTest : ComposeTest() {
 
     @Test
     fun nextButton_hasValidationError_isDisabled() {
+        val errorMessage = "Uh oh"
         val testState = OnboardingState(
             questions = generateShortResponseSamples(answered = true),
-            validationError = UiText.DynamicString("Error")
+            validationError = UiText.DynamicString(errorMessage)
         )
         composeTestRule.setContent {
             OnboardingScreen(testState)
         }
+        withText(errorMessage).assertIsDisplayed()
         withDescription(R.string.next).assertIsNotEnabled()
     }
 

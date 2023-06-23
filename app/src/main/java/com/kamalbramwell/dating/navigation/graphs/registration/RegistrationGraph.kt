@@ -8,11 +8,10 @@ import androidx.navigation.navigation
 import com.kamalbramwell.dating.navigation.graphs.explore.Explore
 import com.kamalbramwell.dating.navigation.navigateSingleTopTo
 import com.kamalbramwell.dating.navigation.ui.NavBarHandler
-import com.kamalbramwell.dating.navigation.ui.rememberNavigationBarHandler
+import com.kamalbramwell.dating.registration.ui.StartScreen
 import com.kamalbramwell.dating.registration.ui.auth.AuthScreen
 import com.kamalbramwell.dating.registration.ui.auth.CreateAccountViewModel
 import com.kamalbramwell.dating.registration.ui.auth.LoginViewModel
-import com.kamalbramwell.dating.registration.ui.StartScreen
 import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingScreen
 
 fun NavGraphBuilder.registrationGraph(

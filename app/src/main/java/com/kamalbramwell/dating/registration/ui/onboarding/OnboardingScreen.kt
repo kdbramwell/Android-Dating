@@ -70,9 +70,15 @@ fun OnboardingScreen(
     val backEnabled by remember(uiState.questions) {
         derivedStateOf { pagerState.currentPage > 0 }
     }
-    val nextEnabled by remember(uiState.questions, uiState.validationError) {
+    val hasError by remember(uiState.questions) {
         derivedStateOf {
-            uiState.questions[pagerState.currentPage].isAnswered && uiState.validationError == null
+            uiState.submissionError != null
+                    && uiState.questions[pagerState.currentPage].validationError != null
+        }
+    }
+    val nextEnabled by remember(uiState.questions) {
+        derivedStateOf {
+            uiState.questions[pagerState.currentPage].isAnswered && !hasError
         }
     }
     val completed by remember(uiState.questions)  {
@@ -153,7 +159,10 @@ private fun ProfileQuestions(
 private fun OnboardingScreenPreview() {
     DatingTheme {
         OnboardingScreen(
-            OnboardingState(generateShortResponseSamples())
+            OnboardingState(
+                generateShortResponseSamples(),
+                submissionError = UiText.DynamicString("Can't be empty")
+            )
         )
     }
 }
@@ -163,7 +172,10 @@ private fun OnboardingScreenPreview() {
 private fun OnboardingScreenDarkPreview() {
     DatingTheme(darkTheme = true) {
         OnboardingScreen(
-            OnboardingState(generateShortResponseSamples())
+            OnboardingState(
+                generateShortResponseSamples(),
+                submissionError = UiText.DynamicString("Can't be empty")
+            )
         )
     }
 }
