@@ -2,6 +2,7 @@ package com.kamalbramwell.dating.registration.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -50,13 +51,7 @@ fun ShortResponseItem(
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        DatingText(
-            text = item.prompt,
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier
-                .padding(8.dp)
-                .align(Alignment.CenterHorizontally)
-        )
+        ProfileQuestion(item.prompt)
 
         InputField(
             textFieldValue = item.response,
@@ -72,6 +67,17 @@ fun ShortResponseItem(
 }
 
 @Composable
+private fun ColumnScope.ProfileQuestion(prompt: UiText) {
+    DatingText(
+        text = prompt,
+        style = MaterialTheme.typography.headlineSmall,
+        modifier = Modifier
+            .padding(8.dp)
+            .align(Alignment.CenterHorizontally)
+    )
+}
+
+@Composable
 fun MultipleChoiceItem(
     item: MultipleChoice,
     modifier: Modifier = Modifier,
@@ -83,13 +89,7 @@ fun MultipleChoiceItem(
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        DatingText(
-            text = item.prompt,
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier
-                .padding(8.dp)
-                .align(Alignment.CenterHorizontally)
-        )
+        ProfileQuestion(item.prompt)
 
         if (item.maxSelections > 1) {
             DatingText(
