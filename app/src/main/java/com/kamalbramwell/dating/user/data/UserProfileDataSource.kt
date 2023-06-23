@@ -78,6 +78,8 @@ class DummyUserProfileDataSource(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserProfileDataSource {
 
+    // TODO: In-memory caching of user details received during registration and onboarding
+
     override val profileQuestions: List<Question> by lazy {
         when {
             override != null -> override

@@ -3,6 +3,7 @@ package com.kamalbramwell.dating.registration.data
 import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.AccountExistsException
 import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.AccountNotFoundException
 import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.IncorrectPasswordException
+import com.kamalbramwell.dating.registration.model.AccountData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
@@ -17,6 +18,7 @@ class FakeAuthDataSource(
 
     private val accounts = initialAccounts.toMutableMap()
     override val isLoggedIn: Flow<Boolean> = MutableStateFlow(loggedIn)
+    override val currentUser: Flow<AccountData?> = MutableStateFlow(AccountData("", ""))
 
     override suspend fun registerEmail(email: String, password: String): Result<Boolean> =
         if (accounts.contains(email)) Result.failure(AccountExistsException)

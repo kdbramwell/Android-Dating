@@ -11,6 +11,7 @@ import com.kamalbramwell.dating.di.IoDispatcher
 import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.AccountNotFoundException
 import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.IncorrectPasswordException
 import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.LoginFailedException
+import com.kamalbramwell.dating.registration.model.AccountData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +22,7 @@ import javax.inject.Singleton
 
 interface AuthDataSource {
     val isLoggedIn: Flow<Boolean>
+    val currentUser: Flow<AccountData?>
     suspend fun registerEmail(email: String, password: String): Result<Boolean>
     suspend fun registerPhone(phone: String, password: String): Result<Boolean>
     suspend fun loginWithEmail(email: String, password: String): Result<Boolean>
@@ -44,9 +46,11 @@ class LocalAuthDataSource @Inject constructor(
 ): AuthDataSource {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(dataStoreName)
-    override val isLoggedIn: Flow<Boolean> = context.dataStore.data.map {
-        it[userKey] != null && it[passwordKey] != null
+
+    override val currentUser: Flow<AccountData?> = context.dataStore.data.map {
+        it[userKey]?.let { user -> AccountData("0", user) }
     }
+    override val isLoggedIn: Flow<Boolean> = currentUser.map { it != null }
 
     private suspend fun saveLogin(emailOrPhone: String, password: String): Result<Boolean> =
         withContext(dispatcher) {
