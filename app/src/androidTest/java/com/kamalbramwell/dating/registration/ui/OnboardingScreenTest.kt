@@ -53,7 +53,7 @@ class OnboardingScreenTest : ComposeTest() {
             )
         }
         withDescription(R.string.next).performClick()
-        assertEquals(true , submitted)
+        assertEquals(true, submitted)
     }
 
     @Test

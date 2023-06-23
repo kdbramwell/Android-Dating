@@ -44,8 +44,6 @@ fun ShortResponseItem(
     modifier: Modifier = Modifier,
     onInput: (TextFieldValue) -> Unit = {}
 ) {
-    var response by remember { mutableStateOf(item.response) }
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -61,16 +59,12 @@ fun ShortResponseItem(
         )
 
         InputField(
-            textFieldValue = response,
-            onTextChanged = {
-                onInput(it)
-                response = it
-            },
+            textFieldValue = item.response,
+            onTextChanged = onInput,
             textStyle = LocalTextStyle.current.copy(
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground
             ),
-            placeholder = UiText.DynamicString("Your name"),
             modifier = Modifier.padding(8.dp),
         )
     }

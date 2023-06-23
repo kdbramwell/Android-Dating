@@ -43,10 +43,11 @@ fun OnboardingScreen(
     onNavigateNext: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val pagerState = rememberPagerState()
 
     OnboardingScreen(
         uiState,
-        rememberPagerState(),
+        pagerState,
         viewModel::onResponse,
         viewModel::onChoiceClicked,
         viewModel::onSubmit
@@ -66,14 +67,14 @@ fun OnboardingScreen(
     onSubmit: () -> Unit = {}
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val backEnabled by remember(pagerState.currentPage) {
+    val backEnabled by remember(uiState.questions) {
         derivedStateOf { pagerState.currentPage > 0 }
     }
-    val nextEnabled by remember(pagerState.currentPage) {
-        derivedStateOf { uiState.questions[pagerState.settledPage].isAnswered }
+    val nextEnabled by remember(uiState.questions) {
+        derivedStateOf { uiState.questions[pagerState.currentPage].isAnswered }
     }
-    val completed by remember(pagerState.settledPage) {
-        derivedStateOf { pagerState.settledPage >= uiState.questions.size -1 }
+    val completed by remember(uiState.questions)  {
+        derivedStateOf { pagerState.currentPage >= uiState.questions.size -1 }
     }
 
     Column(
@@ -97,7 +98,7 @@ fun OnboardingScreen(
                 enabled = backEnabled,
                 onClick = {
                     coroutineScope.launch {
-                          pagerState.scrollToPage(pagerState.currentPage -1)
+                          pagerState.animateScrollToPage(pagerState.currentPage -1)
                     }
                 },
             )
@@ -109,7 +110,7 @@ fun OnboardingScreen(
                 onClick = {
                     coroutineScope.launch {
                         if (completed) onSubmit()
-                        else pagerState.scrollToPage(pagerState.currentPage + 1)
+                        else pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
                 }
             )

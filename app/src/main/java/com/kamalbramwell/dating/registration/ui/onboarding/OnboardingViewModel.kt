@@ -45,7 +45,7 @@ class OnboardingViewModel @Inject constructor(
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ): ViewModel() {
 
-    private val questions = dataSource.profileQuestions.toMutableList()
+    private var questions = dataSource.profileQuestions
 
     private val _uiState = MutableStateFlow(OnboardingState(questions))
     val uiState = _uiState.asStateFlow()
@@ -53,7 +53,9 @@ class OnboardingViewModel @Inject constructor(
     fun onResponse(index: Int, value: TextFieldValue) {
         val question = questions[index] as? ShortResponseQuestion
         question?.copy(response = value)?.let { answeredQuestion ->
-            questions[index] = answeredQuestion
+            questions = questions.mapIndexed { idx, q ->
+                if (idx == index) answeredQuestion else q
+            }
             _uiState.update {
                 it.copy(
                     questions = questions,
@@ -69,7 +71,9 @@ class OnboardingViewModel @Inject constructor(
                 if (it == option) it.copy(isSelected = !it.isSelected)
                 else it
             }
-            questions[index] = question.copy(options = updatedOptions)
+            questions = questions.mapIndexed { idx, q ->
+                if (idx == index) question.copy(options = updatedOptions) else q
+            }
             _uiState.update {
                 it.copy(questions = questions)
             }
