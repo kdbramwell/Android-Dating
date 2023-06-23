@@ -2,10 +2,13 @@ package com.kamalbramwell.dating.registration.ui
 
 import androidx.compose.ui.text.input.TextFieldValue
 import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoice
+import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceOption
+import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceQuestion
 import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingViewModel
 import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponse
 import com.kamalbramwell.dating.user.data.DummyUserProfileDataSource
 import com.kamalbramwell.dating.user.data.generateMCSamples
+import com.kamalbramwell.dating.utils.UiText
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -85,4 +88,60 @@ class OnboardingViewModelTest {
         assertEquals(true, viewModel.uiState.value.submissionError != null)
     }
 
+    @Test
+    fun `submitting blank short response updates validation error in state`() {
+        val viewModel = OnboardingViewModel(
+            DummyUserProfileDataSource(shortResponse = true),
+            StandardTestDispatcher()
+        )
+        viewModel.onResponse(0, TextFieldValue("  "))
+        assertEquals(true, viewModel.uiState.value.validationError != null)
+    }
+
+    @Test
+    fun `exceeding maxSelections on mc question updates validation error in state`() {
+        val mcQuestions = List(5) {
+            MultipleChoiceQuestion(
+                prompt = UiText.DynamicString("Question"),
+                options = List (4) {
+                    MultipleChoiceOption(UiText.DynamicString("Option $it"))
+                },
+                maxSelections = 2,
+                minSelections = 1
+            )
+        }
+        val viewModel = OnboardingViewModel(
+            DummyUserProfileDataSource(override = mcQuestions),
+            StandardTestDispatcher()
+        )
+        mcQuestions.first().options.forEach {
+            viewModel.onChoiceClicked(0, it)
+        }
+        assertEquals(true, viewModel.uiState.value.validationError != null)
+    }
+
+    @Test
+    fun `prevent selecting more than 1 option when maxSelections=1`() {
+        val mcQuestions = List(1) {
+            MultipleChoiceQuestion(
+                prompt = UiText.DynamicString("Question"),
+                options = List (4) {
+                    MultipleChoiceOption(UiText.DynamicString("Option $it"))
+                },
+                maxSelections = 1,
+                minSelections = 1
+            )
+        }
+        val viewModel = OnboardingViewModel(
+            DummyUserProfileDataSource(override = mcQuestions),
+            StandardTestDispatcher()
+        )
+        mcQuestions.first().options.forEach {
+            viewModel.onChoiceClicked(0, it)
+        }
+        (viewModel.uiState.value.questions.first() as MultipleChoice)
+            .options
+            .filter { it.isSelected }
+            .let { assertEquals(true, it.size == 1) }
+    }
 }

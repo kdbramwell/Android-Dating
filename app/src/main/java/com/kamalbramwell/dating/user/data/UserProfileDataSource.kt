@@ -73,12 +73,14 @@ class DummyUserProfileDataSource(
     private val shortResponse: Boolean = false,
     private val multipleChoice: Boolean =  false,
     private val both: Boolean = false,
+    private val override: List<Question>? = null,
     private val answered: Boolean = false,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserProfileDataSource {
 
     override val profileQuestions: List<Question> by lazy {
         when {
+            override != null -> override
             both -> generateShortResponseSamples(answered) + generateMCSamples(answered)
             shortResponse -> generateShortResponseSamples(answered)
             multipleChoice -> generateMCSamples(answered)
