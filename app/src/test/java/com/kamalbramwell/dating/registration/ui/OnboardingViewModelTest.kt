@@ -95,7 +95,7 @@ class OnboardingViewModelTest {
             StandardTestDispatcher()
         )
         viewModel.onResponse(0, TextFieldValue("  "))
-        assertEquals(true, viewModel.uiState.value.validationError != null)
+        assertEquals(true, viewModel.uiState.value.questions[0].validationError != null)
     }
 
     @Test
@@ -117,7 +117,7 @@ class OnboardingViewModelTest {
         mcQuestions.first().options.forEach {
             viewModel.onChoiceClicked(0, it)
         }
-        assertEquals(true, viewModel.uiState.value.validationError != null)
+        assertEquals(true, viewModel.uiState.value.questions[0].validationError != null)
     }
 
     @Test

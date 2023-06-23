@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
@@ -28,6 +30,7 @@ import com.kamalbramwell.dating.registration.ui.components.Heading
 import com.kamalbramwell.dating.registration.ui.components.MultipleChoiceItem
 import com.kamalbramwell.dating.registration.ui.components.ShortResponseItem
 import com.kamalbramwell.dating.ui.components.BackButton
+import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.components.NextButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
@@ -73,7 +76,7 @@ fun OnboardingScreen(
     val hasError by remember(uiState.questions) {
         derivedStateOf {
             uiState.submissionError != null
-                    && uiState.questions[pagerState.currentPage].validationError != null
+                    || uiState.questions[pagerState.currentPage].validationError != null
         }
     }
     val nextEnabled by remember(uiState.questions) {
@@ -100,6 +103,15 @@ fun OnboardingScreen(
             onResponseInput = onResponse,
             onOptionClick = onOptionClick
         )
+
+        uiState.submissionError?.let {
+            DatingText(
+                text = it,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+        }
 
         Row {
             BackButton(
