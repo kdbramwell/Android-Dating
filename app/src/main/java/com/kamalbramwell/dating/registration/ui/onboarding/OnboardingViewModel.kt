@@ -12,21 +12,26 @@ import kotlinx.coroutines.flow.update
 data class OnboardingState(
     val questions: List<Question> = listOf(),
     val isLoading: Boolean = false,
-    val nextEnabled: Boolean = false,
     val navigateToNext: Boolean = false,
 )
 
 data class ShortResponseQuestion(
     override val prompt: UiText,
     override val response: TextFieldValue = TextFieldValue()
-) : ShortResponse
+) : ShortResponse {
+    override val isAnswered: Boolean
+        get() = response.text.isNotBlank()
+}
 
 data class MultipleChoiceQuestion(
     override val prompt: UiText,
     override val options: List<MultipleChoiceOption>,
     override val maxSelections: Int,
     override val minSelections: Int
-) : MultipleChoice
+) : MultipleChoice {
+    override val isAnswered: Boolean
+        get() = options.any { it.isSelected }
+}
 
 class OnboardingViewModel(
     dataSource: UserProfileDataSource = DummyUserProfileDataSource()
@@ -42,7 +47,10 @@ class OnboardingViewModel(
         question?.copy(response = value)?.let { answeredQuestion ->
             questions[index] = answeredQuestion
             _uiState.update {
-                it.copy(questions = questions)
+                it.copy(
+                    questions = questions,
+                    navigateToNext = index == questions.size-1
+                )
             }
         }
     }
@@ -60,7 +68,7 @@ class OnboardingViewModel(
         }
     }
 
-    fun onComplete() {
+    fun onSubmit() {
         _uiState.update {
             it.copy(navigateToNext = true)
         }

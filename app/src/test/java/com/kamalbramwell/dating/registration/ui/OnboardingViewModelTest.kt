@@ -43,14 +43,4 @@ class OnboardingViewModelTest {
             assertEquals(true, isSelected)
         }
     }
-
-    @Test
-    fun `allow navigation to next screen when required questions are answered`() {
-
-    }
-
-    @Test
-    fun `next is disabled if current question was not answered`() {
-
-    }
 }

@@ -49,7 +49,7 @@ fun OnboardingScreen(
         rememberPagerState(),
         viewModel::onResponse,
         viewModel::onChoiceClicked,
-        viewModel::onComplete
+        viewModel::onSubmit
     )
 
     LaunchedEffect(uiState.navigateToNext) {
@@ -63,14 +63,17 @@ fun OnboardingScreen(
     pagerState: PagerState = rememberPagerState(),
     onResponse: (index: Int, value: TextFieldValue) -> Unit = { _, _ -> },
     onOptionClick: (index: Int, option: MultipleChoiceOption) -> Unit = { _, _ -> },
-    onNavigateNext: () -> Unit = {}
+    onSubmit: () -> Unit = {}
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val backEnabled by remember {
+    val backEnabled by remember(pagerState.currentPage) {
         derivedStateOf { pagerState.currentPage > 0 }
     }
-    val completed by remember {
-        derivedStateOf { pagerState.currentPage >= uiState.questions.size -1 }
+    val nextEnabled by remember(pagerState.currentPage) {
+        derivedStateOf { uiState.questions[pagerState.settledPage].isAnswered }
+    }
+    val completed by remember(pagerState.settledPage) {
+        derivedStateOf { pagerState.settledPage >= uiState.questions.size -1 }
     }
 
     Column(
@@ -93,19 +96,19 @@ fun OnboardingScreen(
             BackButton(
                 enabled = backEnabled,
                 onClick = {
-                      coroutineScope.launch {
+                    coroutineScope.launch {
                           pagerState.scrollToPage(pagerState.currentPage -1)
-                      }
+                    }
                 },
             )
 
             Spacer(Modifier.weight(1f))
 
             NextButton(
-                enabled = uiState.nextEnabled,
+                enabled = nextEnabled,
                 onClick = {
                     coroutineScope.launch {
-                        if (completed) onNavigateNext()
+                        if (completed) onSubmit()
                         else pagerState.scrollToPage(pagerState.currentPage + 1)
                     }
                 }

@@ -5,6 +5,7 @@ import com.kamalbramwell.dating.utils.UiText
 
 sealed interface Question {
     val prompt: UiText
+    val isAnswered: Boolean
 }
 
 interface ShortResponse : Question {
