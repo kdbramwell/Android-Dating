@@ -17,7 +17,7 @@ import com.kamalbramwell.dating.utils.UiText
 fun DatingText(
     text: UiText,
     modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
+    color: Color = MaterialTheme.colorScheme.onBackground,
     fontSize: TextUnit = TextUnit.Unspecified,
     fontWeight: FontWeight? = null,
     lineHeight: TextUnit = TextUnit.Unspecified,
