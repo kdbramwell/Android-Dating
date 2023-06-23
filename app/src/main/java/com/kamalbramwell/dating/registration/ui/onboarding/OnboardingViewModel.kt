@@ -3,9 +3,10 @@ package com.kamalbramwell.dating.registration.ui.onboarding
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kamalbramwell.dating.di.IoDispatcher
+import com.kamalbramwell.dating.di.DefaultDispatcher
 import com.kamalbramwell.dating.user.data.UserProfileDataSource
 import com.kamalbramwell.dating.utils.UiText
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -38,9 +39,10 @@ data class MultipleChoiceQuestion(
         get() = options.any { it.isSelected }
 }
 
+@HiltViewModel
 class OnboardingViewModel @Inject constructor(
     private val dataSource: UserProfileDataSource,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ): ViewModel() {
 
     private val questions = dataSource.profileQuestions.toMutableList()
