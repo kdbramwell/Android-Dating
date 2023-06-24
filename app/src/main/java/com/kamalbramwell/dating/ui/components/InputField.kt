@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
@@ -62,6 +63,7 @@ fun InputField(
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         capitalization = KeyboardCapitalization.Sentences
     ),
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     placeholderColor: Color = MaterialTheme.colorScheme.outline,
     backgroundColor: Color = MaterialTheme.colorScheme.background,
     hideKeyboard: Boolean = false,
@@ -93,6 +95,7 @@ fun InputField(
         singleLine = singleLine,
         textStyle = textStyle,
         keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
         labelColor = labelColor,
         placeholderColor = placeholderColor,
         borderColor = borderColor,
@@ -121,6 +124,7 @@ private fun OutlinedTextInput(
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         capitalization = KeyboardCapitalization.Sentences
     ),
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     labelColor: Color = MaterialTheme.colorScheme.outline,
     placeholderColor: Color = MaterialTheme.colorScheme.outline,
     borderColor: Color = MaterialTheme.colorScheme.outline,
@@ -172,6 +176,7 @@ private fun OutlinedTextInput(
                     enabled = enabled,
                     textStyle = textStyle,
                     keyboardOptions = keyboardOptions,
+                    keyboardActions = keyboardActions,
                     singleLine = singleLine,
                     modifier = Modifier
                         .fillMaxWidth()

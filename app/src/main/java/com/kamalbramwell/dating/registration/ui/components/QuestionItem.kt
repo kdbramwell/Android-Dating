@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LocalTextStyle
@@ -21,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,7 +46,8 @@ import com.kamalbramwell.dating.utils.UiText
 fun ShortResponseItem(
     item: ShortResponse,
     modifier: Modifier = Modifier,
-    onInput: (TextFieldValue) -> Unit = {}
+    onInput: (TextFieldValue) -> Unit = {},
+    onImeActionClick: () -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -62,6 +66,8 @@ fun ShortResponseItem(
             ),
             error = item.validationError,
             modifier = Modifier.padding(8.dp),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+            keyboardActions = KeyboardActions { onImeActionClick() }
         )
     }
 }

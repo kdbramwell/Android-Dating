@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.input.TextFieldValue
@@ -87,6 +88,13 @@ fun OnboardingScreen(
     val completed by remember(uiState.questions)  {
         derivedStateOf { pagerState.currentPage >= uiState.questions.size -1 }
     }
+    val onNextClick: ()-> Unit = {
+        coroutineScope.launch {
+            if (completed) onSubmit()
+            else pagerState.animateScrollToPage(pagerState.currentPage + 1)
+        }
+    }
+    val focusManager = LocalFocusManager.current
 
     Column(
         Modifier
@@ -101,7 +109,11 @@ fun OnboardingScreen(
             questions = uiState.questions,
             pagerState = pagerState,
             onResponseInput = onResponse,
-            onOptionClick = onOptionClick
+            onOptionClick = onOptionClick,
+            onImeActionClick = {
+                if (nextEnabled) onNextClick()
+                focusManager.clearFocus()
+            }
         )
 
         uiState.submissionError?.let {
@@ -127,12 +139,7 @@ fun OnboardingScreen(
 
             NextButton(
                 enabled = nextEnabled,
-                onClick = {
-                    coroutineScope.launch {
-                        if (completed) onSubmit()
-                        else pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                    }
-                }
+                onClick = onNextClick
             )
         }
     }
@@ -144,7 +151,8 @@ private fun ProfileQuestions(
     questions: List<Question> = generateShortResponseSamples(),
     pagerState: PagerState = rememberPagerState(),
     onResponseInput: (index: Int, response: TextFieldValue) -> Unit = { _, _ -> },
-    onOptionClick: (index: Int, MultipleChoiceOption) -> Unit = { _, _ -> }
+    onOptionClick: (index: Int, MultipleChoiceOption) -> Unit = { _, _ -> },
+    onImeActionClick: () -> Unit = {}
 ) {
     HorizontalPager(
         pageCount = questions.size,
@@ -156,7 +164,8 @@ private fun ProfileQuestions(
         when (val question = questions[index]) {
             is ShortResponse -> ShortResponseItem(
                 item = question,
-                onInput =  { onResponseInput(index, it) }
+                onInput =  { onResponseInput(index, it) },
+                onImeActionClick = onImeActionClick
             )
             is MultipleChoice -> MultipleChoiceItem(
                 item = question,
