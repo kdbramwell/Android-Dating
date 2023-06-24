@@ -3,6 +3,7 @@ package com.kamalbramwell.dating.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -84,15 +85,21 @@ fun BackButton(
     }
 }
 
+@JvmOverloads
 @Composable
 fun NextButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = false,
     onClick: () -> Unit = {},
 ) {
+    val brandGradient = rememberBrandGradient()
+
     Button(
         onClick = onClick,
-        modifier = modifier.size(64.dp),
+        modifier = modifier
+            .size(64.dp)
+            .background(brandGradient, CircleShape),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
         enabled =  enabled,
     ) {
         Icon(
@@ -126,16 +133,33 @@ private fun MaxWidthBorderlessButtonPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun BackButtonPreview() {
+private fun BackButtonEnabledPreview() {
     DatingTheme {
         BackButton(enabled = true)
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
-private fun NextButtonPreview() {
+private fun BackButtonDisabledPreview() {
+    DatingTheme {
+        BackButton(enabled = false)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun NextButtonEnabledPreview() {
     DatingTheme {
         NextButton(enabled = true)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun NextButtonDisabledPreview() {
+    DatingTheme {
+        NextButton(enabled = false)
     }
 }
