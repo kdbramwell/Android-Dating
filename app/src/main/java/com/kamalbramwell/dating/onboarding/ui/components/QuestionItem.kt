@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.dp
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.onboarding.model.MultipleChoice
 import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
-import com.kamalbramwell.dating.onboarding.ui.MultipleChoiceQuestion
 import com.kamalbramwell.dating.onboarding.model.ShortResponse
+import com.kamalbramwell.dating.onboarding.ui.MultipleChoiceQuestion
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.rememberBrandGradient
@@ -163,7 +163,7 @@ private fun MultipleChoiceOptionItem(
                 else MaterialTheme.colorScheme.outline
         )
     ) {
-        DatingText(text = option.label)
+        DatingText(text = option.label, maxLines = 1)
     }
 }
 
