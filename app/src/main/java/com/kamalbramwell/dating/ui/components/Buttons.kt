@@ -16,8 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kamalbramwell.dating.R
+import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.magenta
 import com.kamalbramwell.dating.ui.theme.orange
 import com.kamalbramwell.dating.utils.UiText
@@ -97,5 +99,43 @@ fun NextButton(
             imageVector = Icons.Filled.ArrowForward,
             contentDescription = UiText.StringResource(R.string.next).asString()
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MaxWidthButtonPreview() {
+    DatingTheme {
+        MaxWidthButton(
+            label = UiText.DynamicString("Continue"),
+            enabled = true
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MaxWidthBorderlessButtonPreview() {
+    DatingTheme {
+        MaxWidthBorderlessButton(
+            label = UiText.DynamicString("Cancel"),
+            enabled = true
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BackButtonPreview() {
+    DatingTheme {
+        BackButton(enabled = true)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun NextButtonPreview() {
+    DatingTheme {
+        NextButton(enabled = true)
     }
 }
