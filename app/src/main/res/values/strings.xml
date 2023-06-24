@@ -31,6 +31,10 @@
     <string name="onboarding_heading">Introduce yourself</string>
     <string name="onboarding_multiple_choice_label">Select up to %d.</string>
 
+    <string name="error_onboarding_blank_input">Can\'t be left blank!</string>
+    <string name="error_onboarding_generic">Hmm… something went wrong. Give it another try.</string>
+    <string name="error_onboarding_max_selections_exceeded">Slow down! You\'ve selected too many options.</string>
+
     <!-- Bottom navigation, TLDs -->
 
     <string name="explore">Explore</string>

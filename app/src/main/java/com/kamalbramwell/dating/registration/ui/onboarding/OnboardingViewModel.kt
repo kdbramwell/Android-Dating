@@ -3,6 +3,7 @@ package com.kamalbramwell.dating.registration.ui.onboarding
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.di.DefaultDispatcher
 import com.kamalbramwell.dating.user.data.UserProfileDataSource
 import com.kamalbramwell.dating.utils.UiText
@@ -53,7 +54,7 @@ class OnboardingViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(OnboardingState(questions))
     val uiState = _uiState.asStateFlow()
 
-    private val blankInputError = UiText.DynamicString("Cannot be blank")
+    private val blankInputError = UiText.StringResource(R.string.error_onboarding_blank_input)
 
     fun onResponse(index: Int, value: TextFieldValue) {
         val question = questions[index] as? ShortResponseQuestion
@@ -73,7 +74,8 @@ class OnboardingViewModel @Inject constructor(
         }
     }
 
-    private val maxOptionsExceededError = UiText.DynamicString("Too many options selected")
+    private val maxOptionsExceededError =
+        UiText.StringResource(R.string.error_onboarding_max_selections_exceeded)
     private fun MultipleChoice.isOverLimit() = options.filter { it.isSelected }.size > maxSelections
 
     fun onChoiceClicked(index: Int, option: MultipleChoiceOption) {
@@ -110,9 +112,10 @@ class OnboardingViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        submissionError = UiText.DynamicString(
-                            result.exceptionOrNull()?.message ?: "Please try again"
-                        )
+                        submissionError = result.exceptionOrNull()?.let { exception ->
+                            exception.message?.let { errorMsg -> UiText.DynamicString(errorMsg) }
+                                ?: UiText.StringResource(R.string.error_onboarding_generic)
+                        }
                     )
                 }
             }
