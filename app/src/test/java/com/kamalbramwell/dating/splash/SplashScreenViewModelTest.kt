@@ -1,6 +1,6 @@
 package com.kamalbramwell.dating.splash
 
-import com.kamalbramwell.dating.registration.data.FakeAuthDataSource
+import com.kamalbramwell.dating.auth.data.FakeAuthDataSource
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest

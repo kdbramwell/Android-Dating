@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.ui.onboarding
+package com.kamalbramwell.dating.onboarding.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,9 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kamalbramwell.dating.R
-import com.kamalbramwell.dating.registration.ui.components.Heading
-import com.kamalbramwell.dating.registration.ui.components.MultipleChoiceItem
-import com.kamalbramwell.dating.registration.ui.components.ShortResponseItem
+import com.kamalbramwell.dating.onboarding.model.MultipleChoice
+import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
+import com.kamalbramwell.dating.onboarding.model.Question
+import com.kamalbramwell.dating.onboarding.model.ShortResponse
+import com.kamalbramwell.dating.ui.components.Heading
+import com.kamalbramwell.dating.onboarding.ui.components.MultipleChoiceItem
+import com.kamalbramwell.dating.onboarding.ui.components.ShortResponseItem
 import com.kamalbramwell.dating.ui.components.BackButton
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.components.NextButton

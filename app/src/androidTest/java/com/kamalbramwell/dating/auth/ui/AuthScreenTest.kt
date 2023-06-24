@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.ui
+package com.kamalbramwell.dating.auth.ui
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
@@ -6,8 +6,8 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.text.input.TextFieldValue
 import com.kamalbramwell.dating.R
-import com.kamalbramwell.dating.registration.ui.auth.AuthScreen
-import com.kamalbramwell.dating.registration.ui.auth.RegistrationState
+import com.kamalbramwell.dating.auth.ui.AuthScreen
+import com.kamalbramwell.dating.auth.ui.RegistrationState
 import com.kamalbramwell.dating.utils.ComposeTest
 import com.kamalbramwell.dating.utils.UiText
 import org.junit.Assert.assertEquals

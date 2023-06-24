@@ -1,6 +1,6 @@
-package com.kamalbramwell.dating.registration.data
+package com.kamalbramwell.dating.auth.data
 
-import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.AccountNotFoundException
+import com.kamalbramwell.dating.auth.data.AuthDataSource.Exceptions.AccountNotFoundException
 import com.kamalbramwell.dating.utils.isEmail
 import com.kamalbramwell.dating.utils.isPhoneNumber
 import javax.inject.Inject

@@ -1,9 +1,9 @@
-package com.kamalbramwell.dating.registration.data
+package com.kamalbramwell.dating.auth.data
 
-import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.AccountExistsException
-import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.AccountNotFoundException
-import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.IncorrectPasswordException
-import com.kamalbramwell.dating.registration.model.AccountData
+import com.kamalbramwell.dating.auth.data.AuthDataSource.Exceptions.AccountExistsException
+import com.kamalbramwell.dating.auth.data.AuthDataSource.Exceptions.AccountNotFoundException
+import com.kamalbramwell.dating.auth.data.AuthDataSource.Exceptions.IncorrectPasswordException
+import com.kamalbramwell.dating.auth.model.AccountData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first

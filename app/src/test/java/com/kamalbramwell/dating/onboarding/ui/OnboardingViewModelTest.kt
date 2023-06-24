@@ -1,11 +1,9 @@
-package com.kamalbramwell.dating.registration.ui
+package com.kamalbramwell.dating.onboarding.ui
 
 import androidx.compose.ui.text.input.TextFieldValue
-import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoice
-import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceOption
-import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceQuestion
-import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingViewModel
-import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponse
+import com.kamalbramwell.dating.onboarding.model.MultipleChoice
+import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
+import com.kamalbramwell.dating.onboarding.model.ShortResponse
 import com.kamalbramwell.dating.user.data.DummyUserProfileDataSource
 import com.kamalbramwell.dating.user.data.generateMCSamples
 import com.kamalbramwell.dating.utils.UiText

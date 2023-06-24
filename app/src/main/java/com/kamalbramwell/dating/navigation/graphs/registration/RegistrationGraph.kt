@@ -9,10 +9,10 @@ import com.kamalbramwell.dating.navigation.graphs.explore.Explore
 import com.kamalbramwell.dating.navigation.navigateSingleTopTo
 import com.kamalbramwell.dating.navigation.ui.NavBarHandler
 import com.kamalbramwell.dating.registration.ui.StartScreen
-import com.kamalbramwell.dating.registration.ui.auth.AuthScreen
-import com.kamalbramwell.dating.registration.ui.auth.CreateAccountViewModel
-import com.kamalbramwell.dating.registration.ui.auth.LoginViewModel
-import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingScreen
+import com.kamalbramwell.dating.auth.ui.AuthScreen
+import com.kamalbramwell.dating.auth.ui.CreateAccountViewModel
+import com.kamalbramwell.dating.auth.ui.LoginViewModel
+import com.kamalbramwell.dating.onboarding.ui.OnboardingScreen
 
 fun NavGraphBuilder.registrationGraph(
     navController: NavController,

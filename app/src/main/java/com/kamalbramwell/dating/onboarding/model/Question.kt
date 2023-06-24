@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.ui.onboarding
+package com.kamalbramwell.dating.onboarding.model
 
 import androidx.compose.ui.text.input.TextFieldValue
 import com.kamalbramwell.dating.utils.UiText

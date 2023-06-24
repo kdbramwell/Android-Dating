@@ -1,10 +1,14 @@
-package com.kamalbramwell.dating.registration.ui.onboarding
+package com.kamalbramwell.dating.onboarding.ui
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.di.DefaultDispatcher
+import com.kamalbramwell.dating.onboarding.model.MultipleChoice
+import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
+import com.kamalbramwell.dating.onboarding.model.Question
+import com.kamalbramwell.dating.onboarding.model.ShortResponse
 import com.kamalbramwell.dating.user.data.UserProfileDataSource
 import com.kamalbramwell.dating.utils.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel

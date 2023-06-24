@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.ui.auth
+package com.kamalbramwell.dating.auth.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,9 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kamalbramwell.dating.R
-import com.kamalbramwell.dating.registration.ui.components.Heading
 import com.kamalbramwell.dating.toast.ui.ErrorToast
 import com.kamalbramwell.dating.ui.components.BackButton
+import com.kamalbramwell.dating.ui.components.Heading
 import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.NextButton
 import com.kamalbramwell.dating.ui.components.PasswordField

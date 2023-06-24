@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.ui.components
+package com.kamalbramwell.dating.onboarding.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -43,7 +43,7 @@ fun SimpleFlowRow(
     }
 
     val width = rows.maxOfOrNull { row -> row.width } ?: 0
-    val height = rows.sumBy { row -> row.height } + max(vGapPx.times(rows.size - 1), 0)
+    val height = rows.sumOf { row -> row.height } + max(vGapPx.times(rows.size - 1), 0)
 
     val coercedWidth = width.coerceIn(constraints.minWidth, constraints.maxWidth)
     val coercedHeight = height.coerceIn(constraints.minHeight, constraints.maxHeight)

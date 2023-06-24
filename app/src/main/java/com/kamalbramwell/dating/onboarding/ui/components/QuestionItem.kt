@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.ui.components
+package com.kamalbramwell.dating.onboarding.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,10 +29,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kamalbramwell.dating.R
-import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoice
-import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceOption
-import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceQuestion
-import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponse
+import com.kamalbramwell.dating.onboarding.model.MultipleChoice
+import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
+import com.kamalbramwell.dating.onboarding.ui.MultipleChoiceQuestion
+import com.kamalbramwell.dating.onboarding.model.ShortResponse
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.rememberBrandGradient

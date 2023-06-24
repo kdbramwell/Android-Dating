@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.model
+package com.kamalbramwell.dating.user.model
 
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 

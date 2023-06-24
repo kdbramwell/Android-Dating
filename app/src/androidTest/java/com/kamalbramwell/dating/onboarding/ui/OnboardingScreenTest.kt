@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.ui
+package com.kamalbramwell.dating.onboarding.ui
 
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.ui.test.assertIsDisplayed
@@ -11,10 +11,7 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kamalbramwell.dating.R
-import com.kamalbramwell.dating.registration.ui.onboarding.MultipleChoiceOption
-import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingScreen
-import com.kamalbramwell.dating.registration.ui.onboarding.OnboardingState
-import com.kamalbramwell.dating.registration.ui.onboarding.ShortResponseQuestion
+import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
 import com.kamalbramwell.dating.ui.components.InputFieldTextFieldTestTag
 import com.kamalbramwell.dating.user.data.generateMCSamples
 import com.kamalbramwell.dating.user.data.generateShortResponseSamples

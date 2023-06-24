@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.registration.data.StockImageDataSource
-import com.kamalbramwell.dating.registration.ui.components.Heading
+import com.kamalbramwell.dating.ui.components.Heading
 import com.kamalbramwell.dating.ui.components.MaxWidthBorderlessButton
 import com.kamalbramwell.dating.ui.components.MaxWidthButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
