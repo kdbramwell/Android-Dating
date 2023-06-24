@@ -32,6 +32,7 @@ import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,6 +54,8 @@ fun InputField(
     error: UiText? = null,
     label: UiText? = null,
     placeholder: UiText? = null,
+    labelTextAlign: TextAlign = TextAlign.Start,
+    placeholderTextAlign: TextAlign = TextAlign.Start,
     icon: (@Composable () -> Unit)? = null,
     onIconClick: () -> Unit = {},
     enabled: Boolean = true,
@@ -89,6 +92,8 @@ fun InputField(
         onTextFieldFocused = onTextFieldFocused,
         label = error ?: label,
         placeholder = placeholder,
+        labelTextAlign,
+        placeholderTextAlign,
         icon = icon,
         onIconClick = onIconClick,
         enabled = enabled,
@@ -114,6 +119,8 @@ private fun OutlinedTextInput(
     onTextFieldFocused: (Boolean) -> Unit = {},
     label: UiText? = null,
     placeholder: UiText? = null,
+    labelTextAlign: TextAlign = TextAlign.Start,
+    placeholderTextAlign: TextAlign = TextAlign.Start,
     icon: (@Composable () -> Unit)? = null,
     onIconClick: () -> Unit = {},
     enabled: Boolean = true,
@@ -164,7 +171,11 @@ private fun OutlinedTextInput(
                         text = label,
                         color = labelColor,
                         fontSize = 12.sp,
-                        modifier = Modifier.semantics { testTag = InputFieldLabelTestTag }
+                        style = textStyle,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .semantics { testTag = InputFieldLabelTestTag },
+                        textAlign = labelTextAlign
                     )
                 }
             }
@@ -186,20 +197,19 @@ private fun OutlinedTextInput(
                             }
                             lastFocusState = state.isFocused
                         }
-                        .semantics {
-                            testTag = InputFieldTextFieldTestTag
-                        }
+                        .semantics { testTag = InputFieldTextFieldTestTag }
                 )
 
-                if (textFieldValue.text.isEmpty()) {
-                    placeholder?.let { placeholder ->
-                        label?.let { label ->
+                if (textFieldValue.text.isBlank()) {
+                    placeholder?.let { placeholder -> // shown when not focused
+                        if (!lastFocusState) {
                             DatingText(
-                                text = if (!lastFocusState) label else placeholder,
+                                text = placeholder,
                                 color = placeholderColor,
-                                modifier = Modifier.semantics {
-                                    testTag = InputFieldPlaceholderTestTag
-                                }
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .semantics { testTag = InputFieldPlaceholderTestTag },
+                                textAlign = placeholderTextAlign
                             )
                         }
                     }
@@ -230,10 +240,10 @@ private val testErrorValue = TextFieldValue("invalidemail.com")
 
 @Preview(showBackground = true)
 @Composable
-private fun InputFieldPreview() {
+private fun InputFieldPlaceholderPreview() {
     DatingTheme {
         InputField(
-            textFieldValue = testInputValue,
+            textFieldValue = TextFieldValue(),
             placeholder = testPlaceholder,
             label = testPlaceholder
         )
@@ -278,7 +288,7 @@ private fun InputFieldErrorDarkPreview() {
         InputField(
             textFieldValue = testErrorValue,
             placeholder = testPlaceholder,
-            error = testError
+            error = testError,
         )
     }
 }

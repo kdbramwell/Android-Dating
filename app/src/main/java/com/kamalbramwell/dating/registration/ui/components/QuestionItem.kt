@@ -59,12 +59,15 @@ fun ShortResponseItem(
 
         InputField(
             textFieldValue = item.response,
+            placeholder = item.hint,
+            placeholderTextAlign = TextAlign.Center,
             onTextChanged = onInput,
             textStyle = LocalTextStyle.current.copy(
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground
             ),
             error = item.validationError,
+            labelTextAlign = TextAlign.Center,
             modifier = Modifier.padding(8.dp),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             keyboardActions = KeyboardActions { onImeActionClick() }

@@ -10,6 +10,7 @@ sealed interface Question {
 }
 
 interface ShortResponse : Question {
+    val hint: UiText?
     val response: TextFieldValue
 }
 

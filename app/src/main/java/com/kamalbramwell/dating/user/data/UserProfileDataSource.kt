@@ -25,21 +25,22 @@ interface UserProfileDataSource {
 }
 
 private val sampleSrQuestions = listOf(
-    "What's your name? 👋",
-    "When were you born? 🗓️",
+    "What's your name?👋"  to "John Smith",
+    "When were you born?🗓️" to "1/1/1990"
 )
 
 fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse> = sampleSrQuestions.map {
     ShortResponseQuestion(
-        prompt = UiText.DynamicString(it),
-        response = if (answered) TextFieldValue("helloworld") else TextFieldValue()
+        prompt = UiText.DynamicString(it.first),
+        response = if (answered) TextFieldValue("helloworld") else TextFieldValue(),
+        hint = UiText.DynamicString(it.second)
     )
 }
 
 private val sampleMcQuestions = listOf(
-    "How do you identify? 👤",
-    "What are you looking for? 🔎",
-    "Whats your personality type? ✨",
+    "How do you identify?👤",
+    "What are you looking for?🔎",
+    "Whats your personality type?✨",
 )
 
 private val sampleMcOptions = listOf(

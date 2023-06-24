@@ -24,6 +24,7 @@ data class OnboardingState(
 data class ShortResponseQuestion(
     override val prompt: UiText,
     override val response: TextFieldValue = TextFieldValue(),
+    override val hint: UiText? = null,
     override val validationError: UiText? = null
 ) : ShortResponse {
     override val isAnswered: Boolean
