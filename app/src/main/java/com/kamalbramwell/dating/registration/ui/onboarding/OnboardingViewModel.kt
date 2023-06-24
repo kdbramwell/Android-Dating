@@ -53,7 +53,6 @@ class OnboardingViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     private val blankInputError = UiText.DynamicString("Cannot be blank")
-    private fun ShortResponseQuestion.isBlank() = response.text.isBlank()
 
     fun onResponse(index: Int, value: TextFieldValue) {
         val question = questions[index] as? ShortResponseQuestion
