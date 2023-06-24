@@ -39,10 +39,15 @@ class CreateAccountScreenTest : ComposeTest() {
 
     @Test
     fun accountField_showsEmailOrPhoneError() {
-        val testState = RegistrationState(emailOrPhoneError = testError)
+        val invalidEmail = "invalidgmail.com"
+        val testState = RegistrationState(
+            emailOrPhone = TextFieldValue(invalidEmail),
+            emailOrPhoneError = testError
+        )
         composeTestRule.setContent {
             AuthScreen(testState)
         }
+        withText(invalidEmail).performClick()
         withText(testError.value).assertIsDisplayed()
     }
 
