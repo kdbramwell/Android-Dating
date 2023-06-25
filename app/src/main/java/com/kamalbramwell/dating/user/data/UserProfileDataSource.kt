@@ -38,14 +38,8 @@ fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse>
 }
 
 private val sampleMcQuestions = listOf(
-    "How do you identify?👤",
-    "What are you looking for?🔎",
-    "Whats your personality type?✨",
-)
-
-private val sampleMcOptions = listOf(
-    listOf("Male", "Female", "Non Binary"),
-    listOf(
+    "How do you identify?👤" to listOf("Male", "Female", "Non Binary"),
+    "What are you looking for?🔎" to listOf(
         "Friends ☺️",
         "FWB 😏",
         "Something casual 😘",
@@ -53,13 +47,13 @@ private val sampleMcOptions = listOf(
         "Long term relationship ❤️",
         "Wedding bands 💍"
     ),
-    Personality.values().map { "$it ✨" }
+    "Whats your personality type?✨" to Personality.values().map { "$it ✨" }
 )
 
-fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> = sampleMcQuestions.mapIndexed { idx, question ->
+fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> = sampleMcQuestions.map {
     MultipleChoiceQuestion(
-        prompt = UiText.DynamicString(question),
-        options = sampleMcOptions[idx].mapIndexed { opIdx, option ->
+        prompt = UiText.DynamicString(it.first),
+        options = it.second.mapIndexed { opIdx, option ->
             MultipleChoiceOption(
                 label = UiText.DynamicString(option),
                 isSelected = opIdx == 0 && answered
