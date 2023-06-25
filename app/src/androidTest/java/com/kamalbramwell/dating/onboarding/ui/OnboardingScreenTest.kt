@@ -9,7 +9,6 @@ import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.test.platform.app.InstrumentationRegistry
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
 import com.kamalbramwell.dating.onboarding.model.ShortResponseQuestion
@@ -107,13 +106,13 @@ class OnboardingScreenTest : ComposeTest() {
 
     @Test
     fun clickMultipleChoiceOption_providesQuestionIndexAndSelectedOption() {
-        val context = InstrumentationRegistry.getInstrumentation().context
         val dummyQuestion = generateMCSamples().random()
         val testState = OnboardingState(questions = List(2) { dummyQuestion })
         val startIndex = 1
 
         var receivedIndex = 0
         var receivedOption: MultipleChoiceOption? = null
+        var clickedOptionLabel = ""
 
         composeTestRule.setContent {
             OnboardingScreen(
@@ -124,8 +123,9 @@ class OnboardingScreenTest : ComposeTest() {
                     receivedOption = option
                 }
             )
+            clickedOptionLabel = dummyQuestion.options.first().label.asString()
         }
-        composeTestRule.onAllNodesWithText(dummyQuestion.options.first().label.asString(context))
+        composeTestRule.onAllNodesWithText(clickedOptionLabel)
             .onLast()
             .performClick()
 

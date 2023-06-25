@@ -5,7 +5,6 @@ import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.test.platform.app.InstrumentationRegistry
 import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
 import com.kamalbramwell.dating.onboarding.model.ShortResponseQuestion
 import com.kamalbramwell.dating.onboarding.ui.components.MultipleChoiceItem
@@ -41,10 +40,9 @@ class QuestionItemTest : ComposeTest() {
 
     @Test
     fun multipleChoice_selectOption_OnClickIsCalled() {
-        val context = InstrumentationRegistry.getInstrumentation().context
         val testItem = generateMCSamples().random()
         var receivedOption: MultipleChoiceOption? = null
-
+        var clickedOptionLabel = ""
         composeTestRule.setContent {
             MultipleChoiceItem(
                 item = testItem,
@@ -52,8 +50,9 @@ class QuestionItemTest : ComposeTest() {
                     receivedOption = it
                 }
             )
+            clickedOptionLabel = testItem.options.first().label.asString()
         }
-        composeTestRule.onAllNodesWithText(testItem.options.first().label.asString(context))
+        composeTestRule.onAllNodesWithText(clickedOptionLabel)
             .onLast()
             .performClick()
 
