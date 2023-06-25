@@ -6,12 +6,13 @@ import com.kamalbramwell.dating.onboarding.model.MultipleChoice
 import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
 import com.kamalbramwell.dating.onboarding.model.Question
 import com.kamalbramwell.dating.onboarding.model.ShortResponse
-import com.kamalbramwell.dating.onboarding.ui.MultipleChoiceQuestion
-import com.kamalbramwell.dating.onboarding.ui.ShortResponseQuestion
+import com.kamalbramwell.dating.onboarding.model.MultipleChoiceQuestion
+import com.kamalbramwell.dating.onboarding.model.ShortResponseQuestion
 import com.kamalbramwell.dating.user.data.UserProfileDataSource.Companion.IncompleteException
 import com.kamalbramwell.dating.user.model.GenderOption
 import com.kamalbramwell.dating.user.model.Personality
 import com.kamalbramwell.dating.user.model.Seeking
+import com.kamalbramwell.dating.user.model.UserData
 import com.kamalbramwell.dating.utils.UiText
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

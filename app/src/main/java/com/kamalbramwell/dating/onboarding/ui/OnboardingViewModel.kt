@@ -7,8 +7,9 @@ import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.di.DefaultDispatcher
 import com.kamalbramwell.dating.onboarding.model.MultipleChoice
 import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
+import com.kamalbramwell.dating.onboarding.model.MultipleChoiceQuestion
 import com.kamalbramwell.dating.onboarding.model.Question
-import com.kamalbramwell.dating.onboarding.model.ShortResponse
+import com.kamalbramwell.dating.onboarding.model.ShortResponseQuestion
 import com.kamalbramwell.dating.user.data.UserProfileDataSource
 import com.kamalbramwell.dating.utils.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,27 +26,6 @@ data class OnboardingState(
     val submissionError: UiText? = null,
     val navigateToNext: Boolean = false,
 )
-
-data class ShortResponseQuestion(
-    override val prompt: UiText,
-    override val response: TextFieldValue = TextFieldValue(),
-    override val hint: UiText? = null,
-    override val validationError: UiText? = null
-) : ShortResponse {
-    override val isAnswered: Boolean
-        get() = response.text.isNotBlank()
-}
-
-data class MultipleChoiceQuestion(
-    override val prompt: UiText,
-    override val options: List<MultipleChoiceOption>,
-    override val maxSelections: Int,
-    override val minSelections: Int,
-    override val validationError: UiText? = null
-) : MultipleChoice {
-    override val isAnswered: Boolean
-        get() = options.any { it.isSelected }
-}
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(

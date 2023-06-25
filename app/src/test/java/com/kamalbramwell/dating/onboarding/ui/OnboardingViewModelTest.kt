@@ -3,6 +3,7 @@ package com.kamalbramwell.dating.onboarding.ui
 import androidx.compose.ui.text.input.TextFieldValue
 import com.kamalbramwell.dating.onboarding.model.MultipleChoice
 import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
+import com.kamalbramwell.dating.onboarding.model.MultipleChoiceQuestion
 import com.kamalbramwell.dating.onboarding.model.ShortResponse
 import com.kamalbramwell.dating.user.data.DummyUserProfileDataSource
 import com.kamalbramwell.dating.user.data.generateMCSamples
