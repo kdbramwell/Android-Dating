@@ -11,8 +11,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.kamalbramwell.dating.navigation.ui.DatingBottomSheet
 import com.kamalbramwell.dating.navigation.DatingNavHost
+import com.kamalbramwell.dating.navigation.ui.DatingBottomSheet
 import com.kamalbramwell.dating.navigation.ui.DatingScaffold
 import com.kamalbramwell.dating.navigation.ui.rememberBottomSheetNavigator
 import com.kamalbramwell.dating.navigation.ui.rememberNavigationBarHandler

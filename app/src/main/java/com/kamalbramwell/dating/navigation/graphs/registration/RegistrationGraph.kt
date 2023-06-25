@@ -5,14 +5,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.kamalbramwell.dating.navigation.graphs.explore.Explore
-import com.kamalbramwell.dating.navigation.navigateSingleTopTo
-import com.kamalbramwell.dating.navigation.ui.NavBarHandler
-import com.kamalbramwell.dating.registration.ui.StartScreen
 import com.kamalbramwell.dating.auth.ui.AuthScreen
 import com.kamalbramwell.dating.auth.ui.CreateAccountViewModel
 import com.kamalbramwell.dating.auth.ui.LoginViewModel
+import com.kamalbramwell.dating.navigation.graphs.explore.Explore
+import com.kamalbramwell.dating.navigation.navigateSingleTopTo
+import com.kamalbramwell.dating.navigation.ui.NavBarHandler
 import com.kamalbramwell.dating.onboarding.ui.OnboardingScreen
+import com.kamalbramwell.dating.registration.ui.StartScreen
 
 fun NavGraphBuilder.registrationGraph(
     navController: NavController,

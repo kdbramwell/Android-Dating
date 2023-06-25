@@ -6,9 +6,9 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.test.platform.app.InstrumentationRegistry
+import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
 import com.kamalbramwell.dating.onboarding.ui.components.MultipleChoiceItem
 import com.kamalbramwell.dating.onboarding.ui.components.ShortResponseItem
-import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
 import com.kamalbramwell.dating.ui.components.InputFieldTextFieldTestTag
 import com.kamalbramwell.dating.user.data.generateMCSamples
 import com.kamalbramwell.dating.user.data.generateShortResponseSamples

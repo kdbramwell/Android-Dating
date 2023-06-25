@@ -31,11 +31,11 @@ import com.kamalbramwell.dating.onboarding.model.MultipleChoice
 import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
 import com.kamalbramwell.dating.onboarding.model.Question
 import com.kamalbramwell.dating.onboarding.model.ShortResponse
-import com.kamalbramwell.dating.ui.components.Heading
 import com.kamalbramwell.dating.onboarding.ui.components.MultipleChoiceItem
 import com.kamalbramwell.dating.onboarding.ui.components.ShortResponseItem
 import com.kamalbramwell.dating.ui.components.BackButton
 import com.kamalbramwell.dating.ui.components.DatingText
+import com.kamalbramwell.dating.ui.components.Heading
 import com.kamalbramwell.dating.ui.components.NextButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
