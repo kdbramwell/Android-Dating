@@ -1,6 +1,7 @@
 package com.kamalbramwell.dating.user.data
 
 import androidx.compose.ui.text.input.TextFieldValue
+import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.onboarding.model.MultipleChoice
 import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
 import com.kamalbramwell.dating.onboarding.model.Question
@@ -8,7 +9,9 @@ import com.kamalbramwell.dating.onboarding.model.ShortResponse
 import com.kamalbramwell.dating.onboarding.ui.MultipleChoiceQuestion
 import com.kamalbramwell.dating.onboarding.ui.ShortResponseQuestion
 import com.kamalbramwell.dating.user.data.UserProfileDataSource.Companion.IncompleteException
+import com.kamalbramwell.dating.user.model.GenderOption
 import com.kamalbramwell.dating.user.model.Personality
+import com.kamalbramwell.dating.user.model.Seeking
 import com.kamalbramwell.dating.utils.UiText
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -25,37 +28,33 @@ interface UserProfileDataSource {
 }
 
 private val sampleSrQuestionsAndHints = listOf(
-    "What's your name?👋"  to "John Smith",
-    "When were you born?🗓️" to "1/1/1990"
+    R.string.onboarding_q_name to "John Smith",
+    R.string.onboarding_q_birthday to "1/1/1990"
 )
 
-fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse> = sampleSrQuestionsAndHints.map {
-    ShortResponseQuestion(
-        prompt = UiText.DynamicString(it.first),
-        response = if (answered) TextFieldValue("helloworld") else TextFieldValue(),
-        hint = UiText.DynamicString(it.second)
-    )
-}
+fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse> =
+    sampleSrQuestionsAndHints.map {
+        ShortResponseQuestion(
+            prompt = UiText.StringResource(it.first),
+            response = if (answered) TextFieldValue("helloworld") else TextFieldValue(),
+            hint = UiText.DynamicString(it.second)
+        )
+    }
 
 private val sampleMcQuestionsAndOptions = listOf(
-    "How do you identify?👤" to listOf("Male", "Female", "Non Binary"),
-    "What are you looking for?🔎" to listOf(
-        "Friends ☺️",
-        "FWB 😏",
-        "Something casual 😘",
-        "Exclusive dating 🥰",
-        "Long term relationship ❤️",
-        "Wedding bands 💍"
-    ),
-    "Whats your personality type?✨" to Personality.values().map { "$it ✨" } + "Not sure"
+    R.string.onboarding_q_gender to GenderOption.values().map { UiText.StringResource(it.label) },
+    R.string.onboarding_q_seeking to Seeking.values().map { UiText.StringResource(it.label) },
+    R.string.onboarding_q_mbti to Personality.values()
+        .map { UiText.DynamicString("$it ✨") }
+            + UiText.StringResource(R.string.mbti_not_sure)
 )
 
 fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> = sampleMcQuestionsAndOptions.map {
     MultipleChoiceQuestion(
-        prompt = UiText.DynamicString(it.first),
+        prompt = UiText.StringResource(it.first),
         options = it.second.mapIndexed { opIdx, option ->
             MultipleChoiceOption(
-                label = UiText.DynamicString(option),
+                label = option,
                 isSelected = opIdx == 0 && answered
             )
         },
