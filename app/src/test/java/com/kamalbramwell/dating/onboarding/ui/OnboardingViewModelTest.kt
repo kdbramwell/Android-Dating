@@ -59,7 +59,7 @@ class OnboardingViewModelTest {
     fun `successful submission updates navigateToNext to true`() = runTest {
         val viewModel = OnboardingViewModel(
             DummyUserProfileDataSource(
-                shortResponse = true,
+                both = true,
                 answered = true,
                 dispatcher = StandardTestDispatcher(testScheduler)
             ),

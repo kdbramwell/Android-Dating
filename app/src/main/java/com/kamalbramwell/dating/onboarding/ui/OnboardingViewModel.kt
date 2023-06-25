@@ -32,8 +32,8 @@ class OnboardingViewModel @Inject constructor(
     private val dataSource: UserProfileDataSource,
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ): ViewModel() {
-
-    private var questions = dataSource.profileQuestions
+    private val userBuilder = dataSource.newUserFromOnboarding()
+    private var questions = userBuilder.onboardingQuestions
 
     private val _uiState = MutableStateFlow(OnboardingState(questions))
     val uiState = _uiState.asStateFlow()
@@ -89,7 +89,7 @@ class OnboardingViewModel @Inject constructor(
         }
 
         viewModelScope.launch(dispatcher) {
-            val result = dataSource.submit(questions)
+            val result = userBuilder.createUser(questions)
             if (result.isSuccess) {
                 _uiState.update { it.copy(navigateToNext = true, isLoading = false) }
             } else {

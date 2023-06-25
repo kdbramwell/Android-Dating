@@ -8,24 +8,17 @@ import com.kamalbramwell.dating.onboarding.model.MultipleChoiceQuestion
 import com.kamalbramwell.dating.onboarding.model.Question
 import com.kamalbramwell.dating.onboarding.model.ShortResponse
 import com.kamalbramwell.dating.onboarding.model.ShortResponseQuestion
-import com.kamalbramwell.dating.user.data.UserProfileDataSource.Companion.IncompleteException
 import com.kamalbramwell.dating.user.model.GenderOption
 import com.kamalbramwell.dating.user.model.Seeking
 import com.kamalbramwell.dating.user.model.UserData
 import com.kamalbramwell.dating.utils.UiText
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.util.Date
 
 interface UserProfileDataSource {
-    val profileQuestions: List<Question>
+    val onboardingQuestions: List<Question>
 
-    suspend fun submit(answeredQuestions: List<Question>): Result<Boolean>
-
-    companion object {
-        val IncompleteException = Exception("Missing response(s) to required question(s).")
-    }
+    fun newUserFromOnboarding(): UserBuilder
 }
 
 private val sampleSrQuestionsAndHints = listOf(
@@ -62,6 +55,9 @@ fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> =
         )
     }
 
+fun generateProfileQuestions(answered: Boolean = false): List<Question> =
+    generateShortResponseSamples(answered) + generateMCSamples(answered)
+
 class DummyUserProfileDataSource(
     private val shortResponse: Boolean = false,
     private val multipleChoice: Boolean =  false,
@@ -71,21 +67,26 @@ class DummyUserProfileDataSource(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserProfileDataSource {
 
-    // TODO: In-memory caching of user details received during registration and onboarding
+    private var user: UserData? = null
 
-    override val profileQuestions: List<Question> by lazy {
+    override val onboardingQuestions: List<Question> by lazy {
         when {
             override != null -> override
-            both -> generateShortResponseSamples(answered) + generateMCSamples(answered)
+            both -> generateProfileQuestions(answered)
             shortResponse -> generateShortResponseSamples(answered)
             multipleChoice -> generateMCSamples(answered)
             else -> listOf()
         }
     }
 
-    override suspend fun submit(answeredQuestions: List<Question>): Result<Boolean> =
-        withContext(dispatcher) {
-            if (answeredQuestions.any { !it.isAnswered }) Result.failure(IncompleteException)
-            else Result.success(true)
-        }
+    override fun newUserFromOnboarding(): UserBuilder {
+        return UserBuilder(
+            uid = "",
+            onboardingQuestions = onboardingQuestions,
+            onCreateUser = {
+                user = it
+                Result.success(true)
+            }
+        )
+    }
 }
