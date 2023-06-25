@@ -21,6 +21,7 @@ interface MultipleChoice : Question {
 }
 
 data class MultipleChoiceOption(
+    val id: Int,
     val label: UiText,
     val isSelected: Boolean = false
 )

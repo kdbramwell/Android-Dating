@@ -46,6 +46,7 @@ fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> =
             prompt = UiText.StringResource(it.first),
             options = it.second.mapIndexed { opIdx, option ->
                 MultipleChoiceOption(
+                    id = opIdx,
                     label = option,
                     isSelected = opIdx == 0 && answered
                 )

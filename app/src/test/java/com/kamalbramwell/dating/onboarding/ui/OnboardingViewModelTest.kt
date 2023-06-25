@@ -103,7 +103,7 @@ class OnboardingViewModelTest {
             MultipleChoiceQuestion(
                 prompt = UiText.DynamicString("Question"),
                 options = List (4) {
-                    MultipleChoiceOption(UiText.DynamicString("Option $it"))
+                    MultipleChoiceOption(it, UiText.DynamicString("Option $it"))
                 },
                 maxSelections = 2,
                 minSelections = 1
@@ -125,7 +125,7 @@ class OnboardingViewModelTest {
             MultipleChoiceQuestion(
                 prompt = UiText.DynamicString("Question"),
                 options = List (4) {
-                    MultipleChoiceOption(UiText.DynamicString("Option $it"))
+                    MultipleChoiceOption(it, UiText.DynamicString("Option $it"))
                 },
                 maxSelections = 1,
                 minSelections = 1

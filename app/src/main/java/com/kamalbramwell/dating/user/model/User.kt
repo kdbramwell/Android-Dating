@@ -2,28 +2,27 @@ package com.kamalbramwell.dating.user.model
 
 import androidx.annotation.StringRes
 import com.kamalbramwell.dating.R
-import java.util.Date
 
 data class UserData(
     val uid: String,
     val name: String,
-    val birthday: Date,
+    val birthday: Long,
     val gender: GenderOption,
     val seeking: Seeking,
     val photoUrl: String? = null,
 )
 
-enum class GenderOption(@StringRes val label: Int) {
-    Male(R.string.gender_male),
-    Female(R.string.gender_female),
-    Nonbinary(R.string.gender_nonbinary)
+enum class GenderOption(@StringRes val label: Int, val id: Int) {
+    Male(R.string.gender_male, 0),
+    Female(R.string.gender_female, 1),
+    Nonbinary(R.string.gender_nonbinary, 2)
 }
 
-enum class Seeking(@StringRes val label: Int) {
-    Friends(R.string.seeking_friends),
-    FWB(R.string.seeking_fwb),
-    Casual(R.string.seeking_casual),
-    Dating(R.string.seeking_dating),
-    Relationship(R.string.seeking_ltr),
-    Marriage(R.string.seeking_marriage)
+enum class Seeking(@StringRes val label: Int, val id: Int) {
+    Friends(R.string.seeking_friends, 0),
+    FWB(R.string.seeking_fwb, 1),
+    Casual(R.string.seeking_casual, 2),
+    Dating(R.string.seeking_dating, 3),
+    Relationship(R.string.seeking_ltr, 4),
+    Marriage(R.string.seeking_marriage, 5)
 }
