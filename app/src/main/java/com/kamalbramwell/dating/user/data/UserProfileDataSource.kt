@@ -24,12 +24,12 @@ interface UserProfileDataSource {
     }
 }
 
-private val sampleSrQuestions = listOf(
+private val sampleSrQuestionsAndHints = listOf(
     "What's your name?👋"  to "John Smith",
     "When were you born?🗓️" to "1/1/1990"
 )
 
-fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse> = sampleSrQuestions.map {
+fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse> = sampleSrQuestionsAndHints.map {
     ShortResponseQuestion(
         prompt = UiText.DynamicString(it.first),
         response = if (answered) TextFieldValue("helloworld") else TextFieldValue(),
@@ -37,7 +37,7 @@ fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse>
     )
 }
 
-private val sampleMcQuestions = listOf(
+private val sampleMcQuestionsAndOptions = listOf(
     "How do you identify?👤" to listOf("Male", "Female", "Non Binary"),
     "What are you looking for?🔎" to listOf(
         "Friends ☺️",
@@ -50,7 +50,7 @@ private val sampleMcQuestions = listOf(
     "Whats your personality type?✨" to Personality.values().map { "$it ✨" } + "Not sure"
 )
 
-fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> = sampleMcQuestions.map {
+fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> = sampleMcQuestionsAndOptions.map {
     MultipleChoiceQuestion(
         prompt = UiText.DynamicString(it.first),
         options = it.second.mapIndexed { opIdx, option ->
