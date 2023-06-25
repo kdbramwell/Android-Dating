@@ -17,6 +17,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -48,10 +49,22 @@ class LocalAuthDataSource @Inject constructor(
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(dataStoreName)
 
     override val currentUser: Flow<AccountData?> = context.dataStore.data.map {
-        it[emailKey]?.let { email -> AccountData(uid = "0", email = email) }
-            ?: it[phoneKey]?.let { phone -> AccountData(uid = "0", phone = phone)}
+        val uid = it[uidKey] ?: ""
+        it[emailKey]?.let { email ->
+            AccountData(
+                uid = uid,
+                email = email
+            )
+        } ?: it[phoneKey]?.let { phone ->
+            AccountData(
+                uid = uid,
+                phone = phone
+            )
+        }
     }
     override val isLoggedIn: Flow<Boolean> = currentUser.map { it != null }
+
+    private fun generateUid(): String = UUID.randomUUID().toString()
 
     private suspend fun saveLogin(
         email: String?,
@@ -63,6 +76,7 @@ class LocalAuthDataSource @Inject constructor(
                 require(!email.isNullOrBlank() || !phone.isNullOrBlank())
                 email?.let { writeToDataStore(emailKey, email) }
                 phone?.let { writeToDataStore(phoneKey, phone) }
+                writeToDataStore(uidKey, generateUid())
                 writeToDataStore(passwordKey, password)
                 Result.success(true)
             } catch (e: Exception) {
@@ -112,6 +126,7 @@ class LocalAuthDataSource @Inject constructor(
 
     companion object {
         private const val dataStoreName = "account"
+        private val uidKey = stringPreferencesKey("uid")
         private val emailKey = stringPreferencesKey("email")
         private val phoneKey = stringPreferencesKey("phone")
         private val passwordKey = stringPreferencesKey("password")

@@ -5,4 +5,3 @@ data class AccountData(
     val email: String? = null,
     val phone: String? = null
 )
-
