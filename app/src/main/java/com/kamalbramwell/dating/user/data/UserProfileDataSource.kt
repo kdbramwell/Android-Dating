@@ -4,19 +4,19 @@ import androidx.compose.ui.text.input.TextFieldValue
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.onboarding.model.MultipleChoice
 import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
+import com.kamalbramwell.dating.onboarding.model.MultipleChoiceQuestion
 import com.kamalbramwell.dating.onboarding.model.Question
 import com.kamalbramwell.dating.onboarding.model.ShortResponse
-import com.kamalbramwell.dating.onboarding.model.MultipleChoiceQuestion
 import com.kamalbramwell.dating.onboarding.model.ShortResponseQuestion
 import com.kamalbramwell.dating.user.data.UserProfileDataSource.Companion.IncompleteException
 import com.kamalbramwell.dating.user.model.GenderOption
-import com.kamalbramwell.dating.user.model.Personality
 import com.kamalbramwell.dating.user.model.Seeking
 import com.kamalbramwell.dating.user.model.UserData
 import com.kamalbramwell.dating.utils.UiText
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.Date
 
 interface UserProfileDataSource {
     val profileQuestions: List<Question>
@@ -45,24 +45,22 @@ fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse>
 private val sampleMcQuestionsAndOptions = listOf(
     R.string.onboarding_q_gender to GenderOption.values().map { UiText.StringResource(it.label) },
     R.string.onboarding_q_seeking to Seeking.values().map { UiText.StringResource(it.label) },
-    R.string.onboarding_q_mbti to Personality.values()
-        .map { UiText.DynamicString("$it ✨") }
-            + UiText.StringResource(R.string.mbti_not_sure)
 )
 
-fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> = sampleMcQuestionsAndOptions.map {
-    MultipleChoiceQuestion(
-        prompt = UiText.StringResource(it.first),
-        options = it.second.mapIndexed { opIdx, option ->
-            MultipleChoiceOption(
-                label = option,
-                isSelected = opIdx == 0 && answered
-            )
-        },
-        maxSelections = 1,
-        minSelections = 1
-    )
-}
+fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> =
+    sampleMcQuestionsAndOptions.map {
+        MultipleChoiceQuestion(
+            prompt = UiText.StringResource(it.first),
+            options = it.second.mapIndexed { opIdx, option ->
+                MultipleChoiceOption(
+                    label = option,
+                    isSelected = opIdx == 0 && answered
+                )
+            },
+            maxSelections = 1,
+            minSelections = 1
+        )
+    }
 
 class DummyUserProfileDataSource(
     private val shortResponse: Boolean = false,

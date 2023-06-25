@@ -41,7 +41,6 @@
     <string name="onboarding_q_birthday">When were you born?🗓️</string>
     <string name="onboarding_q_gender">How do you identify?👤</string>
     <string name="onboarding_q_seeking">What are you looking for?🔎</string>
-    <string name="onboarding_q_mbti">Whats your personality type?✨</string>
 
     <!-- Gender option labels -->
 
@@ -57,10 +56,6 @@
     <string name="seeking_dating">Exclusive dating 🥰</string>
     <string name="seeking_ltr">Long term relationship ❤️</string>
     <string name="seeking_marriage">Wedding bands 💍</string>
-
-    <!-- Personality type -->
-
-    <string name="mbti_not_sure">Not sure</string>
 
     <!-- Bottom navigation, TLDs -->
 
