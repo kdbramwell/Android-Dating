@@ -47,7 +47,7 @@ private val sampleMcQuestions = listOf(
         "Long term relationship ❤️",
         "Wedding bands 💍"
     ),
-    "Whats your personality type?✨" to Personality.values().map { "$it ✨" }
+    "Whats your personality type?✨" to Personality.values().map { "$it ✨" } + "Not sure"
 )
 
 fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> = sampleMcQuestions.map {
