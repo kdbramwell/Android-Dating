@@ -48,14 +48,21 @@ class LocalAuthDataSource @Inject constructor(
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(dataStoreName)
 
     override val currentUser: Flow<AccountData?> = context.dataStore.data.map {
-        it[userKey]?.let { user -> AccountData("0", user) }
+        it[emailKey]?.let { email -> AccountData(uid = "0", email = email) }
+            ?: it[phoneKey]?.let { phone -> AccountData(uid = "0", phone = phone)}
     }
     override val isLoggedIn: Flow<Boolean> = currentUser.map { it != null }
 
-    private suspend fun saveLogin(emailOrPhone: String, password: String): Result<Boolean> =
+    private suspend fun saveLogin(
+        email: String?,
+        phone: String?,
+        password: String
+    ): Result<Boolean> =
         withContext(dispatcher) {
             try {
-                writeToDataStore(userKey, emailOrPhone)
+                require(!email.isNullOrBlank() || !phone.isNullOrBlank())
+                email?.let { writeToDataStore(emailKey, email) }
+                phone?.let { writeToDataStore(phoneKey, phone) }
                 writeToDataStore(passwordKey, password)
                 Result.success(true)
             } catch (e: Exception) {
@@ -69,10 +76,10 @@ class LocalAuthDataSource @Inject constructor(
     }
 
     override suspend fun registerEmail(email: String, password: String): Result<Boolean> =
-        saveLogin(email, password)
+        saveLogin(email, null, password)
 
     override suspend fun registerPhone(phone: String, password: String): Result<Boolean> =
-        saveLogin(phone, password)
+        saveLogin(null, phone, password)
 
     private val loginFailure = Result.failure<Boolean>(LoginFailedException)
 
@@ -82,7 +89,9 @@ class LocalAuthDataSource @Inject constructor(
                 var result: Result<Boolean> = loginFailure
                 context.dataStore.updateData {
                     result = when {
-                        it[userKey] != emailOrPhone -> Result.failure(AccountNotFoundException)
+                        it[emailKey] != emailOrPhone && it[phoneKey] != emailOrPhone -> {
+                            Result.failure(AccountNotFoundException)
+                        }
                         it[passwordKey] != password -> Result.failure(IncorrectPasswordException)
                         else -> Result.success(true)
                     }
@@ -103,7 +112,8 @@ class LocalAuthDataSource @Inject constructor(
 
     companion object {
         private const val dataStoreName = "account"
-        private val userKey = stringPreferencesKey("user")
+        private val emailKey = stringPreferencesKey("email")
+        private val phoneKey = stringPreferencesKey("phone")
         private val passwordKey = stringPreferencesKey("password")
     }
 }

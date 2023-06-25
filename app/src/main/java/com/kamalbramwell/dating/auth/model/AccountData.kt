@@ -2,6 +2,7 @@ package com.kamalbramwell.dating.auth.model
 
 data class AccountData(
     val uid: String,
-    val user: String? = null,
+    val email: String? = null,
+    val phone: String? = null
 )
 
