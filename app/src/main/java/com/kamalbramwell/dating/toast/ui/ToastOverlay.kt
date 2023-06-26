@@ -25,7 +25,14 @@ fun ToastOverlay(
     val uiState by LocalToastHandler.current.state.collectAsStateWithLifecycle()
 
     Box(modifier.fillMaxSize()) {
-        ToastSurface(uiState.toastData, Modifier.fillMaxWidth().padding(16.dp))
+        ToastSurface(
+            uiState.toastData,
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                vertical = 48.dp,
+                horizontal = 24.dp)
+        )
         content()
     }
 }
