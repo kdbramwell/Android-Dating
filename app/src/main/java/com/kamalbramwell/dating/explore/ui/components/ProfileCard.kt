@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.DefaultShadowColor
 import androidx.compose.ui.layout.ContentScale
@@ -91,6 +92,10 @@ fun ProfileCard(
 
             Column(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Brush.verticalGradient(
+                        listOf(Color.Transparent, Color.Black.copy(alpha = 0.8f))
+                    ))
                     .align(Alignment.BottomStart)
                     .padding(horizontal = 24.dp, vertical = 16.dp)
             ) {
@@ -121,7 +126,7 @@ fun ProfileCard(
 private fun Username(name: String) {
     DatingText(
         text = UiText.DynamicString(name),
-        color = MaterialTheme.colorScheme.onPrimary,
+        color = Color.White,
         fontWeight = FontWeight.Bold,
         fontSize = 25.sp,
     )
@@ -134,7 +139,7 @@ private fun Long.toAge(): String =
 private fun Age(birthday: Long) {
     DatingText(
         text = UiText.DynamicString(birthday.toAge()),
-        color = MaterialTheme.colorScheme.onPrimary,
+        color = Color.White,
         fontSize = 20.sp,
     )
 }
@@ -154,7 +159,7 @@ fun Seeking(seeking: Seeking) {
                 )
             }
             .padding(defaultContentPadding),
-        color = MaterialTheme.colorScheme.onPrimary,
+        color = Color.White,
         textAlign = TextAlign.Center,
     )
 }
