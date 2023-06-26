@@ -61,7 +61,6 @@ class OnboardingViewModelTest {
             DummyUserProfileDataSource(
                 both = true,
                 answered = true,
-                dispatcher = StandardTestDispatcher(testScheduler)
             ),
             StandardTestDispatcher(testScheduler)
         )
@@ -76,8 +75,7 @@ class OnboardingViewModelTest {
         val viewModel = OnboardingViewModel(
             DummyUserProfileDataSource(
                 shortResponse = true,
-                answered = false,
-                dispatcher = StandardTestDispatcher(testScheduler)
+                answered = false
             ),
             StandardTestDispatcher(testScheduler)
         )

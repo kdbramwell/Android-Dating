@@ -40,7 +40,7 @@ class UserBuilder(
                 DateTimeFormatter.ofPattern("MM/dd/yyyy")
             ).toEpochDay()
         } catch (e: Exception) {
-            System.currentTimeMillis()
+            throw DateFormatException
         }
 
     private fun Question.asGender(): GenderOption =
@@ -56,5 +56,6 @@ class UserBuilder(
 
     companion object {
         val IncompleteException = Exception("Missing response(s) to required question(s).")
+        val DateFormatException = Exception("Please enter birthday as mm/dd/yyyy.")
     }
 }

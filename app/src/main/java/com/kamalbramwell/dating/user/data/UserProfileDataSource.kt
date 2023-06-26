@@ -12,26 +12,26 @@ import com.kamalbramwell.dating.user.model.GenderOption
 import com.kamalbramwell.dating.user.model.Seeking
 import com.kamalbramwell.dating.user.model.UserData
 import com.kamalbramwell.dating.utils.UiText
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 
 interface UserProfileDataSource {
-    val onboardingQuestions: List<Question>
-
     fun newUserFromOnboarding(): UserBuilder
 }
 
 private val sampleSrQuestionsAndHints = listOf(
     R.string.onboarding_q_name to "John Smith",
-    R.string.onboarding_q_birthday to "1/1/1990"
+    R.string.onboarding_q_birthday to "01/01/1990"
 )
 
 fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse> =
-    sampleSrQuestionsAndHints.map {
+    sampleSrQuestionsAndHints.mapIndexed { idx, question ->
         ShortResponseQuestion(
-            prompt = UiText.StringResource(it.first),
-            response = if (answered) TextFieldValue("helloworld") else TextFieldValue(),
-            hint = UiText.DynamicString(it.second)
+            prompt = UiText.StringResource(question.first),
+            response = when {
+                answered && idx == 0 -> TextFieldValue(question.second)
+                answered && idx == 1 -> TextFieldValue(question.second)
+                else -> TextFieldValue()
+            },
+            hint = UiText.DynamicString(question.second)
         )
     }
 
@@ -61,16 +61,15 @@ fun generateProfileQuestions(answered: Boolean = false): List<Question> =
 
 class DummyUserProfileDataSource(
     private val shortResponse: Boolean = false,
-    private val multipleChoice: Boolean =  false,
+    private val multipleChoice: Boolean = false,
     private val both: Boolean = false,
     private val override: List<Question>? = null,
     private val answered: Boolean = false,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserProfileDataSource {
 
     private var user: UserData? = null
 
-    override val onboardingQuestions: List<Question> by lazy {
+    private val onboardingQuestions: List<Question> by lazy {
         when {
             override != null -> override
             both -> generateProfileQuestions(answered)

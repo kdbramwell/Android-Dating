@@ -29,7 +29,7 @@ data class OnboardingState(
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
-    private val dataSource: UserProfileDataSource,
+    dataSource: UserProfileDataSource,
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ): ViewModel() {
     private val userBuilder = dataSource.newUserFromOnboarding()
