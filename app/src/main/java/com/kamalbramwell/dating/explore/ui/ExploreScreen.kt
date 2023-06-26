@@ -14,11 +14,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.kamalbramwell.dating.explore.data.accounts
 import com.kamalbramwell.dating.explore.ui.components.CardStack
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.theme.DatingTheme
+import com.kamalbramwell.dating.ui.theme.defaultContentPadding
 import com.kamalbramwell.dating.utils.UiText
 
 @Composable
@@ -37,7 +37,7 @@ fun ExploreScreen() {
                 onEmptyStack = { isEmpty = true },
                 modifier = Modifier
                     .weight(6f)
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = defaultContentPadding)
             )
             Spacer(Modifier.weight(1f))
         } else {
