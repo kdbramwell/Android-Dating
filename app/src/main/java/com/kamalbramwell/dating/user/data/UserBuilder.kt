@@ -40,7 +40,7 @@ class UserBuilder(
                 DateTimeFormatter.ofPattern("MM/dd/yyyy")
             ).toEpochDay()
         } catch (e: Exception) {
-            throw DateFormatException
+            System.currentTimeMillis()
         }
 
     private fun Question.asGender(): GenderOption =
