@@ -164,18 +164,14 @@ fun LikeButton(onClick: () -> Unit = {}) {
     IconButton(
         onClick = onClick,
         modifier = Modifier
-            .drawBehind {
-                drawCircle(brush = brush)
-            }
+            .drawBehind { drawCircle(brush = brush) }
             .padding(defaultContentPadding)
     ) {
         Icon(
             imageVector = Icons.Filled.Favorite,
             contentDescription = "",
             tint = Color.White,
-            modifier = Modifier
-                .height(24.dp)
-                .width(24.dp)
+            modifier = Modifier.size(24.dp)
         )
     }
 }
