@@ -1,6 +1,7 @@
 package com.kamalbramwell.dating.explore.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,8 +53,13 @@ fun ProfileCard(
     user: UserData = UserData.random(),
     cardStackController: CardStackController = rememberCardStackController()
 ) {
-    Column(modifier.clip(MaterialTheme.shapes.extraLarge)) {
-        Box(modifier = modifier
+    Column(
+        modifier.background(
+            color = MaterialTheme.colorScheme.background,
+            shape = MaterialTheme.shapes.extraLarge
+        )
+    ) {
+        Box(modifier = Modifier
             .weight(1f)
             .clip(MaterialTheme.shapes.extraLarge)
         ) {
@@ -74,7 +80,7 @@ fun ProfileCard(
             }
 
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(horizontal = 24.dp, vertical = 16.dp)
             ) {
