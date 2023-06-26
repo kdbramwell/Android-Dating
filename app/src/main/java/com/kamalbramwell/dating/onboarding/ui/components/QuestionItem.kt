@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.dp
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.onboarding.model.MultipleChoice
 import com.kamalbramwell.dating.onboarding.model.MultipleChoiceOption
-import com.kamalbramwell.dating.onboarding.model.ShortResponse
 import com.kamalbramwell.dating.onboarding.model.MultipleChoiceQuestion
+import com.kamalbramwell.dating.onboarding.model.ShortResponse
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.rememberBrandGradient
@@ -44,6 +44,7 @@ import com.kamalbramwell.dating.user.data.generateMCSamples
 import com.kamalbramwell.dating.user.data.generateShortResponseSamples
 import com.kamalbramwell.dating.utils.UiText
 
+// TODO: Create QuestionItem with slot API for question type (short response, mc, calendar, etc.)
 @Composable
 fun ShortResponseItem(
     item: ShortResponse,
