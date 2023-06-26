@@ -52,7 +52,7 @@ fun DatingApp() {
                         navController = navController,
                         navBarHandler = navBarHandler,
                         modifier = Modifier
-                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                            .background(MaterialTheme.colorScheme.background)
                             .padding(innerPadding),
                     )
                 }
