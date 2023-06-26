@@ -10,9 +10,9 @@ import androidx.compose.material.icons.outlined.ChatBubbleOutline
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.kamalbramwell.dating.R
-import com.kamalbramwell.dating.navigation.ExploreGraph
-import com.kamalbramwell.dating.navigation.MatchesGraph
-import com.kamalbramwell.dating.navigation.ProfileGraph
+import com.kamalbramwell.dating.navigation.graphs.explore.Explore as ExploreGraph
+import com.kamalbramwell.dating.navigation.graphs.inbox.Inbox as InboxGraph
+
 
 enum class BottomBarTab(
     @StringRes val label: Int,
@@ -26,16 +26,16 @@ enum class BottomBarTab(
         Icons.Filled.Search,
         ExploreGraph.route
     ),
-    Matches(
+    Inbox(
         R.string.matches,
         Icons.Outlined.ChatBubbleOutline,
         Icons.Filled.ChatBubble,
-        MatchesGraph.route
+        InboxGraph.route
     ),
     Profile(
         R.string.profile,
         Icons.Outlined.AccountCircle,
         Icons.Filled.AccountCircle,
-        ProfileGraph.route
+        ExploreGraph.route
     )
 }

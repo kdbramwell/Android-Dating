@@ -4,6 +4,7 @@ import android.text.format.DateUtils
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -156,25 +157,29 @@ private fun ChatItem(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    Button(
-        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-        shape = MaterialTheme.shapes.large,
-        modifier = modifier,
-        contentPadding = PaddingValues(defaultContentPadding * 2),
-        onClick = onClick
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically){
-            MatchedUserItem(
-                userData = chat.user,
-                modifier = Modifier.shadow(elevation = defaultContentPadding, shape = CircleShape)
-            )
+    Box(modifier.padding(defaultContentPadding)) {
+        Button(
+            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+            shape = MaterialTheme.shapes.large,
+            contentPadding = PaddingValues(defaultContentPadding),
+            onClick = onClick
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                MatchedUserItem(
+                    userData = chat.user,
+                    modifier = Modifier.shadow(
+                        elevation = defaultContentPadding,
+                        shape = CircleShape
+                    )
+                )
 
-            Spacer(Modifier.size(16.dp))
+                Spacer(Modifier.size(16.dp))
 
-            Column(Modifier.weight(1f)) {
-                ChatName(chat)
-                LastMessageContent(chat)
-                LastMessageTime(chat)
+                Column(Modifier.weight(1f)) {
+                    ChatName(chat)
+                    LastMessageContent(chat)
+                    LastMessageTime(chat)
+                }
             }
         }
     }

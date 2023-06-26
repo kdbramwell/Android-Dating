@@ -63,7 +63,7 @@
     <!-- Bottom navigation, TLDs -->
 
     <string name="explore">Explore</string>
-    <string name="matches">Matches</string>
+    <string name="matches">Inbox</string>
     <string name='profile'>Profile</string>
 
     <!-- Other navigation -->
