@@ -79,8 +79,8 @@ fun CardStack(
                         .visible(visible = index == i || index == i -1)
                         .graphicsLayer(
                             rotationZ = if (index == i) cardStackController.rotation.value else 0f,
-                            scaleX = if (index < i) cardStackController.scale.value else 1f,
-                            scaleY = if (index < i) cardStackController.scale.value else 1f
+//                            scaleX = if (index < i) cardStackController.scale.value else 1f,
+//                            scaleY = if (index < i) cardStackController.scale.value else 1f
                         ),
                     user,
                     cardStackController
