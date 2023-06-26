@@ -105,7 +105,7 @@ fun ProfileCard(
 private fun Username(name: String) {
     DatingText(
         text = UiText.DynamicString(name),
-        color = Color.White,
+        color = MaterialTheme.colorScheme.onPrimary,
         fontWeight = FontWeight.Bold,
         fontSize = 25.sp,
     )
@@ -118,7 +118,7 @@ private fun Long.toAge(): String =
 private fun Age(birthday: Long) {
     DatingText(
         text = UiText.DynamicString(birthday.toAge()),
-        color = Color.White,
+        color = MaterialTheme.colorScheme.onPrimary,
         fontSize = 20.sp,
     )
 }
@@ -138,7 +138,7 @@ fun Seeking(seeking: Seeking) {
                 )
             }
             .padding(defaultContentPadding),
-        color = Color.White,
+        color = MaterialTheme.colorScheme.onPrimary,
         textAlign = TextAlign.Center,
     )
 }
