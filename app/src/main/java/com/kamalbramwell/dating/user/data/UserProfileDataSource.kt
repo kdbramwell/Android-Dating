@@ -36,8 +36,12 @@ fun generateShortResponseSamples(answered: Boolean = false): List<ShortResponse>
     }
 
 private val sampleMcQuestionsAndOptions = listOf(
-    R.string.onboarding_q_gender to GenderOption.values().map { UiText.StringResource(it.label) },
-    R.string.onboarding_q_seeking to Seeking.values().map { UiText.StringResource(it.label) },
+    R.string.onboarding_q_gender to GenderOption.values()
+        .filter { it.id >= 0 }
+        .map { UiText.StringResource(it.label) },
+    R.string.onboarding_q_seeking to Seeking.values()
+        .filter { it.id >= 0 }
+        .map { UiText.StringResource(it.label) },
 )
 
 fun generateMCSamples(answered: Boolean = false): List<MultipleChoice> =

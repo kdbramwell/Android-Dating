@@ -30,7 +30,7 @@ class UserBuilder(
         birthday = answeredQuestions[1].asBirthday(),
         gender = answeredQuestions[2].asGender(),
         seeking = answeredQuestions[3].asSeeking(),
-        photoUrl = null,
+        photoUrl = "",
     ).run { onCreateUser(this) }
 
     private fun Question.asBirthday(): Long =

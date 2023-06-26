@@ -57,6 +57,8 @@
     <string name="seeking_ltr">Long term relationship ❤️</string>
     <string name="seeking_marriage">Wedding bands 💍</string>
 
+    <string name="error_missing_property">Unspecified</string>
+
     <!-- Bottom navigation, TLDs -->
 
     <string name="explore">Explore</string>
