@@ -55,6 +55,7 @@ fun MaxWidthBorderlessButton(
     label: UiText,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    color: Color = MaterialTheme.colorScheme.onBackground,
     onClick: () -> Unit = {},
 ) {
     TextButton(
@@ -62,7 +63,7 @@ fun MaxWidthBorderlessButton(
         modifier = modifier.fillMaxWidth(),
         enabled = enabled,
     ) {
-        DatingText(text = label)
+        DatingText(text = label, color = color)
     }
 }
 

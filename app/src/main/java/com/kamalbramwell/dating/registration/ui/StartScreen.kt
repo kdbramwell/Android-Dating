@@ -1,6 +1,7 @@
 package com.kamalbramwell.dating.registration.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
@@ -24,6 +27,7 @@ import com.kamalbramwell.dating.ui.components.Heading
 import com.kamalbramwell.dating.ui.components.MaxWidthBorderlessButton
 import com.kamalbramwell.dating.ui.components.MaxWidthButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
+import com.kamalbramwell.dating.ui.theme.defaultContentPadding
 import com.kamalbramwell.dating.utils.UiText
 
 const val RegistrationOptionsTestTag  = "StartScreen"
@@ -40,27 +44,35 @@ fun StartScreen(
             painter = painterResource(id = resourceId),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
         )
 
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp),
+            modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Title(Modifier.weight(1f))
-            
-            EmailRegistrationButton(onEmailRegistrationClicked)
+            Title(Modifier.weight(1f).padding(defaultContentPadding))
 
             Spacer(Modifier.size(16.dp))
 
-            PhoneRegistrationButton(onPhoneRegistrationClicked)
+            Column(
+                Modifier.background(
+                    Brush.verticalGradient(
+                        listOf(Color.Transparent, Color.Black.copy(alpha = 0.8f))
+                    )
+                ).padding(defaultContentPadding),
+            ) {
+                EmailRegistrationButton(onEmailRegistrationClicked)
 
-            Spacer(Modifier.size(16.dp))
+                Spacer(Modifier.size(16.dp))
 
-            AlreadyRegisteredButton(onAlreadyRegisteredClicked)
+                PhoneRegistrationButton(onPhoneRegistrationClicked)
+
+                Spacer(Modifier.size(16.dp))
+
+                AlreadyRegisteredButton(onAlreadyRegisteredClicked)
+            }
         }
     }
 }
@@ -70,7 +82,7 @@ private fun Title(
     modifier: Modifier = Modifier
 ) {
     Heading(
-        text = UiText.DynamicString("Not Another Dating App"),
+        text = UiText.StringResource(R.string.app_subtitle),
         modifier = modifier
     )
 }
@@ -95,7 +107,8 @@ private fun PhoneRegistrationButton(onClick: () -> Unit = {}) {
 private fun AlreadyRegisteredButton(onClick: () -> Unit = {}) {
     MaxWidthBorderlessButton(
         label = UiText.StringResource(R.string.registration_already_registered_cta),
-        onClick = onClick
+        onClick = onClick,
+        color = Color.White
     )
 }
 

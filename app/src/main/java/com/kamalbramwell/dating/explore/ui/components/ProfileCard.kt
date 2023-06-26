@@ -93,9 +93,11 @@ fun ProfileCard(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Brush.verticalGradient(
-                        listOf(Color.Transparent, Color.Black.copy(alpha = 0.8f))
-                    ))
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(Color.Transparent, Color.Black.copy(alpha = 0.8f))
+                        )
+                    )
                     .align(Alignment.BottomStart)
                     .padding(horizontal = 24.dp, vertical = 16.dp)
             ) {
