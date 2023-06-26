@@ -3,14 +3,16 @@ package com.kamalbramwell.dating
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.kamalbramwell.dating.navigation.ui.DatingBottomSheet
 import com.kamalbramwell.dating.navigation.DatingNavHost
+import com.kamalbramwell.dating.navigation.ui.DatingBottomSheet
 import com.kamalbramwell.dating.navigation.ui.DatingScaffold
 import com.kamalbramwell.dating.navigation.ui.rememberBottomSheetNavigator
 import com.kamalbramwell.dating.navigation.ui.rememberNavigationBarHandler
@@ -49,7 +51,9 @@ fun DatingApp() {
                     DatingNavHost(
                         navController = navController,
                         navBarHandler = navBarHandler,
-                        modifier = Modifier.padding(innerPadding),
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.background)
+                            .padding(innerPadding),
                     )
                 }
             }

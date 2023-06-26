@@ -4,7 +4,7 @@ import androidx.compose.ui.test.performClick
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.utils.ComposeTest
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 

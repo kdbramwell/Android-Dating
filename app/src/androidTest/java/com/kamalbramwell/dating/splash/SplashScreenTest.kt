@@ -2,8 +2,8 @@ package com.kamalbramwell.dating.splash
 
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.utils.ComposeTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.Assert.*
 
 class SplashScreenTest : ComposeTest() {
 

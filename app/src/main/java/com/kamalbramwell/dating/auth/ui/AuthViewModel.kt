@@ -1,14 +1,15 @@
-package com.kamalbramwell.dating.registration.ui
+package com.kamalbramwell.dating.auth.ui
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kamalbramwell.dating.R
+import com.kamalbramwell.dating.auth.data.AuthUseCase
 import com.kamalbramwell.dating.di.Create
 import com.kamalbramwell.dating.di.IoDispatcher
 import com.kamalbramwell.dating.di.Login
-import com.kamalbramwell.dating.registration.data.AuthUseCase
 import com.kamalbramwell.dating.utils.UiText
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,6 +28,7 @@ data class RegistrationState(
     val registrationSuccessful: Boolean = false,
 )
 
+@HiltViewModel
 class CreateAccountViewModel @Inject constructor(
     @Create private val authUseCase: AuthUseCase,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
@@ -36,6 +38,7 @@ class CreateAccountViewModel @Inject constructor(
     dispatcher
 )
 
+@HiltViewModel
 class LoginViewModel @Inject constructor(
     @Login private val authUseCase: AuthUseCase,
     @IoDispatcher private val dispatcher: CoroutineDispatcher

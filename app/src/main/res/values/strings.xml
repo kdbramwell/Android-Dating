@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Dating</string>
+    <string name="app_name">NADA</string>
+    <string name="app_subtitle">Not Another Dating App</string>
 
     <!-- Common -->
 
@@ -13,15 +14,51 @@
     <string name="registration_phone_registration_cta">Register with phone</string>
     <string name="registration_already_registered_cta">Already have an account?</string>
     <string name="registration_email_or_phone_label">Enter email address or phone number</string>
-    <string name="registration_password_label">Create a password</string>
+    <string name="registration_password_label">Enter password</string>
     <string name="registration_next">@string/next</string>
     <string name="registration_back">@string/back</string>
-    <string name="registration_create_account_heading">Nice to meet you!</string>
-    <string name="registration_login_heading">Welcome back!</string>
+    <string name="registration_create_account_heading">Create your account</string>
+    <string name="registration_login_heading">Login to your account</string>
+
+    <string name="registration_a11y_show_password">Show password</string>
+    <string name="registration_a11y_hide_password">Hide password</string>
 
     <string name="error_email_or_phone_invalid">Enter a valid email or phone number.</string>
     <string name="error_already_registered">This account is already registered.</string>
     <string name="error_password_invalid">Password must be 8 characters minimum and include at least 1 number and 1 capital letter.</string>
+
+    <!-- Onboarding -->
+
+    <string name="onboarding_heading">Introduce yourself</string>
+    <string name="onboarding_multiple_choice_label">Select up to %d.</string>
+
+    <string name="error_onboarding_blank_input">Can\'t be left blank!</string>
+    <string name="error_onboarding_generic">Hmm… something went wrong. Give it another try.</string>
+    <string name="error_onboarding_max_selections_exceeded">Slow down! You\'ve selected too many options.</string>
+
+    <!-- Onboarding Questions -->
+
+    <string name="onboarding_q_name">What\'s your name?👋</string>
+    <string name="onboarding_q_birthday">When were you born?🗓️</string>
+    <string name="onboarding_q_gender">How do you identify?👤</string>
+    <string name="onboarding_q_seeking">What are you looking for?🔎</string>
+
+    <!-- Gender option labels -->
+
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_nonbinary">Non binary</string>
+
+    <!-- Dating preference labels -->
+
+    <string name="seeking_friends">Friends ☺️</string>
+    <string name="seeking_fwb">FWB 😏</string>
+    <string name="seeking_casual">Something casual 😘</string>
+    <string name="seeking_dating">Exclusive dating 🥰</string>
+    <string name="seeking_ltr">Long term relationship ❤️</string>
+    <string name="seeking_marriage">Wedding bands 💍</string>
+
+    <string name="error_missing_property">Unspecified</string>
 
     <!-- Bottom navigation, TLDs -->
 

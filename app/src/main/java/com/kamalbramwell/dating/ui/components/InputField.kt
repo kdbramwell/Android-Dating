@@ -9,7 +9,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -25,8 +29,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,13 +54,19 @@ fun InputField(
     error: UiText? = null,
     label: UiText? = null,
     placeholder: UiText? = null,
+    labelTextAlign: TextAlign = TextAlign.Start,
+    placeholderTextAlign: TextAlign = TextAlign.Start,
     icon: (@Composable () -> Unit)? = null,
     onIconClick: () -> Unit = {},
     enabled: Boolean = true,
     singleLine: Boolean = true,
+    textStyle: TextStyle = LocalTextStyle.current.copy(
+        color = MaterialTheme.colorScheme.onBackground
+    ),
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         capitalization = KeyboardCapitalization.Sentences
     ),
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     placeholderColor: Color = MaterialTheme.colorScheme.outline,
     backgroundColor: Color = MaterialTheme.colorScheme.background,
     hideKeyboard: Boolean = false,
@@ -80,11 +92,15 @@ fun InputField(
         onTextFieldFocused = onTextFieldFocused,
         label = error ?: label,
         placeholder = placeholder,
+        labelTextAlign,
+        placeholderTextAlign,
         icon = icon,
         onIconClick = onIconClick,
         enabled = enabled,
         singleLine = singleLine,
+        textStyle = textStyle,
         keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
         labelColor = labelColor,
         placeholderColor = placeholderColor,
         borderColor = borderColor,
@@ -103,13 +119,19 @@ private fun OutlinedTextInput(
     onTextFieldFocused: (Boolean) -> Unit = {},
     label: UiText? = null,
     placeholder: UiText? = null,
+    labelTextAlign: TextAlign = TextAlign.Start,
+    placeholderTextAlign: TextAlign = TextAlign.Start,
     icon: (@Composable () -> Unit)? = null,
     onIconClick: () -> Unit = {},
     enabled: Boolean = true,
     singleLine: Boolean = true,
+    textStyle: TextStyle = LocalTextStyle.current.copy(
+        color = MaterialTheme.colorScheme.onBackground
+    ),
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         capitalization = KeyboardCapitalization.Sentences
     ),
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     labelColor: Color = MaterialTheme.colorScheme.outline,
     placeholderColor: Color = MaterialTheme.colorScheme.outline,
     borderColor: Color = MaterialTheme.colorScheme.outline,
@@ -149,7 +171,11 @@ private fun OutlinedTextInput(
                         text = label,
                         color = labelColor,
                         fontSize = 12.sp,
-                        modifier = Modifier.semantics { testTag = InputFieldLabelTestTag }
+                        style = textStyle,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .semantics { testTag = InputFieldLabelTestTag },
+                        textAlign = labelTextAlign
                     )
                 }
             }
@@ -159,31 +185,31 @@ private fun OutlinedTextInput(
                     value = textFieldValue,
                     onValueChange = onTextChanged,
                     enabled = enabled,
-                    textStyle = LocalTextStyle.current.copy(
-                        color = MaterialTheme.colorScheme.onBackground
-                    ),
+                    textStyle = textStyle,
                     keyboardOptions = keyboardOptions,
+                    keyboardActions = keyboardActions,
                     singleLine = singleLine,
                     modifier = Modifier
+                        .fillMaxWidth()
                         .onFocusChanged { state ->
                             if (lastFocusState != state.isFocused) {
                                 onTextFieldFocused(state.isFocused)
                             }
                             lastFocusState = state.isFocused
-                        }.semantics {
-                            testTag = InputFieldTextFieldTestTag
                         }
+                        .semantics { testTag = InputFieldTextFieldTestTag }
                 )
 
-                if (textFieldValue.text.isEmpty()) {
-                    placeholder?.let { placeholder ->
-                        label?.let { label ->
+                if (textFieldValue.text.isBlank()) {
+                    placeholder?.let { placeholder -> // shown when not focused
+                        if (!lastFocusState) {
                             DatingText(
-                                text = if (!lastFocusState) label else placeholder,
+                                text = placeholder,
                                 color = placeholderColor,
-                                modifier = Modifier.semantics {
-                                    testTag = InputFieldPlaceholderTestTag
-                                }
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .semantics { testTag = InputFieldPlaceholderTestTag },
+                                textAlign = placeholderTextAlign
                             )
                         }
                     }
@@ -214,10 +240,10 @@ private val testErrorValue = TextFieldValue("invalidemail.com")
 
 @Preview(showBackground = true)
 @Composable
-private fun InputFieldPreview() {
+private fun InputFieldPlaceholderPreview() {
     DatingTheme {
         InputField(
-            textFieldValue = testInputValue,
+            textFieldValue = TextFieldValue(),
             placeholder = testPlaceholder,
             label = testPlaceholder
         )
@@ -243,7 +269,14 @@ private fun InputFieldErrorPreview() {
         InputField(
             textFieldValue = testErrorValue,
             placeholder = testPlaceholder,
-            error = testError
+            error = testError,
+            icon = {
+                Icon(
+                    Icons.Default.Info,
+                    contentDescription = "Error icon",
+                    tint = MaterialTheme.colorScheme.error
+                )
+            }
         )
     }
 }
@@ -255,7 +288,7 @@ private fun InputFieldErrorDarkPreview() {
         InputField(
             textFieldValue = testErrorValue,
             placeholder = testPlaceholder,
-            error = testError
+            error = testError,
         )
     }
 }

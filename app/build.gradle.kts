@@ -87,6 +87,8 @@ dependencies {
     implementation(Libs.Compose.Ui)
     implementation(Libs.Compose.Material)
     implementation(Libs.Compose.Accompanist)
+    implementation(Libs.Compose.Coil)
+    implementation(Libs.Compose.ConstraintLayout)
 
     androidTestImplementation(Libs.Compose.AndroidTestJunit)
     androidTestImplementation(Libs.Compose.NavigationAndroidTest)

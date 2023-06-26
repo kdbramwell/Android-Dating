@@ -1,33 +1,39 @@
-package com.kamalbramwell.dating.registration.ui
+package com.kamalbramwell.dating.auth.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kamalbramwell.dating.R
-import com.kamalbramwell.dating.ui.components.InputField
-import com.kamalbramwell.dating.ui.components.MaxWidthBorderlessButton
-import com.kamalbramwell.dating.ui.components.MaxWidthButton
-import com.kamalbramwell.dating.utils.UiText
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.toast.ui.ErrorToast
-import com.kamalbramwell.dating.ui.components.DatingText
+import com.kamalbramwell.dating.ui.components.BackButton
+import com.kamalbramwell.dating.ui.components.Heading
+import com.kamalbramwell.dating.ui.components.InputField
+import com.kamalbramwell.dating.ui.components.NextButton
+import com.kamalbramwell.dating.ui.components.PasswordField
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
+import com.kamalbramwell.dating.utils.UiText
 
 const val AuthTestTag = "AuthScreen"
 
@@ -47,8 +53,10 @@ fun AuthScreen(
         onCancelClicked = onCancelClicked
     )
 
-    if (uiState.registrationSuccessful) {
-        onNavigateNext()
+    LaunchedEffect(uiState.registrationSuccessful) {
+        if (uiState.registrationSuccessful) {
+            onNavigateNext()
+        }
     }
 }
 
@@ -91,39 +99,27 @@ fun AuthScreen(
                 error = uiState.passwordError,
                 modifier = Modifier.padding(vertical = 8.dp)
             )
+
+            Spacer(Modifier.height(8.dp))
+
+            TaskError(uiState.taskError)
         }
 
         Column(
-            Modifier.weight(1F),
-            verticalArrangement = Arrangement.Bottom
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TaskError(uiState.taskError)
-            ContinueButton(
-                onClick = onNextClicked,
-                enabled = nextButtonEnabled,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-            CancelButton(
-                onClick = onCancelClicked,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-        }
-    }
-}
+            Row {
+                CancelButton(onClick = onCancelClicked,)
 
-@Composable
-private fun Heading(
-    heading: UiText?,
-    modifier: Modifier = Modifier,
-) {
-    heading?.let {
-        DatingText(
-            heading,
-            modifier,
-            fontSize = 72.sp,
-            style = MaterialTheme.typography.headlineLarge,
-            fontWeight = FontWeight.Bold
-        )
+                Spacer(Modifier.weight(1F))
+
+                ContinueButton(
+                    onClick = onNextClicked,
+                    enabled = nextButtonEnabled,
+                )
+            }
+        }
     }
 }
 
@@ -138,12 +134,13 @@ private fun EmailOrPhoneInput(
     val placeholder = remember { UiText.StringResource(R.string.registration_email_or_phone_label) }
     InputField(
         textFieldValue = textFieldValue,
-        modifier = modifier,
+        modifier = modifier.defaultMinSize(minHeight = 64.dp),
         onTextChanged = onTextChanged,
         onTextFieldFocused = onTextFieldFocused,
         error = error,
         placeholder = placeholder,
-        label = placeholder
+        label = placeholder,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
     )
 }
 
@@ -156,7 +153,7 @@ private fun PasswordInput(
     error: UiText? = null,
 ) {
     val placeholder = remember { UiText.StringResource(R.string.registration_password_label) }
-    InputField(
+    PasswordField(
         textFieldValue = textFieldValue,
         modifier = modifier,
         onTextChanged = onTextChanged,
@@ -187,8 +184,7 @@ private fun ContinueButton(
     enabled: Boolean = false,
     onClick: () -> Unit = {},
 ) {
-    MaxWidthButton(
-        label = UiText.StringResource(R.string.next),
+    NextButton(
         modifier = modifier,
         enabled = enabled,
         onClick = onClick
@@ -200,14 +196,14 @@ private fun CancelButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
-    MaxWidthBorderlessButton(
-        label = UiText.StringResource(R.string.back),
+    BackButton(
         modifier = modifier,
+        enabled = true,
         onClick = onClick
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun CreateAccountScreenPreview() {
     DatingTheme {
@@ -220,7 +216,7 @@ private fun CreateAccountScreenPreview() {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun CreateAccountScreenPreviewDarkPreview() {
     DatingTheme(darkTheme = true) {

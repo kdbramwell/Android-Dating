@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.ui
+package com.kamalbramwell.dating.auth.ui
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
@@ -31,15 +31,21 @@ class CreateAccountScreenTest : ComposeTest() {
         composeTestRule.setContent {
             AuthScreen(testState)
         }
+        withDescription(R.string.registration_a11y_show_password).performClick()
         withText(testInput).assertIsDisplayed()
     }
 
     @Test
     fun accountField_showsEmailOrPhoneError() {
-        val testState = RegistrationState(emailOrPhoneError = testError)
+        val invalidEmail = "invalidgmail.com"
+        val testState = RegistrationState(
+            emailOrPhone = TextFieldValue(invalidEmail),
+            emailOrPhoneError = testError
+        )
         composeTestRule.setContent {
             AuthScreen(testState)
         }
+        withText(invalidEmail).performClick()
         withText(testError.value).assertIsDisplayed()
     }
 
@@ -67,7 +73,7 @@ class CreateAccountScreenTest : ComposeTest() {
         composeTestRule.setContent {
             AuthScreen(testState)
         }
-        withText(R.string.registration_next).assertIsEnabled()
+        withDescription(R.string.registration_next).assertIsEnabled()
     }
 
     @Test
@@ -76,7 +82,7 @@ class CreateAccountScreenTest : ComposeTest() {
         composeTestRule.setContent {
             AuthScreen(testState)
         }
-        withText(R.string.registration_next).assertIsNotEnabled()
+        withDescription(R.string.registration_next).assertIsNotEnabled()
     }
 
     @Test
@@ -88,7 +94,7 @@ class CreateAccountScreenTest : ComposeTest() {
                 onNextClicked = { nextClicked = true }
             )
         }
-        withText(R.string.registration_next).performClick()
+        withDescription(R.string.registration_next).performClick()
         assertEquals(true, nextClicked)
     }
 
@@ -101,7 +107,7 @@ class CreateAccountScreenTest : ComposeTest() {
                 onCancelClicked = { cancelClicked = true }
             )
         }
-        withText(R.string.registration_back).performClick()
+        withDescription(R.string.registration_back).performClick()
         assertEquals(true, cancelClicked)
     }
 }

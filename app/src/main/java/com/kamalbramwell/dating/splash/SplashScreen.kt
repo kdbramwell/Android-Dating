@@ -1,19 +1,18 @@
 package com.kamalbramwell.dating.splash
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.kamalbramwell.dating.registration.data.StockImageDataSource
+import com.kamalbramwell.dating.ui.components.rememberBrandGradient
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 
 @Composable
@@ -33,9 +32,12 @@ fun SplashScreen(
     onNavigateToHome: () -> Unit = {}
 ) {
     Background()
-    when {
-        uiState.navigateToHome -> onNavigateToHome()
-        uiState.navigateToRegistration -> onNavigateToRegistration()
+
+    LaunchedEffect(uiState.navigateToHome, uiState.navigateToRegistration) {
+        when {
+            uiState.navigateToHome -> onNavigateToHome()
+            uiState.navigateToRegistration -> onNavigateToRegistration()
+        }
     }
 }
 
@@ -43,14 +45,12 @@ const val SplashScreenTestTag = "SplashScreen"
 
 @Composable
 private fun Background() {
-    val resourceId = remember { StockImageDataSource.random() }
-    Image(
-        painter = painterResource(id = resourceId),
-        contentDescription = null,
+    val brandGradient = rememberBrandGradient()
+    Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(brandGradient)
             .semantics { testTag = SplashScreenTestTag },
-        contentScale = ContentScale.Crop
     )
 }
 

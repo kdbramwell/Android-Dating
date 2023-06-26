@@ -1,10 +1,11 @@
-package com.kamalbramwell.dating.registration.ui
+package com.kamalbramwell.dating.auth.ui
 
 import androidx.compose.ui.text.input.TextFieldValue
-import com.kamalbramwell.dating.registration.data.AuthUseCase
+import com.kamalbramwell.dating.auth.data.AuthUseCase
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 

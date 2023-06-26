@@ -1,4 +1,4 @@
-package com.kamalbramwell.dating.registration.data
+package com.kamalbramwell.dating.auth.data
 
 import android.content.Context
 import android.util.Log
@@ -7,19 +7,23 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.kamalbramwell.dating.auth.data.AuthDataSource.Exceptions.AccountNotFoundException
+import com.kamalbramwell.dating.auth.data.AuthDataSource.Exceptions.IncorrectPasswordException
+import com.kamalbramwell.dating.auth.data.AuthDataSource.Exceptions.LoginFailedException
+import com.kamalbramwell.dating.auth.model.AccountData
 import com.kamalbramwell.dating.di.IoDispatcher
-import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.AccountNotFoundException
-import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.IncorrectPasswordException
-import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.LoginFailedException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import java.util.UUID
 import javax.inject.Inject
+import javax.inject.Singleton
 
 interface AuthDataSource {
     val isLoggedIn: Flow<Boolean>
+    val currentUser: Flow<AccountData?>
     suspend fun registerEmail(email: String, password: String): Result<Boolean>
     suspend fun registerPhone(phone: String, password: String): Result<Boolean>
     suspend fun loginWithEmail(email: String, password: String): Result<Boolean>
@@ -36,20 +40,43 @@ interface AuthDataSource {
 /**
  * Uses [DataStore] to persist account data.
  */
+@Singleton
 class LocalAuthDataSource @Inject constructor(
     @ApplicationContext private val context: Context,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ): AuthDataSource {
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(dataStoreName)
-    override val isLoggedIn: Flow<Boolean> = context.dataStore.data.map {
-        it[userKey] != null && it[passwordKey] != null
-    }
 
-    private suspend fun saveLogin(emailOrPhone: String, password: String): Result<Boolean> =
+    override val currentUser: Flow<AccountData?> = context.dataStore.data.map {
+        val uid = it[uidKey] ?: ""
+        it[emailKey]?.let { email ->
+            AccountData(
+                uid = uid,
+                email = email
+            )
+        } ?: it[phoneKey]?.let { phone ->
+            AccountData(
+                uid = uid,
+                phone = phone
+            )
+        }
+    }
+    override val isLoggedIn: Flow<Boolean> = currentUser.map { it != null }
+
+    private fun generateUid(): String = UUID.randomUUID().toString()
+
+    private suspend fun saveLogin(
+        email: String?,
+        phone: String?,
+        password: String
+    ): Result<Boolean> =
         withContext(dispatcher) {
             try {
-                writeToDataStore(userKey, emailOrPhone)
+                require(!email.isNullOrBlank() || !phone.isNullOrBlank())
+                email?.let { writeToDataStore(emailKey, email) }
+                phone?.let { writeToDataStore(phoneKey, phone) }
+                writeToDataStore(uidKey, generateUid())
                 writeToDataStore(passwordKey, password)
                 Result.success(true)
             } catch (e: Exception) {
@@ -63,10 +90,10 @@ class LocalAuthDataSource @Inject constructor(
     }
 
     override suspend fun registerEmail(email: String, password: String): Result<Boolean> =
-        saveLogin(email, password)
+        saveLogin(email, null, password)
 
     override suspend fun registerPhone(phone: String, password: String): Result<Boolean> =
-        saveLogin(phone, password)
+        saveLogin(null, phone, password)
 
     private val loginFailure = Result.failure<Boolean>(LoginFailedException)
 
@@ -76,7 +103,9 @@ class LocalAuthDataSource @Inject constructor(
                 var result: Result<Boolean> = loginFailure
                 context.dataStore.updateData {
                     result = when {
-                        it[userKey] != emailOrPhone -> Result.failure(AccountNotFoundException)
+                        it[emailKey] != emailOrPhone && it[phoneKey] != emailOrPhone -> {
+                            Result.failure(AccountNotFoundException)
+                        }
                         it[passwordKey] != password -> Result.failure(IncorrectPasswordException)
                         else -> Result.success(true)
                     }
@@ -97,7 +126,9 @@ class LocalAuthDataSource @Inject constructor(
 
     companion object {
         private const val dataStoreName = "account"
-        private val userKey = stringPreferencesKey("user")
+        private val uidKey = stringPreferencesKey("uid")
+        private val emailKey = stringPreferencesKey("email")
+        private val phoneKey = stringPreferencesKey("phone")
         private val passwordKey = stringPreferencesKey("password")
     }
 }

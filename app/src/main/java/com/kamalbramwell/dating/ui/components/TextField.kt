@@ -11,13 +11,31 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.sp
 import com.kamalbramwell.dating.utils.UiText
+
+@Composable
+fun Heading(
+    text: UiText?,
+    modifier: Modifier = Modifier,
+) {
+    text?.let {
+        DatingText(
+            text = text,
+            modifier = modifier,
+            color = MaterialTheme.colorScheme.primary,
+            fontSize = 72.sp,
+            style = MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
 
 @Composable
 fun DatingText(
     text: UiText,
     modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.onPrimary,
+    color: Color = MaterialTheme.colorScheme.onBackground,
     fontSize: TextUnit = TextUnit.Unspecified,
     fontWeight: FontWeight? = null,
     lineHeight: TextUnit = TextUnit.Unspecified,

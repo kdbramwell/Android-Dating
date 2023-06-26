@@ -1,6 +1,6 @@
-package com.kamalbramwell.dating.registration.data
+package com.kamalbramwell.dating.auth.data
 
-import com.kamalbramwell.dating.registration.data.AuthDataSource.Exceptions.AccountNotFoundException
+import com.kamalbramwell.dating.auth.data.AuthDataSource.Exceptions.AccountNotFoundException
 import com.kamalbramwell.dating.utils.isEmail
 import com.kamalbramwell.dating.utils.isPhoneNumber
 import javax.inject.Inject
@@ -14,7 +14,7 @@ class LoginUseCase @Inject constructor(
 ) : AuthUseCase {
 
     override suspend fun submit(account: String, password: String): Result<Boolean> =
-        with (account) {
+        with (account.trim()) {
             when {
                 isPhoneNumber() -> dataSource.loginWithPhone(account, password)
                 isEmail() -> dataSource.loginWithEmail(account, password)
@@ -28,7 +28,7 @@ class CreateAccountUseCase @Inject constructor(
 ) : AuthUseCase {
 
     override suspend fun submit(account: String, password: String): Result<Boolean> =
-        with (account) {
+        with (account.trim()) {
             when {
                 isPhoneNumber() -> dataSource.registerPhone(account, password)
                 isEmail() -> dataSource.registerEmail(account, password)

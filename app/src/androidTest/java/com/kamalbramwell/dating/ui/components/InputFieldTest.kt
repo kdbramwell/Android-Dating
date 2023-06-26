@@ -5,7 +5,6 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.text.input.TextFieldValue
 import com.kamalbramwell.dating.utils.ComposeTest
 import com.kamalbramwell.dating.utils.UiText
-import org.junit.Assert.*
 import org.junit.Test
 
 class InputFieldTest : ComposeTest() {

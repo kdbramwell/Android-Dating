@@ -1,7 +1,6 @@
 package com.kamalbramwell.dating.navigation.ui
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,7 +15,6 @@ fun DatingScaffold(navController: NavHostController,
 ) {
     Scaffold(
         modifier = modifier,
-        containerColor = MaterialTheme.colorScheme.primary,
         bottomBar = {
             DatingNavigationBar(
                 tabs = BottomBarTab.values(),

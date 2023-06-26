@@ -2,14 +2,13 @@ package com.kamalbramwell.dating.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kamalbramwell.dating.auth.data.AuthDataSource
 import com.kamalbramwell.dating.di.DefaultDispatcher
-import com.kamalbramwell.dating.registration.data.AuthDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,6 +29,7 @@ class SplashScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(dispatcher) {
+            delay(2_000)
             checkLoginStatus()
         }
     }
