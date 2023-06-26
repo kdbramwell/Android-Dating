@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 
 @Composable
@@ -31,12 +32,12 @@ fun DatingNavigationBar(
         enter = slideInVertically(initialOffsetY = { it }),
         exit = slideOutVertically(targetOffsetY = { it })
     ) {
-        val containerColor = MaterialTheme.colorScheme.primary
         NavigationBar(
             modifier = modifier,
-            containerColor = containerColor
+            containerColor = Color.Transparent
         ) {
-            val selectedColor = MaterialTheme.colorScheme.onPrimary
+            val selectedColor = MaterialTheme.colorScheme.primary
+            val selectedIconColor = MaterialTheme.colorScheme.onPrimary
             val unselectedColor = MaterialTheme.colorScheme.outline
 
             for (tab in tabs) {
@@ -47,8 +48,8 @@ fun DatingNavigationBar(
                         navigateToRoute(tab.route)
                     },
                     colors = NavigationBarItemDefaults.colors(
-                        indicatorColor = containerColor,
-                        selectedIconColor = selectedColor,
+                        indicatorColor = selectedColor,
+                        selectedIconColor = selectedIconColor,
                         unselectedIconColor = unselectedColor,
                         selectedTextColor = selectedColor,
                         unselectedTextColor = unselectedColor
