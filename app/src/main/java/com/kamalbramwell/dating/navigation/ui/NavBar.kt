@@ -37,26 +37,26 @@ fun DatingNavigationBar(
             containerColor = Color.Transparent
         ) {
             val selectedColor = MaterialTheme.colorScheme.primary
-            val selectedIconColor = MaterialTheme.colorScheme.onPrimary
             val unselectedColor = MaterialTheme.colorScheme.outline
 
             for (tab in tabs) {
+                val isSelected = selectedTab == tab
                 NavigationBarItem(
-                    selected = selectedTab == tab,
+                    selected = isSelected,
                     onClick = {
                         selectedTab = tab
                         navigateToRoute(tab.route)
                     },
                     colors = NavigationBarItemDefaults.colors(
-                        indicatorColor = selectedColor,
-                        selectedIconColor = selectedIconColor,
+                        indicatorColor = MaterialTheme.colorScheme.surfaceVariant,
+                        selectedIconColor = selectedColor,
                         unselectedIconColor = unselectedColor,
                         selectedTextColor = selectedColor,
                         unselectedTextColor = unselectedColor
                     ),
                     icon = {
                         Icon(
-                            imageVector = tab.icon,
+                            imageVector = if (isSelected) tab.selectedIcon else tab.unselectedIcon,
                             contentDescription = stringResource(tab.label),
                         )
                     }
