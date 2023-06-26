@@ -2,6 +2,7 @@ package com.kamalbramwell.dating.user.model
 
 import androidx.annotation.StringRes
 import com.kamalbramwell.dating.R
+import java.time.LocalDate
 import java.util.UUID
 import kotlin.random.Random
 
@@ -40,9 +41,11 @@ data class UserData(
             "Linda Marquez",
             "Kristen Mitchell",
         )
-        private val NewYearsDay1985 = 473403600L
-        private val NewYearsDay2000 = 946702800L
-        private val RandomBetween1985and2000 = Random.nextLong(NewYearsDay1985, NewYearsDay2000)
+        private val RandomBetween1985and2000
+            get() = Random.nextLong(
+                LocalDate.of(1985, 1,1).toEpochDay(),
+                LocalDate.of(2000, 1, 1).toEpochDay()
+            )
         private val malePhotos = listOf(
             "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
         )
