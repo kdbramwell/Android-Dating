@@ -1,6 +1,7 @@
 package com.kamalbramwell.dating.explore.ui
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,29 +43,32 @@ fun ExploreScreen() {
     }
     var isEmpty by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        if (!isEmpty) {
-            Spacer(Modifier.weight(2f))
-            CardStack(
-                items = accounts,
-                onEmptyStack = { isEmpty = true },
-                modifier = Modifier
-                    .weight(6f)
-                    .padding(horizontal = defaultContentPadding)
-            )
-            Spacer(Modifier.weight(1f))
-        } else {
-            DatingText(
-                text = UiText.DynamicString("No nearby users found."),
-                color = MaterialTheme.colorScheme.onPrimary,
-                style = MaterialTheme.typography.labelLarge
-            )
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            if (!isEmpty) {
+                Spacer(Modifier.weight(2f))
+                CardStack(
+                    items = accounts,
+                    onEmptyStack = { isEmpty = true },
+                    modifier = Modifier
+                        .weight(6f)
+                        .padding(horizontal = defaultContentPadding)
+                )
+                Spacer(Modifier.weight(1f))
+            } else {
+                DatingText(
+                    text = UiText.DynamicString("No nearby users found."),
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
         }
     }
+
 }
 
 
