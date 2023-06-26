@@ -2,6 +2,8 @@ package com.kamalbramwell.dating.user.model
 
 import androidx.annotation.StringRes
 import com.kamalbramwell.dating.R
+import java.util.UUID
+import kotlin.random.Random
 
 data class UserData(
     val uid: String = "",
@@ -11,7 +13,83 @@ data class UserData(
     val seeking: Seeking = Seeking.Error,
     val photoUrl: String = "",
     val matchQuestion: String = ""
-)
+) {
+
+    companion object {
+        private val maleNames = listOf(
+            "Miles Delacruz",
+            "Rafael Taylor",
+            "Madison Cook",
+            "Lyndon Kemp",
+            "Mohammad Friedman",
+            "Brett Horton",
+            "Homer Zimmerman",
+            "Fahad Daniels",
+            "Joel Riley",
+            "Yusuf Combs"
+        )
+        private val femaleNames = listOf(
+            "Fatima Weeks",
+            "Stevie Kemp",
+            "Taha Mccarty",
+            "Scarlet Berg",
+            "Polly Mahoney",
+            "Nora Vincent",
+            "Maisha Mcintyre",
+            "Enya Bird",
+            "Linda Marquez",
+            "Kristen Mitchell",
+        )
+        private val NewYearsDay1985 = 473403600L
+        private val NewYearsDay2000 = 946702800L
+        private val RandomBetween1985and2000 = Random.nextLong(NewYearsDay1985, NewYearsDay2000)
+        private val malePhotos = listOf(
+            "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+        )
+        private val femalePhotos = listOf(
+            "https://images.unsplash.com/photo-1668069574922-bca50880fd70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+            "https://images.unsplash.com/photo-1667935764607-73fca1a86555?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"
+        )
+        private val matchQuestions = listOf(
+            "What\'s your idea of the perfect relationship?",
+            "What\'s a date idea you\'ve never tried?",
+            "Are you a robot?",
+            "Are you a Patriots fan?",
+            "Tell me a word that rhymes with purple",
+            "Have you ever been on a game show?",
+            "If you could have any super power, what would you choose?",
+            "Are you into motorcycles?",
+            "What\'s your favorite Rick and Morty episode?",
+            "What song can\'t you keep out your head lately?"
+        )
+        fun random(): UserData {
+            val male = Random.nextBoolean()
+            return UserData(
+                uid = UUID.randomUUID().toString(),
+                name = if (male) maleNames.random() else femaleNames.random(),
+                birthday = RandomBetween1985and2000,
+                gender = if (male) GenderOption.Male else GenderOption.Female,
+                seeking = Seeking.values().filter { it.id >= 0}.random(),
+                photoUrl = if (male) malePhotos.random() else femalePhotos.random(),
+                matchQuestion = matchQuestions.random()
+            )
+        }
+        fun generateUsers(male: Boolean): List<UserData> {
+            val namesList = if (male) maleNames else femaleNames
+            return namesList.mapIndexed { idx, name ->
+                UserData(
+                    uid = UUID.randomUUID().toString(),
+                    name = name,
+                    birthday = RandomBetween1985and2000,
+                    gender = GenderOption.Male,
+                    seeking = Seeking.values().random(),
+                    photoUrl = malePhotos[idx % malePhotos.size],
+                    matchQuestion = matchQuestions[idx % matchQuestions.size]
+                )
+            }
+        }
+    }
+}
 
 enum class GenderOption(@StringRes val label: Int, val id: Int) {
     Male(R.string.gender_male, 0),

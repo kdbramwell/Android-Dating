@@ -17,18 +17,18 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.kamalbramwell.dating.explore.ui.model.Item
+import com.kamalbramwell.dating.user.model.UserData
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CardStack(
     modifier: Modifier = Modifier,
-    items: MutableList<Item>,
+    items: MutableList<UserData>,
     thresholdConfig: (Float, Float) -> ThresholdConfig = { _, _ -> FractionalThreshold(0.2f) },
     velocityThreshold: Dp = 125.dp,
-    onSwipeLeft: (item: Item) -> Unit = {},
-    onSwipeRight: (item: Item) -> Unit = {},
-    onEmptyStack: (lastItem: Item) -> Unit = {}
+    onSwipeLeft: (userData: UserData) -> Unit = {},
+    onSwipeRight: (userData: UserData) -> Unit = {},
+    onEmptyStack: (userData: UserData) -> Unit = {}
 ) {
     var i by remember {
         mutableStateOf(items.size - 1)
@@ -69,19 +69,20 @@ fun CardStack(
                 )
                 .fillMaxHeight()
         ) {
-            items.asReversed().forEachIndexed { index, item ->
+            items.asReversed().forEachIndexed { index, user ->
                 ProfileCard(
-                    modifier = Modifier.moveTo(
-                        x = if (index == i) cardStackController.offsetX.value else 0f,
-                        y = if (index == i) cardStackController.offsetY.value else 0f
-                    )
+                    modifier = Modifier
+                        .moveTo(
+                            x = if (index == i) cardStackController.offsetX.value else 0f,
+                            y = if (index == i) cardStackController.offsetY.value else 0f
+                        )
                         .visible(visible = index == i || index == i -1)
                         .graphicsLayer(
                             rotationZ = if (index == i) cardStackController.rotation.value else 0f,
                             scaleX = if (index < i) cardStackController.scale.value else 1f,
                             scaleY = if (index < i) cardStackController.scale.value else 1f
                         ),
-                    item,
+                    user,
                     cardStackController
                 )
             }

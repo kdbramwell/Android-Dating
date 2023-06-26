@@ -30,9 +30,7 @@ fun ExploreScreen() {
         if (!isEmpty) {
             CardStack(
                 items = accounts,
-                onEmptyStack = {
-                    isEmpty = true
-                }
+                onEmptyStack = { isEmpty = true }
             )
         } else {
             DatingText(

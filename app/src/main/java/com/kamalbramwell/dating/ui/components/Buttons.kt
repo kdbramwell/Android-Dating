@@ -46,7 +46,7 @@ fun MaxWidthButton(
         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
         enabled = enabled,
     ) {
-        DatingText(text = label)
+        DatingText(text = label, color = Color.White)
     }
 }
 
