@@ -14,17 +14,17 @@ import androidx.compose.material.icons.outlined.Error
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
+import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.theme.DatingTheme
+import com.kamalbramwell.dating.utils.UiText
 
 private val defaultIconSize = 24.dp
 
@@ -132,16 +132,17 @@ private fun DatingToast(
         leadingIcon()
 
         Column(Modifier.padding(horizontal = 16.dp)) {
-            Text(
-                text = title,
-                fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Start
+            DatingText(
+                text = UiText.DynamicString(title),
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.bodyLarge,
+                color = Color.White
             )
             if (description.isNotBlank()) {
-                Text(
-                    text = description,
-                    fontWeight = FontWeight.Normal,
-                    textAlign = TextAlign.Start
+                DatingText(
+                    text = UiText.DynamicString(description),
+                    color = Color.White,
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
