@@ -50,7 +50,7 @@ import com.kamalbramwell.dating.utils.UiText
 import java.time.LocalDate
 import java.time.Period
 
-private fun Modifier.buttonShadow() =
+fun Modifier.buttonShadow() =
     then(shadow(
         elevation = 2.dp,
         shape = CircleShape,

@@ -62,7 +62,7 @@ fun ExploreScreen() {
             } else {
                 DatingText(
                     text = UiText.DynamicString("No nearby users found."),
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.labelLarge
                 )
             }
