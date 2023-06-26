@@ -35,7 +35,9 @@ fun ExploreScreen() {
             CardStack(
                 items = accounts,
                 onEmptyStack = { isEmpty = true },
-                modifier = Modifier.weight(6f).padding(horizontal = 16.dp)
+                modifier = Modifier
+                    .weight(6f)
+                    .padding(horizontal = 16.dp)
             )
             Spacer(Modifier.weight(1f))
         } else {

@@ -7,16 +7,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FractionalThreshold
 import androidx.compose.material.ThresholdConfig
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.kamalbramwell.dating.ui.theme.defaultContentPadding
 import com.kamalbramwell.dating.user.model.UserData
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -77,11 +80,14 @@ fun CardStack(
                             y = if (index == i) cardStackController.offsetY.value else 0f
                         )
                         .visible(visible = index == i || index == i -1)
+                        .shadow(
+                            elevation = defaultContentPadding,
+                            shape = MaterialTheme.shapes.extraLarge
+                        )
                         .graphicsLayer(
-                            rotationZ = if (index == i) cardStackController.rotation.value else 0f,
-//                            scaleX = if (index < i) cardStackController.scale.value else 1f,
-//                            scaleY = if (index < i) cardStackController.scale.value else 1f
-                        ),
+                            rotationZ = if (index == i) cardStackController.rotation.value else 0f
+                        )
+                    ,
                     user,
                     cardStackController
                 )
