@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
@@ -25,8 +26,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.DefaultShadowColor
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,6 +49,13 @@ import com.kamalbramwell.dating.utils.UiText
 import java.time.LocalDate
 import java.time.Period
 
+private fun Modifier.buttonShadow() =
+    then(shadow(
+        elevation = 2.dp,
+        shape = CircleShape,
+        ambientColor = DefaultShadowColor.copy(0.5f),
+        spotColor = DefaultShadowColor.copy(0.5f)
+    ))
 
 @Composable
 fun ProfileCard(
@@ -94,9 +104,15 @@ fun ProfileCard(
             modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            NotInterestedButton(onClick = { cardStackController.swipeLeft() })
+            NotInterestedButton(
+                modifier = Modifier.buttonShadow(),
+                onClick = { cardStackController.swipeLeft() }
+            )
             Spacer(modifier = Modifier.size(defaultContentPadding))
-            LikeButton(onClick = { cardStackController.swipeRight() })
+            LikeButton(
+                modifier = Modifier.buttonShadow(),
+                onClick = { cardStackController.swipeRight() }
+            )
         }
     }
 }
@@ -144,8 +160,16 @@ fun Seeking(seeking: Seeking) {
 }
 
 @Composable
-fun NotInterestedButton(onClick: () -> Unit = {}) {
-    IconButton(onClick = onClick, modifier = Modifier.padding(defaultContentPadding)) {
+fun NotInterestedButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
+    IconButton(
+        onClick = onClick,
+        modifier = modifier
+            .background(Color.White, CircleShape)
+            .padding(defaultContentPadding)
+    ) {
         Icon(
             imageVector = Icons.Default.Close,
             contentDescription = "",
@@ -158,12 +182,15 @@ fun NotInterestedButton(onClick: () -> Unit = {}) {
 }
 
 @Composable
-fun LikeButton(onClick: () -> Unit = {}) {
+fun LikeButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+) {
     val brush = rememberBrandGradient()
 
     IconButton(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .drawBehind { drawCircle(brush = brush) }
             .padding(defaultContentPadding)
     ) {
