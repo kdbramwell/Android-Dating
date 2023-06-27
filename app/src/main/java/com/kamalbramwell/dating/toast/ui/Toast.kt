@@ -33,7 +33,7 @@ private val defaultNoticeIcon = @Composable {
         imageVector = Icons.Outlined.Info,
         contentDescription = null,
         modifier = Modifier.size(defaultIconSize),
-        tint = MaterialTheme.colorScheme.onPrimary
+        tint = Color.White
     )
 }
 
@@ -60,7 +60,7 @@ private val defaultConfirmIcon = @Composable {
         imageVector = Icons.Outlined.Check,
         contentDescription = null,
         modifier = Modifier.size(defaultIconSize),
-        tint = MaterialTheme.colorScheme.onPrimary
+        Color.White
     )
 }
 
@@ -87,7 +87,7 @@ private val defaultErrorIcon = @Composable {
         imageVector = Icons.Outlined.Error,
         contentDescription = null,
         modifier = Modifier.size(defaultIconSize),
-        tint = MaterialTheme.colorScheme.onPrimary
+        tint = Color.White
     )
 }
 
@@ -100,7 +100,7 @@ fun ErrorToast(
     trailingIcon: @Composable () -> Unit = {}
 ) {
     DatingToast(
-        backgroundColor = MaterialTheme.colorScheme.error,
+        backgroundColor = Color.Red,
         title = title,
         description = description,
         modifier = modifier,

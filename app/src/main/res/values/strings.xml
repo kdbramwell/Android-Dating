@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NADA</string>
+    <string name="app_name">Nada</string>
     <string name="app_subtitle">Not Another Dating App</string>
 
     <!-- Common -->
@@ -63,7 +63,7 @@
     <!-- Bottom navigation, TLDs -->
 
     <string name="explore">Explore</string>
-    <string name="matches">Matches</string>
+    <string name="matches">Inbox</string>
     <string name='profile'>Profile</string>
 
     <!-- Other navigation -->

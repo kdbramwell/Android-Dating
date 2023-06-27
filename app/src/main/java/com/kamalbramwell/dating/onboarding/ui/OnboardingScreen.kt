@@ -35,7 +35,7 @@ import com.kamalbramwell.dating.onboarding.ui.components.MultipleChoiceItem
 import com.kamalbramwell.dating.onboarding.ui.components.ShortResponseItem
 import com.kamalbramwell.dating.ui.components.BackButton
 import com.kamalbramwell.dating.ui.components.DatingText
-import com.kamalbramwell.dating.ui.components.Heading
+import com.kamalbramwell.dating.ui.components.OnboardingHeading
 import com.kamalbramwell.dating.ui.components.NextButton
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
@@ -106,7 +106,7 @@ fun OnboardingScreen(
             .padding(defaultContentPadding)
             .semantics { testTag = OnboardingTestTag },
     ) {
-        Heading(text = UiText.StringResource(R.string.onboarding_heading))
+        OnboardingHeading(text = UiText.StringResource(R.string.onboarding_heading))
 
         ProfileQuestions(
             modifier = Modifier.weight(1f),

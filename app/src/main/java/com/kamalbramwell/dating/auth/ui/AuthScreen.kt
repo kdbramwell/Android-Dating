@@ -27,7 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.toast.ui.ErrorToast
 import com.kamalbramwell.dating.ui.components.BackButton
-import com.kamalbramwell.dating.ui.components.Heading
+import com.kamalbramwell.dating.ui.components.OnboardingHeading
 import com.kamalbramwell.dating.ui.components.InputField
 import com.kamalbramwell.dating.ui.components.NextButton
 import com.kamalbramwell.dating.ui.components.PasswordField
@@ -86,7 +86,7 @@ fun AuthScreen(
             Modifier.weight(1F),
             verticalArrangement = Arrangement.Top
         ) {
-            Heading(uiState.heading)
+            OnboardingHeading(uiState.heading)
             EmailOrPhoneInput(
                 textFieldValue = uiState.emailOrPhone,
                 onTextChanged = onEmailOrPhoneInput,

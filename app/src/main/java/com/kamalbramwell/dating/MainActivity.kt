@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.kamalbramwell.dating.navigation.DatingNavHost
 import com.kamalbramwell.dating.navigation.ui.DatingBottomSheet
@@ -30,6 +31,7 @@ val LocalToastHandler = staticCompositionLocalOf<ToastHandler> {
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             CompositionLocalProvider(LocalToastHandler provides ToastMediator) {
                 DatingApp()

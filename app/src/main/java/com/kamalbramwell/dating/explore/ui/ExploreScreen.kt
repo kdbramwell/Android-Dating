@@ -17,11 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.kamalbramwell.dating.LocalToastHandler
+import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.explore.data.accounts
 import com.kamalbramwell.dating.explore.ui.components.CardStack
 import com.kamalbramwell.dating.toast.model.ToastData
 import com.kamalbramwell.dating.toast.model.ToastDuration
 import com.kamalbramwell.dating.toast.model.ToastType
+import com.kamalbramwell.dating.ui.components.AppBarTitle
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
@@ -41,7 +43,8 @@ fun ExploreScreen() {
             ToastDuration.Extended
         )
     }
-    var isEmpty by remember { mutableStateOf(false) }
+    val nearbyUsers = accounts
+    var isEmpty by remember { mutableStateOf(nearbyUsers.isEmpty()) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -49,22 +52,29 @@ fun ExploreScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            AppBarTitle(text = UiText.StringResource(R.string.explore))
+
             if (!isEmpty) {
-                Spacer(Modifier.weight(2f))
+                Spacer(Modifier.weight(1f))
                 CardStack(
-                    items = accounts,
+                    items = nearbyUsers,
                     onEmptyStack = { isEmpty = true },
                     modifier = Modifier
-                        .weight(6f)
+                        .weight(4f)
                         .padding(horizontal = defaultContentPadding)
                 )
                 Spacer(Modifier.weight(1f))
             } else {
-                DatingText(
-                    text = UiText.DynamicString("No nearby users found."),
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    style = MaterialTheme.typography.labelLarge
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    DatingText(
+                        text = UiText.DynamicString("No nearby users found."),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                }
             }
         }
     }
@@ -72,7 +82,7 @@ fun ExploreScreen() {
 }
 
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun ExploreScreenPreview() {
     DatingTheme {

@@ -1,5 +1,6 @@
 package com.kamalbramwell.dating.ui.components
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -11,11 +12,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kamalbramwell.dating.utils.UiText
 
 @Composable
-fun Heading(
+fun OnboardingHeading(
     text: UiText?,
     modifier: Modifier = Modifier,
 ) {
@@ -31,6 +33,16 @@ fun Heading(
     }
 }
 
+@Composable
+fun AppBarTitle(text: UiText, modifier: Modifier = Modifier) {
+    DatingText(
+        text = text,
+        modifier = modifier.padding(vertical = 36.dp),
+        color = MaterialTheme.colorScheme.onBackground,
+        style = MaterialTheme.typography.titleMedium,
+        fontWeight = FontWeight.Bold
+    )
+}
 @Composable
 fun DatingText(
     text: UiText,

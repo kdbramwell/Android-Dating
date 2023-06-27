@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.kamalbramwell.dating.navigation.graphs.explore.Explore
 import com.kamalbramwell.dating.navigation.graphs.explore.exploreGraph
+import com.kamalbramwell.dating.navigation.graphs.inbox.inboxGraph
 import com.kamalbramwell.dating.navigation.graphs.registration.Registration
 import com.kamalbramwell.dating.navigation.graphs.registration.registrationGraph
 import com.kamalbramwell.dating.navigation.ui.NavBarHandler
@@ -43,6 +44,7 @@ fun DatingNavHost(
 
         registrationGraph(navController, navBarHandler)
         exploreGraph(navController, navBarHandler)
+        inboxGraph(navController, navBarHandler)
     }
 }
 
