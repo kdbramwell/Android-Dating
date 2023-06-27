@@ -33,7 +33,7 @@ private val defaultNoticeIcon = @Composable {
         imageVector = Icons.Outlined.Info,
         contentDescription = null,
         modifier = Modifier.size(defaultIconSize),
-        tint = MaterialTheme.colorScheme.onBackground
+        tint = Color.White
     )
 }
 
@@ -60,7 +60,7 @@ private val defaultConfirmIcon = @Composable {
         imageVector = Icons.Outlined.Check,
         contentDescription = null,
         modifier = Modifier.size(defaultIconSize),
-        tint = MaterialTheme.colorScheme.onBackground
+        Color.White
     )
 }
 
@@ -87,7 +87,7 @@ private val defaultErrorIcon = @Composable {
         imageVector = Icons.Outlined.Error,
         contentDescription = null,
         modifier = Modifier.size(defaultIconSize),
-        tint = MaterialTheme.colorScheme.onBackground
+        tint = Color.White
     )
 }
 
