@@ -36,10 +36,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.inbox.data.matches
 import com.kamalbramwell.dating.inbox.data.randomChats
 import com.kamalbramwell.dating.inbox.model.Chat
 import com.kamalbramwell.dating.registration.data.StockImageDataSource
+import com.kamalbramwell.dating.ui.components.AppBarTitle
 import com.kamalbramwell.dating.ui.components.DatingText
 import com.kamalbramwell.dating.ui.theme.DatingTheme
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
@@ -52,6 +54,8 @@ fun InboxScreen() {
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        AppBarTitle(text = UiText.StringResource(R.string.matches))
+
         Matches(matches)
 
         Divider(
