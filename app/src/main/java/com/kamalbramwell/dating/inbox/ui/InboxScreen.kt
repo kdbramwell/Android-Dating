@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -50,7 +51,7 @@ import com.kamalbramwell.dating.utils.UiText
 @Composable
 fun InboxScreen() {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(1f),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AppBarTitle(text = UiText.StringResource(R.string.matches))
@@ -63,7 +64,9 @@ fun InboxScreen() {
                 .fillMaxWidth(0.5f)
         )
 
-        Chats(randomChats, modifier = Modifier.weight(1f))
+        Box(Modifier.weight(1f)) {
+            Chats(randomChats)
+        }
     }
 }
 
@@ -75,12 +78,16 @@ private fun Matches(
     onClick: (UserData) -> Unit = {},
 ) {
     if (users.isEmpty()) {
-        DatingText(
-            UiText.DynamicString("No new matches"),
-            modifier = modifier
-                .size(64.dp)
-                .padding(defaultContentPadding)
-        )
+        Box(
+            modifier = Modifier.height(64.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            DatingText(
+                UiText.DynamicString("No recent matches"),
+                modifier = modifier.padding(defaultContentPadding),
+                textAlign = TextAlign.Center
+            )
+        }
     } else {
         LazyRow(
             state = listState,
@@ -137,7 +144,12 @@ private fun Chats(
     scrollState: LazyListState = rememberLazyListState()
 ) {
     if (chats.isEmpty()) {
-        DatingText(text = UiText.DynamicString("No active chats"))
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            DatingText(text = UiText.DynamicString("No active chats"))
+        }
     } else {
         LazyColumn(
             state = scrollState,

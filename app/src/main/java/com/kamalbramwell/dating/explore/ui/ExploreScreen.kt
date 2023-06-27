@@ -43,7 +43,8 @@ fun ExploreScreen() {
             ToastDuration.Extended
         )
     }
-    var isEmpty by remember { mutableStateOf(false) }
+    val nearbyUsers = accounts
+    var isEmpty by remember { mutableStateOf(nearbyUsers.isEmpty()) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -56,7 +57,7 @@ fun ExploreScreen() {
             if (!isEmpty) {
                 Spacer(Modifier.weight(1f))
                 CardStack(
-                    items = accounts,
+                    items = nearbyUsers,
                     onEmptyStack = { isEmpty = true },
                     modifier = Modifier
                         .weight(4f)
@@ -64,12 +65,16 @@ fun ExploreScreen() {
                 )
                 Spacer(Modifier.weight(1f))
             } else {
-                DatingText(
-                    text = UiText.DynamicString("No nearby users found."),
-                    color = MaterialTheme.colorScheme.onBackground,
-                    style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.weight(1f)
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    DatingText(
+                        text = UiText.DynamicString("No nearby users found."),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                }
             }
         }
     }
@@ -77,7 +82,7 @@ fun ExploreScreen() {
 }
 
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun ExploreScreenPreview() {
     DatingTheme {
