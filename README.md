@@ -1,7 +1,7 @@
 # android-dating
 [![Build Status](https://github.com/kdbramwell/android-dating/actions/workflows/ci.yml/badge.svg)](https://github.com/kdbramwell/android-dating/actions/workflows/ci.yml)
 
-An example dating app created with Compose.
+An example dating app created with Compose. Currently, it's just local mock data for demonstration purposes.
 
 | Start | Register | Explore | Inbox |
 | :---: | :---: | :---: | :---: |
