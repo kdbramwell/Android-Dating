@@ -12,8 +12,8 @@ object Versions {
     }
 
     object Project {
-        const val Code = 1
-        const val Name = "0.1.0"
+        const val Code = 2
+        const val Name = "0.1.1"
     }
 
     object Sdk {
