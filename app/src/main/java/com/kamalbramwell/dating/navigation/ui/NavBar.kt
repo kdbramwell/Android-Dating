@@ -31,6 +31,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.kamalbramwell.dating.ui.components.rememberBrandGradient
 import com.kamalbramwell.dating.ui.theme.defaultContentPadding
+import com.kamalbramwell.dating.ui.theme.defaultNavBarHeight
+import com.kamalbramwell.dating.ui.theme.defaultNavIconSize
 import com.kamalbramwell.dating.ui.theme.defaultShadowElevation
 import com.kamalbramwell.dating.utils.UiText
 
@@ -57,7 +59,7 @@ fun DatingNavigationBar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .windowInsetsPadding(NavigationBarDefaults.windowInsets)
-                    .height(80.dp)
+                    .height(defaultNavBarHeight)
                     .selectableGroup(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically,
@@ -90,7 +92,7 @@ private fun TopLevelDestination(
         IconButton(
             onClick = onClick,
             modifier = Modifier
-                .size(46.dp)
+                .size(defaultNavIconSize)
                 .shadow(if (isSelected) defaultShadowElevation else 0.dp)
                 .drawBehind {
                     if (isSelected) drawRoundRect(
