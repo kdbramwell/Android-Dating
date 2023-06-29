@@ -3,7 +3,7 @@ package com.kamalbramwell.dating.explore.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +20,7 @@ import com.kamalbramwell.dating.LocalToastHandler
 import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.explore.data.accounts
 import com.kamalbramwell.dating.explore.ui.components.CardStack
+import com.kamalbramwell.dating.navigation.ui.DatingAppBar
 import com.kamalbramwell.dating.toast.model.ToastData
 import com.kamalbramwell.dating.toast.model.ToastDuration
 import com.kamalbramwell.dating.toast.model.ToastType
@@ -30,7 +31,7 @@ import com.kamalbramwell.dating.ui.theme.defaultContentPadding
 import com.kamalbramwell.dating.utils.UiText
 
 @Composable
-fun ExploreScreen() {
+fun ExploreScreen(paddingValues: PaddingValues = PaddingValues()) {
     val toastHandler = LocalToastHandler.current
 
     LaunchedEffect(true) {
@@ -46,24 +47,24 @@ fun ExploreScreen() {
     val nearbyUsers = accounts
     var isEmpty by remember { mutableStateOf(nearbyUsers.isEmpty()) }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .padding(paddingValues)) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            AppBarTitle(text = UiText.StringResource(R.string.explore))
+            DatingAppBar(
+                center = { AppBarTitle(text = UiText.StringResource(R.string.explore)) }
+            )
 
             if (!isEmpty) {
-                Spacer(Modifier.weight(1f))
                 CardStack(
                     items = nearbyUsers,
                     onEmptyStack = { isEmpty = true },
-                    modifier = Modifier
-                        .weight(4f)
-                        .padding(horizontal = defaultContentPadding)
+                    modifier = Modifier.padding(defaultContentPadding)
                 )
-                Spacer(Modifier.weight(1f))
             } else {
                 Box(
                     modifier = Modifier.fillMaxSize(),

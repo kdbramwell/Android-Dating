@@ -1,5 +1,6 @@
 package com.kamalbramwell.dating.navigation.graphs.explore
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -9,7 +10,8 @@ import com.kamalbramwell.dating.navigation.ui.NavBarHandler
 
 fun NavGraphBuilder.exploreGraph(
     navController: NavController,
-    navBarHandler: NavBarHandler
+    navBarHandler: NavBarHandler,
+    paddingValues: PaddingValues = PaddingValues()
 ) {
 
     navigation(
@@ -18,7 +20,7 @@ fun NavGraphBuilder.exploreGraph(
     ) {
         composable(route = Explore.Users.route) {
             navBarHandler.show()
-            ExploreScreen()
+            ExploreScreen(paddingValues)
         }
     }
 }

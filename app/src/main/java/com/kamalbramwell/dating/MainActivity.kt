@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
 fun DatingApp() {
     val bottomSheetNavigator = rememberBottomSheetNavigator()
     val navController = rememberNavController(bottomSheetNavigator)
-    val navBarHandler = rememberNavigationBarHandler()
+    val navBarHandler = rememberNavigationBarHandler(true)
 
     DatingTheme {
         DatingBottomSheet(bottomSheetNavigator) {
@@ -52,9 +52,8 @@ fun DatingApp() {
                     DatingNavHost(
                         navController = navController,
                         navBarHandler = navBarHandler,
-                        modifier = Modifier
-                            .background(MaterialTheme.colorScheme.background)
-//                            .padding(innerPadding),
+                        modifier = Modifier.background(MaterialTheme.colorScheme.background),
+                        paddingValues = innerPadding
                     )
                 }
             }

@@ -40,6 +40,7 @@ import com.kamalbramwell.dating.R
 import com.kamalbramwell.dating.inbox.data.matches
 import com.kamalbramwell.dating.inbox.data.randomChats
 import com.kamalbramwell.dating.inbox.model.Chat
+import com.kamalbramwell.dating.navigation.ui.DatingAppBar
 import com.kamalbramwell.dating.registration.data.StockImageDataSource
 import com.kamalbramwell.dating.ui.components.AppBarTitle
 import com.kamalbramwell.dating.ui.components.DatingText
@@ -49,19 +50,23 @@ import com.kamalbramwell.dating.user.model.UserData
 import com.kamalbramwell.dating.utils.UiText
 
 @Composable
-fun InboxScreen() {
+fun InboxScreen(paddingValues: PaddingValues = PaddingValues()) {
     Column(
-        modifier = Modifier.fillMaxSize(1f),
+        modifier = Modifier
+            .fillMaxSize(1f)
+            .padding(paddingValues),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        AppBarTitle(text = UiText.StringResource(R.string.matches))
+        DatingAppBar(
+            center = { AppBarTitle(text = UiText.StringResource(R.string.matches)) }
+        )
 
         Matches(matches)
 
         Divider(
-            Modifier
-                .padding(vertical = defaultContentPadding * 2)
-                .fillMaxWidth(0.5f)
+                Modifier
+                    .padding(vertical = defaultContentPadding * 2)
+                    .fillMaxWidth(0.5f)
         )
 
         Box(Modifier.weight(1f)) {

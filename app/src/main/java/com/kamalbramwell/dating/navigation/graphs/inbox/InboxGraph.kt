@@ -1,5 +1,6 @@
 package com.kamalbramwell.dating.navigation.graphs.inbox
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -10,6 +11,7 @@ import com.kamalbramwell.dating.navigation.ui.NavBarHandler
 fun NavGraphBuilder.inboxGraph(
     navController: NavController,
     navBarHandler: NavBarHandler,
+    paddingValues: PaddingValues = PaddingValues()
 ) {
 
     navigation(
@@ -18,7 +20,7 @@ fun NavGraphBuilder.inboxGraph(
     ) {
         composable(route = Inbox.Chats.route) {
             navBarHandler.show()
-            InboxScreen()
+            InboxScreen(paddingValues)
         }
     }
 }

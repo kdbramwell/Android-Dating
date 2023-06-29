@@ -3,14 +3,20 @@ package com.kamalbramwell.dating.navigation.ui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,25 +49,30 @@ fun DatingNavigationBar(
         enter = slideInVertically(initialOffsetY = { it }),
         exit = slideOutVertically(targetOffsetY = { it })
     ) {
-        NavigationBar(
-            modifier = modifier,
-            containerColor = Color.Transparent
+        Surface(
+            color =  Color.Transparent,
+            modifier = modifier
         ) {
-            Spacer(Modifier.weight(1f))
-
-            for (tab in tabs) {
-                TopLevelDestination(
-                    tab = tab,
-                    isSelected = selectedTab == tab,
-                    onClick = {
-                        selectedTab = tab
-                        navigateToRoute(tab.route)
-                    },
-                    modifier = Modifier.weight(1f)
-                )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .windowInsetsPadding(NavigationBarDefaults.windowInsets)
+                    .height(80.dp)
+                    .selectableGroup(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                for (tab in tabs) {
+                    TopLevelDestination(
+                        tab = tab,
+                        isSelected = selectedTab == tab,
+                        onClick = {
+                            selectedTab = tab
+                            navigateToRoute(tab.route)
+                        }
+                    )
+                }
             }
-
-            Spacer(Modifier.weight(1f))
         }
     }
 }

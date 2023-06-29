@@ -1,6 +1,7 @@
 package com.kamalbramwell.dating.navigation
 
 import android.util.Log
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -21,6 +22,7 @@ import com.kamalbramwell.dating.splash.SplashScreen
 fun DatingNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
+    paddingValues: PaddingValues = PaddingValues(),
     navBarHandler: NavBarHandler = rememberNavigationBarHandler(),
 ) {
     NavHost(
@@ -43,8 +45,8 @@ fun DatingNavHost(
         }
 
         registrationGraph(navController, navBarHandler)
-        exploreGraph(navController, navBarHandler)
-        inboxGraph(navController, navBarHandler)
+        exploreGraph(navController, navBarHandler, paddingValues)
+        inboxGraph(navController, navBarHandler, paddingValues)
     }
 }
 
